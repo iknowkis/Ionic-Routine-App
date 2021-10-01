@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="chatbubbles-outline"></ion-icon>
+      Community
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let list of peopleRoutineList">
+    <ion-item color="tertiary">
+      {{list}}
+      <ion-icon slot="end" name="add">
+      </ion-icon>
+    </ion-item>
+  </ion-card>
+</ion-content>
