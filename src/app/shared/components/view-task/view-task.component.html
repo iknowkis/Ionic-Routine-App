@@ -1,0 +1,12 @@
+<ion-card *ngFor="let item of data.task">
+  <ion-item color="medium">
+    Task List
+    <ion-icon
+      slot="end"
+      name="arrow-forward-outline"
+      [routerLink]="['../detail-task']"
+      routerLinkActive="router-link-active">
+    </ion-icon>
+    Duration
+  </ion-item>
+</ion-card>

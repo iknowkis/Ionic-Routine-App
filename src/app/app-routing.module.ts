@@ -3,21 +3,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
-    redirectTo: 'My Routine',
+    redirectTo: 'my-routine',
     pathMatch: 'full'
   },
   {
-    path: 'myRoutine',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    path: 'my-routine',
+    loadChildren: () => import('./pages/my-routine/my-routine.module').then( m => m.MyRoutinePageModule)
   },
   {
-    path: 'schedule',
-    loadChildren: () => import('./pages/routine-compose/routine-compose.module').then( m => m.RoutineComposePageModule)
+    path: 'feedback',
+    loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
   },
   {
     path: 'community',

@@ -1,7 +1,17 @@
-<ion-card *ngFor="let item of [1,2,3]">
+<ion-card *ngFor="let data of storageData">
   <ion-item>
-    Routine List
-    <ion-icon slot="end" name="arrow-forward-outline">
+    {{ data.routine.value.title }}
+    <ion-icon
+      slot="end"
+      name="chevron-forward-outline"
+      [routerLink]="['../detail-routine',
+      {title: data.routine.value.title, key: data.routine.key}]">
     </ion-icon>
+  </ion-item>
+  <ion-item>
+    {{ getTimerOn(data) }}
+    <div slot="end">
+      {{ getDayName(data) }}
+    </div>
   </ion-item>
 </ion-card>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { RoutineComposePage } from './routine-compose.page';
+import { MainMyRoutinePage } from './main-my-routine.page';
 
-describe('RoutineComposePage', () => {
-  let component: RoutineComposePage;
-  let fixture: ComponentFixture<RoutineComposePage>;
+describe('MainMyRoutinePage', () => {
+  let component: MainMyRoutinePage;
+  let fixture: ComponentFixture<MainMyRoutinePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ RoutineComposePage ],
+      declarations: [ MainMyRoutinePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RoutineComposePage);
+    fixture = TestBed.createComponent(MainMyRoutinePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

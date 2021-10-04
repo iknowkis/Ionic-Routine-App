@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="medium">
+    <ion-title>
+      <ion-icon name="git-pull-request-outline"></ion-icon>
+      Icons
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <!--(click)="saveAndDismissModal()"-->
+        <!--[disabled]="time==undefined ? true : false"-->
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content text-center class="icons-basic-page">
+  <ion-row (click)="submit($event)">
+    <ion-col><ion-icon name="happy-outline" color="tertiary"></ion-icon></ion-col>
+    <ion-col><ion-icon name="rocket-outline" color="danger"></ion-icon></ion-col>
+    <ion-col><ion-icon name="thumbs-up-outline" color="warning"></ion-icon></ion-col>
+    <ion-col><ion-icon name="logo-whatsapp" color="primary"></ion-icon></ion-col>
+
+    <ion-col><ion-icon name="barbell-outline" color="tertiary"></ion-icon></ion-col>
+    <ion-col><ion-icon name="business-outline" color="warning"></ion-icon></ion-col>
+    <ion-col><ion-icon name="heart" color="danger"></ion-icon></ion-col>
+    <ion-col><ion-icon name="cube-outline" color="primary"></ion-icon></ion-col>
+
+    <ion-col><ion-icon name="hand-right-outline" color="warning"></ion-icon></ion-col>
+    <ion-col><ion-icon name="airplane-outline" color="primary"></ion-icon></ion-col>
+    <ion-col><ion-icon name="hourglass-outline" color="tertiary"></ion-icon></ion-col>
+    <ion-col><ion-icon name="notifications-outline" color="danger"></ion-icon></ion-col>
+
+    <ion-col><ion-icon name="logo-youtube" color="danger"></ion-icon></ion-col>
+    <ion-col><ion-icon name="logo-snapchat" color="warning"></ion-icon></ion-col>
+    <ion-col><ion-icon name="accessibility-outline" color="primary"></ion-icon></ion-col>
+    <ion-col><ion-icon name="woman-outline" color="danger"></ion-icon></ion-col>
+  </ion-row>
+</ion-content>

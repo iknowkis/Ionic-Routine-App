@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon name="pie-chart-outline"></ion-icon>
+      Detail Routine
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="openComposeTaskModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-label class="ion-text-center">
+        <b>{{ routineTitle }}</b>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+
+  <app-view-task [routineKey]="_routineKey"></app-view-task>
+</ion-content>

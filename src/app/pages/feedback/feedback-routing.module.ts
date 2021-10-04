@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { RoutineComposePage } from './routine-compose.page';
+import { FeedbackPage } from './feedback.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: RoutineComposePage
+    component: FeedbackPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class RoutineComposePageRoutingModule {}
+export class FeedbackPageRoutingModule {}

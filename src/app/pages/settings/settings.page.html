@@ -8,5 +8,19 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        <ion-icon name="color-palette-outline">
+        </ion-icon>
+        Select Theme
+      </ion-label>
+    </ion-item>
+    <ion-item color="light">
+      <ion-select slot="end" [(ngModel)]="_selectedTheme" (ionChange)="changeTheme()">
+        <ion-select-option value="light">Light</ion-select-option>
+        <ion-select-option value="dark">Dark</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
 </ion-content>

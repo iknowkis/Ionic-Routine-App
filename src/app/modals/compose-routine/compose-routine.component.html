@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      <ion-icon name="git-pull-request-outline"></ion-icon>
+      Compose Routine
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="saveRoutine()"
+        [disabled]="routine.title == undefined">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item-divider></ion-item-divider>
+  
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Title
+      </ion-label>
+      <ion-input
+        class="ion-text-end"
+        type="text"
+        placeholder="_"
+        [(ngModel)]="routine.title">
+      </ion-input>
+    </ion-item>
+  </ion-card>
+  
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Timer On
+      </ion-label>
+      <ion-datetime
+        display-format="h:mm A"
+        placeholder="_"
+        picker-format="h:mm A"
+        [(ngModel)]="routine.timerOn">
+      </ion-datetime>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Weekday
+      </ion-label>
+        <ion-select
+          class="ion-text-end"
+          style="font-size: 14px"
+          multiple="true"
+          [(ngModel)]="routine.weekday">
+          <ion-select-option
+            *ngFor="let day of routineUtil.weekdays;
+            let i=index"
+            value={{i}}>
+            {{day}}
+          </ion-select-option>
+        </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Sound
+      </ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="routine.soundValue">
+        <ion-select-option value="beep.wav">Beep</ion-select-option>
+        <ion-select-option value="notify.wav">Notify</ion-select-option>
+        <ion-select-option value="default">Mute</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Viberation
+      </ion-label>
+      <ion-select interface="action-sheet" [(ngModel)]="routine.viberationValue">
+        <ion-select-option value=true>On</ion-select-option>
+        <ion-select-option value=false>Mute</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Status
+      </ion-label>
+      <ion-select
+        interface="action-sheet"
+        placeholder={{routine.statusValue.name}}
+        [(ngModel)]="routine.statusValue">
+        <ion-select-option
+          *ngFor="let value of routineUtil.statusArray"
+          [value]="value">
+          {{value.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-card>
+</ion-content>

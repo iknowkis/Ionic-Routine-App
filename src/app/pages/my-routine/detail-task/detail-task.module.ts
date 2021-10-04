@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RoutineComposePageRoutingModule } from './routine-compose-routing.module';
+import { DetailTaskPageRoutingModule } from './detail-task-routing.module';
 
-import { RoutineComposePage } from './routine-compose.page';
+import { DetailTaskPage } from './detail-task.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RoutineComposePageRoutingModule
+    DetailTaskPageRoutingModule
   ],
-  declarations: [RoutineComposePage]
+  declarations: [DetailTaskPage]
 })
-export class RoutineComposePageModule {}
+export class DetailTaskPageModule {}
