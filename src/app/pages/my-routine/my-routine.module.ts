@@ -10,6 +10,7 @@ import { MyRoutinePage } from './my-routine.page';
 import { ComposeRoutineComponent } from '../../modals/compose-routine/compose-routine.component';
 import { RoutineModel, RoutineUtil } from '../../shared/models/item.model';
 import { ComposeTaskComponent } from 'src/app/modals/compose-task/compose-task.component';
+import { IconsComponent } from 'src/app/modals/icons/icons.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { ComposeTaskComponent } from 'src/app/modals/compose-task/compose-task.c
     MyRoutinePage,
     ComposeRoutineComponent,
     ComposeTaskComponent,
+    IconsComponent
   ],
   providers: [
     RoutineUtil,

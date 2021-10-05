@@ -15,8 +15,7 @@ export class RoutineModel {
     task?: TaskType[];
 
     static initRoutineModel() {
-        let data: RoutineModel;
-        data = new RoutineModel;
+        let data = new RoutineModel;
         data = initRoutineData
         return data;
     }
