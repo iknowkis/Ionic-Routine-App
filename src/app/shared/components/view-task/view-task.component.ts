@@ -20,6 +20,6 @@ export class ViewTaskComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.data = (await this._storageData).filter(data=>data.routine.key === this.routineKey)[0]
+    this.data = (await this._storageData).filter(e=>e.routine.key === this.routineKey)[0]
   }
 }

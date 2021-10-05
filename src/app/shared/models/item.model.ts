@@ -14,39 +14,34 @@ export class RoutineModel {
     routine?: RoutineType;
     task?: TaskType[];
 
-    static initRoutineModel() {
-        let data = new RoutineModel;
-        data = initRoutineData
+    static initRoutineModel(data: RoutineModel) {
+        data = {
+            routine: {
+                key: uuidv4(),
+                value: {
+                    soundValue: 'beep.wav',
+                    viberationValue: 'true',
+                    statusValue: statusArray[0]
+                }
+            }
+        }
         return data;
     }
-    static initTaskModel() {
-        let data: RoutineModel;
-        data = new RoutineModel;
-        data = initTaskData
+    
+    static initTaskModel(data: RoutineModel) {
+        data = {
+            task: [{
+                key: uuidv4(),
+                value: {
+                    iconName: 'happy-outline',
+                    iconColor: 'medium',
+                }
+            }]
+        }
         return data;
     }
 }
 
-export const initRoutineData = {
-    routine: {
-        key: uuidv4(),
-        value: {
-            soundValue: 'beep.wav',
-            viberationValue: 'true',
-            statusValue: statusArray[0]
-        }
-    }
-};
-
-export const initTaskData = {
-    task: [{
-        key: uuidv4(),
-        value: {
-            iconName: 'happy-outline',
-            iconColor: 'medium',
-        }
-    }]
-};
 /**
  * Type of routine
  */

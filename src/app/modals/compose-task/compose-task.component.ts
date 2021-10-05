@@ -9,7 +9,7 @@ import { IconsComponent } from '../icons/icons.component';
   templateUrl: './compose-task.component.html',
   styleUrls: ['./compose-task.component.scss'],
 })
-export class ComposeTaskComponent {
+export class ComposeTaskComponent implements OnInit {
   routineKey: string; // Got from detail-routine.page
   task: any;
   _storageData: Promise<RoutineModel[]>;
@@ -19,10 +19,6 @@ export class ComposeTaskComponent {
     private modalCtrl: ModalController,
     private storageService: StorageService,
     ) {
-    this.data = RoutineModel.initTaskModel();
-    this.task = this.data[0].task.value;
-
-    this._storageData = storageService.initStorageData();
     }
 
   async openIconsModal() {
@@ -35,14 +31,21 @@ export class ComposeTaskComponent {
     });
     return modal.present();
   }
+
+  async ngOnInit() {
+    this._storageData = this.storageService.initStorageData();
+    this.data = (await this._storageData).filter(e=>e.routine.key === this.routineKey)[0]
+    this.data = RoutineModel.initTaskModel(this.data);
+    this.task = this.data.task[0];
+    console.log('DATA', this.data)
+    console.log('TASK', this.task)
+  }
   
-async saveTask() {
-  this.data = (await this._storageData).filter(data=>data.routine.key === this.routineKey)[0]
-  console.log('TASK this.data', this.data)
-  // await this.storageService.setStorageData(await this._storageData, this.data)
-    // .then( savedData => this._storageData = savedData as any);
-  this.dismissModal();
-}
+  async saveTask() {
+    // await this.storageService.setStorageData(await this._storageData, this.data)
+      // .then( savedData => this._storageData = savedData as any);
+    this.dismissModal();
+  }
   dismissModal() {
     this.modalCtrl.dismiss();
   }

@@ -14,7 +14,7 @@
     <ion-buttons slot="end">
       <ion-button
         (click)="saveTask()"
-        [disabled]="task.title == undefined">
+        [disabled]="task.value.title == undefined">
         Save
       </ion-button>
     </ion-buttons>
@@ -31,7 +31,7 @@
         class="ion-text-end"
         type="text"
         placeholder="_"
-        [(ngModel)]="task.title">
+        [(ngModel)]="task.value.title">
       </ion-input>
     </ion-item>
   </ion-card>
@@ -45,7 +45,7 @@
         display-format="h:mm"
         placeholder="_"
         picker-format="h:mm"
-        [(ngModel)]="task.duration">
+        [(ngModel)]="task.value.duration">
       </ion-datetime>
     </ion-item>
   </ion-card>
@@ -61,7 +61,7 @@
         <ion-button
           class="ion-text-end"
           (click)="openIconsModal()">
-          <ion-icon name={{task.iconName}} color={{task.iconColor}}></ion-icon>
+          <ion-icon name={{task.value.iconName}} color={{task.value.iconColor}}></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-item>

@@ -19,9 +19,8 @@ export class ComposeRoutineComponent {
     private modalCtrl: ModalController,
     private storageService: StorageService,
   ) {
-    console.log('DATA: ', this.data);
-    this.data = RoutineModel.initRoutineModel();
-    this.routine = this.data.routine.value
+    this.data = RoutineModel.initRoutineModel(this.data);
+    this.routine = this.data.routine.value;
     this._storageData = storageService.initStorageData();
   }
   ionViewWillEnter() {
