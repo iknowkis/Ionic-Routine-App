@@ -1,21 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MyRoutinePage } from './my-routine.page';
-
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main',
+    redirectTo: 'main-my-rouutin',
     pathMatch: 'full'
+  },
+  {
+    path: 'main-my-rouutin',
+    loadChildren: () => import('./main-my-routine/main-my-routine.module').then( m => m.MainMyRoutinePageModule)
   },
   {
     path: 'detail-routine',
     loadChildren: () => import('./detail-routine/detail-routine.module').then( m => m.DetailRoutinePageModule)
-  },
-  {
-    path: 'main',
-    loadChildren: () => import('./main-my-routine/main-my-routine.module').then( m => m.MainMyRoutinePageModule)
   },
   {
     path: 'detail-task',

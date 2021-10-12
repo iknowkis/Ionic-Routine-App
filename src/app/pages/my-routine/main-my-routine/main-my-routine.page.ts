@@ -1,33 +1,26 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ComposeRoutineComponent } from 'src/app/modals/compose-routine/compose-routine.component';
-import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-navbar.component';
+import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
+import { RoutineModel } from '../../../shared/models/item.model';
+import { StorageService } from '../../../shared/services/storage/storage.service';
 
 @Component({
   selector: 'app-main-my-routine',
   templateUrl: './main-my-routine.page.html',
   styleUrls: ['./main-my-routine.page.scss'],
 })
-export class MainMyRoutinePage implements OnInit {
+export class MainMyRoutinePage {
 
-  @Output() _storageData: any;
+  @Output() _storageData: RoutineModel[];
+  @Output() _editActivate = false;
 
   constructor(
-    public storageService: StorageService,
-    public modalCtrl: ModalController,
+    private modalCtrl: ModalController,
+    private navBar: MainNavbarComponent,
+    private storageService: StorageService,
   ) { }
-
-  ngOnInit() {
-  }
-
-  async ionViewWillEnter() {
-    this.getStorageData();
-  }
-
-  async getStorageData() {
-    this._storageData = await this.storageService.initStorageData();
-  }
-
+  
   async openComposeRoutineModal() {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
@@ -36,7 +29,16 @@ export class MainMyRoutinePage implements OnInit {
     });
     modal.onDidDismiss().then(() => {
       this.getStorageData();
+      this.navBar.getRoutineLength();
     });
     return modal.present();
   }
+
+  async ionViewWillEnter() {
+    this.getStorageData();
+  }
+
+  async getStorageData() {
+    this._storageData = await this.storageService.initStorageData();
+  }  
 }

@@ -29,15 +29,14 @@ export class RoutineModel {
     }
     
     static initTaskModel(data: RoutineModel) {
-        data = {
-            task: [{
-                key: uuidv4(),
-                value: {
-                    iconName: 'happy-outline',
-                    iconColor: 'medium',
-                }
-            }]
-        }
+        data.task = [{
+            key: uuidv4(),
+            value: {
+                iconName: 'happy-outline',
+                iconColor: 'medium',
+            }
+        }]
+        
         return data;
     }
 }
@@ -53,11 +52,9 @@ export class RoutineModel {
 export interface RoutineValueType {
     title?: string;
     timerOn?: Date;
-    weekdays?: Array<string>;
     weekday?: Array<string>;
     soundValue?: string;
     viberationValue?: string;
-    statusArray?: RoutineStatusType[];
     statusValue?: RoutineStatusType;
 }
 

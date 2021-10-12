@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MainMyRoutinePageRoutingModule } from './main-my-routine-routing.module';
 
 import { MainMyRoutinePage } from './main-my-routine.page';
-import { ViewRoutineComponent } from 'src/app/shared/components/view-routine/view-routine.component';
+import { ViewRoutineComponent } from '../../../shared/components/view-routine/view-routine.component';
 
 @NgModule({
   imports: [

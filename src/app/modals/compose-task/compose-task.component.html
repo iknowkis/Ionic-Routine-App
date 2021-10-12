@@ -41,12 +41,19 @@
       <ion-label>
         Duration
       </ion-label>
-      <ion-datetime
-        display-format="h:mm"
-        placeholder="_"
-        picker-format="h:mm"
+      <ion-input
+        class="ion-text-center"
+        type="number"
         [(ngModel)]="task.value.duration">
-      </ion-datetime>
+      </ion-input>
+      <ion-range
+        min="0"
+        max="60"
+        step="5"
+        snaps="true"
+        color="primary"
+        [(ngModel)]="task.value.duration">
+      </ion-range>
     </ion-item>
   </ion-card>
 

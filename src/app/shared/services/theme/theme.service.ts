@@ -16,7 +16,7 @@ export class ThemeService {
     private rendererFactory: RendererFactory2,
     private storageService: StorageService,
     ) {
-    this.renderer = this.rendererFactory.createRenderer(null, null);
+      this.renderer = this.rendererFactory.createRenderer(null, null);
   }
   
   async dynamicTheme(value) {
@@ -32,7 +32,6 @@ export class ThemeService {
   }
 
   async initTheme() {
-    await this.storageService.create();
     this.activeTheme(await this.getThemeValue());
   }
 

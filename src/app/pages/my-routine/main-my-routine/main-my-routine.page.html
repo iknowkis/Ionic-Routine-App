@@ -1,11 +1,16 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="_editActivate = !_editActivate">
+          {{_editActivate == false ? "Edit" : "Done" }}
+      </ion-button>
+    </ion-buttons>
     <ion-title>
       <ion-icon name="time-outline"></ion-icon>
       My Routine
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openComposeRoutineModal()">
+      <ion-button (click)="openComposeRoutineModal()" [disabled]="_editActivate">
         <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -13,5 +18,8 @@
 </ion-header>
 
 <ion-content>
-  <app-view-routine [storageData]="_storageData"></app-view-routine>
+  <app-view-routine
+    [editActivate]="_editActivate"
+    [storageData]="_storageData">
+  </app-view-routine>
 </ion-content>

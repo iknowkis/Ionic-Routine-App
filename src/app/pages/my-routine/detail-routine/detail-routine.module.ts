@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { DetailRoutinePageRoutingModule } from './detail-routine-routing.module';
 
 import { DetailRoutinePage } from './detail-routine.page';
-import { ViewTaskComponent } from 'src/app/shared/components/view-task/view-task.component';
+import { ViewTaskComponent } from '../../../shared/components/view-task/view-task.component';
 
 @NgModule({
   imports: [

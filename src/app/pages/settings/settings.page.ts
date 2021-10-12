@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from 'src/app/shared/services/theme/theme.service';
-import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { ThemeService } from '../../shared/services/theme/theme.service';
+import { StorageService } from '../../shared/services/storage/storage.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,8 +12,8 @@ export class SettingsPage implements OnInit {
   public _selectedTheme: string;
 
   constructor(
-    private storageService: StorageService,
     private theme: ThemeService,
+    private storageService: StorageService,
   ) { }
 
   ngOnInit() {

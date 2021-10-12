@@ -1,14 +1,36 @@
 <ion-card *ngFor="let data of storageData">
   <ion-item>
     {{ data.routine.value.title }}
+    <!-- Delete routine-->
     <ion-icon
+      (click)="deleteData(storageData, data)"
+      *ngIf="editActivate"
+      size="small"
+      slot="end"
+      color="danger"
+      name="close-outline">
+    </ion-icon>
+    <!-- Edit routine-->
+    <ion-icon
+      *ngIf="editActivate"
+      size="small"
+      slot="end"
+      color="primary"
+      name="create-outline"
+      (click)="openComposeRoutineModal(data)">
+    </ion-icon>
+    <!-- View task-->
+    <ion-icon
+      *ngIf="!editActivate"
+      size="small"
       slot="end"
       name="chevron-forward-outline"
       [routerLink]="['../detail-routine',
-      {title: data.routine.value.title, key: data.routine.key}]">
+      {title: data.routine.value.title,
+      key: data.routine.key}]">
     </ion-icon>
   </ion-item>
-  <ion-item>
+  <ion-item style="font-size: 12px">
     {{ getTimerOn(data) }}
     <div slot="end">
       {{ getDayName(data) }}

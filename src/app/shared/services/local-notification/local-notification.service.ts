@@ -10,8 +10,8 @@ export class LocalNotificationService {
 
 
   constructor(
-    public storageService: StorageService,
-    public notiModel: LocalNotificationSettingModel
+    private storageService: StorageService,
+    private notiModel: LocalNotificationSettingModel
     ) {
   }
   

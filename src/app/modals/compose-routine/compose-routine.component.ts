@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { RoutineModel, RoutineUtil } from 'src/app/shared/models/item.model';
-import { StorageService } from 'src/app/shared/services/storage/storage.service';
+import { RoutineModel, RoutineUtil, RoutineValueType } from '../../shared/models/item.model';
+import { StorageService } from '../../shared/services/storage/storage.service';
 
 @Component({
   selector: 'app-compose-routine',
@@ -10,25 +10,27 @@ import { StorageService } from 'src/app/shared/services/storage/storage.service'
 })
 export class ComposeRoutineComponent {
 
-  _storageData: Promise<RoutineModel[]>;
-  routine: any;
+  storageData: RoutineModel[];
+  existedRoutine: RoutineModel;
+  routine: RoutineValueType;
 
   constructor(
-    public data: RoutineModel,
     public routineUtil: RoutineUtil,
+    private data: RoutineModel,
     private modalCtrl: ModalController,
     private storageService: StorageService,
   ) {
     this.data = RoutineModel.initRoutineModel(this.data);
     this.routine = this.data.routine.value;
-    this._storageData = storageService.initStorageData();
   }
+
   ionViewWillEnter() {
+    if(this.existedRoutine) this.data = this.existedRoutine;
+    this.routine = this.data.routine.value;
   }
 
   async saveRoutine() {
-    await this.storageService.setStorageData(await this._storageData, this.data)
-      // .then( savedData => this._storageData = savedData as any);
+    this.storageService.saveData(this.storageData, this.data, this.existedRoutine, null, this.routine);
     this.dismissModal();
   }
 

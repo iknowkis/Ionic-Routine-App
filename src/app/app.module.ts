@@ -7,20 +7,20 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MainNavbarComponent } from './shared/components/main-navbar/main-navbar.component';
+import { MainPageModule } from './pages/main/main.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavbarComponent,
   ],
   entryComponents: [],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
     AppRoutingModule,
+    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    MainPageModule
   ],
   providers: 
   [{

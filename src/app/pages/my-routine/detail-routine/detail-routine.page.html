@@ -18,11 +18,21 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-label class="ion-text-center">
+      <ion-label class="ion-text-start">
         <b>{{ routineTitle }}</b>
       </ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="_editActivate = !_editActivate">
+            {{_editActivate == false ? "Edit" : "Done" }}
+        </ion-button>
+      </ion-buttons>
     </ion-item>
   </ion-card>
 
-  <app-view-task [routineKey]="_routineKey"></app-view-task>
+  <app-view-task
+  [storageData]="_storageData"
+  [taskList]="_taskList"
+  [selectedData]="_selectedData"
+  [editActivate]="_editActivate">
+  </app-view-task>
 </ion-content>
