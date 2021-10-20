@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { RoutineModel, RoutineValueType, TaskType } from '../../models/item.model';
+import { RoutineModel, RoutineValueType, SaveModel, TaskType } from '../../models/item.model';
 import { routineSort } from '../../util/data.util';
 
 @Injectable({
@@ -15,33 +15,36 @@ export class StorageService {
   ) {
   }
 
-  async initStorageData() {
+  async initStorageData(): Promise<RoutineModel[]> {
     this.storageData = this.getValue('data');
-    routineSort(await this.storageData)
+    let reorderCheck = await this.getValue('reorder');
+    if( reorderCheck == null ) routineSort(await this.storageData)
     return this.storageData;
   }
 
-  async saveData(storageData:RoutineModel[], data:RoutineModel, existedData:RoutineModel|TaskType, task?:TaskType, routine?:RoutineValueType) {
-    storageData = await this.initStorageData();
+  async saveData(e:SaveModel): Promise<RoutineModel[]> {
+    e.storageData = await this.initStorageData();
     // When Edit
-    if(existedData) {
-      if(routine) {
-        data.routine.value = routine;
+    if(e.existedData) {
+      if(e.routine) {
+        e.data.routine.value = e.routine;
       }
-      this.editStorageData(storageData, data);
+      e.storageData = this.editStorageData(e.storageData, e.data);
     }
     // When Add
     else {
-      if(task) {
-        data.task = data.task === undefined ? [] : data.task;
-        data.task.push(task);
+      if(e.task) {
+        e.data.task = e.data.task === undefined ? [] : e.data.task;
+        e.data.task.push(e.task);
       }
-      this.setStorageData(storageData, data);
+      e.storageData = this.setStorageData(e.storageData, e.data);
     }
+    
+    return e.storageData;
   }
   
   // Compose routine or task
-  setStorageData(storageData: RoutineModel[], data: RoutineModel) {
+  setStorageData(storageData: RoutineModel[], data: RoutineModel): RoutineModel[] {
     // When storageData is occupied
     if (storageData != null) {
       let routineisExisted: RoutineModel;
@@ -61,16 +64,20 @@ export class StorageService {
       storageData = Array(data);
       this.set('data', storageData);
     }
+
+    return storageData;
   }
 
   // Edit routine or task
-  editStorageData(storageData: RoutineModel[], data: RoutineModel) {
+  editStorageData(storageData: RoutineModel[], data: RoutineModel): RoutineModel[] {
     storageData.map(e => {
       if(e.routine.key === data.routine.key) {
         storageData.splice(storageData.indexOf(e), 1, data);
       }
     });
     this.set('data', storageData);
+
+    return storageData;
   }
 
   async create() {

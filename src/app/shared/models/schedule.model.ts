@@ -14,10 +14,10 @@ export class Schedule {
 export class LocalNotificationSettingModel {
   id: number;
   text: string;
-  status: boolean;
+  // status: boolean;
   dayNumber: number;
   trigger: {
-    count: number;
+    // count: number;
     every: {
       weekday: number;
       hour: number;
@@ -31,7 +31,7 @@ export class LocalNotificationSettingModel {
     workTime: number;
     breakTime: number;
     breakCount: number;
-    Status: boolean;
+    status: boolean;
   };
   breakDuration: string;
   sound: string;

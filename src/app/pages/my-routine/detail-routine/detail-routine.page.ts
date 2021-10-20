@@ -15,7 +15,6 @@ export class DetailRoutinePage {
 
   @Output() _routineKey: string;
   @Output() _taskList: TaskType[];
-  @Output() _editActivate = false;
   @Output() _storageData: RoutineModel[];
   @Output() _selectedData: RoutineModel;
 

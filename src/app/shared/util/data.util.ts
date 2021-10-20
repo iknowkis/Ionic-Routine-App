@@ -2,9 +2,9 @@ import { RoutineModel, TaskType } from "../models/item.model";
 import { WeekdayUtil } from "../models/weekday.model";
 
 
-export function routineSort(data: RoutineModel[]) {
-    if(data===null) return;
-    data.sort((firstEl: any, nextEl: any) =>
+export function routineSort(storageData: RoutineModel[]) {
+    if(storageData===null) return;
+    storageData.sort((firstEl: any, nextEl: any) =>
       (getStatusValue(firstEl) - getStatusValue(nextEl)) ||
       (getTimerHours(firstEl) - getTimerHours(nextEl)) ||
       (getTimerMinutes(firstEl) - getTimerMinutes(nextEl)));
@@ -35,9 +35,17 @@ export function getStatusValue(data: RoutineModel): number {
     return data.routine.value.statusValue.value ? 1 : 0;
 }
 
-export function deleteData(data: RoutineModel[], routine: RoutineModel, task?: TaskType) {
+export function deleteData(storageData: RoutineModel[], data: RoutineModel, task?: TaskType) {
     if(task) {
-        data.filter(e=> e === routine ? e.task.splice(e.task.indexOf(task), 1) : 0)
+        storageData.filter(e=> e === data ? e.task.splice(e.task.indexOf(task), 1) : 0)
     }
-    else data.splice(data.indexOf(routine), 1);
+    else storageData.splice(storageData.indexOf(data), 1);
+}
+
+// export function getRandomNumber() {
+//     return Math.floor(Math.random() * Math.pow(10, 8));
+// }
+
+export function changeStringToNumber(data: String) {
+    return Number(data.replace(/[a-z\-]/g,''))
 }

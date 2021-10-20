@@ -3,6 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { statusArray } from "./schedule.model";
 import { weekdayModel } from "./weekday.model";
 
+export class SaveModel {
+    storageData:RoutineModel[];
+    data:RoutineModel;
+    existedData:RoutineModel|TaskType;
+    routine?:RoutineValueType;
+    task?:TaskType;
+}
+
 @Injectable()
 export class RoutineUtil {
     weekdays = weekdayModel;

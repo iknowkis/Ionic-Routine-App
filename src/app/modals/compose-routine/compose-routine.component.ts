@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { RoutineModel, RoutineUtil, RoutineValueType } from '../../shared/models/item.model';
+import { LocalNotificationService } from 'src/app/shared/services/local-notification/local-notification.service';
+import { RoutineModel, RoutineUtil, RoutineValueType, SaveModel } from '../../shared/models/item.model';
 import { StorageService } from '../../shared/services/storage/storage.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class ComposeRoutineComponent {
     private data: RoutineModel,
     private modalCtrl: ModalController,
     private storageService: StorageService,
+    private notiService: LocalNotificationService,
   ) {
     this.data = RoutineModel.initRoutineModel(this.data);
     this.routine = this.data.routine.value;
@@ -30,7 +32,14 @@ export class ComposeRoutineComponent {
   }
 
   async saveRoutine() {
-    this.storageService.saveData(this.storageData, this.data, this.existedRoutine, null, this.routine);
+    let saveModel:SaveModel = {
+      storageData: this.storageData,
+      data: this.data,
+      existedData: this.existedRoutine,
+      routine: this.routine,
+    }
+    this.storageData = await this.storageService.saveData(saveModel);
+    this.notiService.set(this.storageData);
     this.dismissModal();
   }
 

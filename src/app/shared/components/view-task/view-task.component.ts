@@ -4,6 +4,7 @@ import { ComposeTaskComponent } from '../../../modals/compose-task/compose-task.
 import { DetailRoutinePage } from '../../../pages/my-routine/detail-routine/detail-routine.page';
 import { RoutineModel, TaskType } from '../../models/item.model';
 import { AlertService } from '../../services/alert/alert.service';
+import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
@@ -13,7 +14,6 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class ViewTaskComponent {
 
-  @Input() editActivate: boolean;
   @Input() storageData: RoutineModel[];
   @Input() selectedData: RoutineModel;
   @Input() taskList: TaskType[];
@@ -22,6 +22,7 @@ export class ViewTaskComponent {
     private alrtService: AlertService,
     private modalCtrl: ModalController,
     private storageService: StorageService,
+    private notiService: LocalNotificationService,
     ) {
   }
 
@@ -53,6 +54,25 @@ export class ViewTaskComponent {
         }
       }
     });
+  }
+  
+  async onReorder({ detail }: any) {
+
+    let data = this.taskList[detail.from];
+    let n = detail.from > detail.to ? 0 : 1;
+    
+    this.taskList.splice(detail.to + n, 0, data);
+    this.taskList.splice(detail.from - n + 1, 1);
+    this.taskList = this.taskList;
+
+    this.storageData.filter( (e, i) => {
+      if(e.routine.key === this.selectedData.routine.key) {
+        this.storageData[i].task = this.taskList;
+      }
+    });
+    await this.storageService.set('data', this.storageData);
+    await this.notiService.set(this.storageData);
+    detail.complete(true);
   }
 
   deleteTask(task) {

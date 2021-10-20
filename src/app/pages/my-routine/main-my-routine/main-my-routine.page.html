@@ -1,17 +1,24 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="_editActivate = !_editActivate">
-          {{_editActivate == false ? "Edit" : "Done" }}
-      </ion-button>
-    </ion-buttons>
+  <ion-toolbar class="ion-text-center">
     <ion-title>
       <ion-icon name="time-outline"></ion-icon>
       My Routine
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="openComposeRoutineModal()" [disabled]="_editActivate">
-        <ion-icon name="add"></ion-icon>
+      <ion-button
+        *ngIf="sortToggle"
+        class="ion-padding-horizontal"
+        (click)="sortByTime()">
+        <ion-icon
+          size="small"
+          name="swap-vertical-outline"
+          color="primary">
+        </ion-icon>
+      </ion-button>
+      <ion-button
+        (click)="openComposeRoutineModal()">
+        <ion-icon name="add">
+        </ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -19,7 +26,6 @@
 
 <ion-content>
   <app-view-routine
-    [editActivate]="_editActivate"
     [storageData]="_storageData">
   </app-view-routine>
 </ion-content>

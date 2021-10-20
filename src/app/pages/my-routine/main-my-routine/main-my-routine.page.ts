@@ -13,7 +13,7 @@ import { StorageService } from '../../../shared/services/storage/storage.service
 export class MainMyRoutinePage {
 
   @Output() _storageData: RoutineModel[];
-  @Output() _editActivate = false;
+  sortToggle = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -28,17 +28,24 @@ export class MainMyRoutinePage {
       // presentingElement: await this.modalCtrl.getTop()
     });
     modal.onDidDismiss().then(() => {
-      this.getStorageData();
-      this.navBar.getRoutineLength();
+      this.getStorageData().then(()=>
+        this.navBar.getRoutineLength(this._storageData));
     });
     return modal.present();
   }
 
-  async ionViewWillEnter() {
+  ionViewWillEnter() {
     this.getStorageData();
   }
 
   async getStorageData() {
     this._storageData = await this.storageService.initStorageData();
-  }  
+    this.sortToggle = (await this.storageService.getValue('reorder')) != null ? true : false;
+  }
+
+  sortByTime() {
+    this.storageService.remove('reorder');
+    this.sortToggle = !this.sortToggle;
+    this.getStorageData();
+  }
 }

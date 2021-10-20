@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ComposeRoutineComponent } from 'src/app/modals/compose-routine/compose-routine.component';
+import { MainMyRoutinePage } from 'src/app/pages/my-routine/main-my-routine/main-my-routine.page';
+import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
 import { RoutineModel } from '../../models/item.model';
-import { WeekdayUtil } from '../../models/weekday.model';
 import { AlertService } from '../../services/alert/alert.service';
+import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { ThemeService } from '../../services/theme/theme.service';
-import { getDayname, getTimerHours, getTimerMinutes, getTimerOn } from '../../util/data.util';
+import { getDayname, getTimerOn } from '../../util/data.util';
+import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
 
 @Component({
   selector: 'app-view-routine',
@@ -16,17 +18,19 @@ import { getDayname, getTimerHours, getTimerMinutes, getTimerOn } from '../../ut
 export class ViewRoutineComponent {
 
   @Input() storageData: RoutineModel[];
-  @Input() editActivate :boolean;
 
   constructor(
     private theme: ThemeService,
     private alrtService: AlertService,
     private modalCtrl: ModalController,
+    private navBar: MainNavbarComponent,
+    private mainPage: MainMyRoutinePage,
     private storageService: StorageService,
+    private notiService: LocalNotificationService,
   ) {
     this.theme.initTheme();
   }
-  
+
   async openComposeRoutineModal(data) {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
@@ -37,20 +41,42 @@ export class ViewRoutineComponent {
       // swipeToClose: true, // <-- Enable swipe to close only in iOS.
       // presentingElement: await this.modalCtrl.getTop()
     });
-    modal.onWillDismiss().then(async () => {
-      this.storageData = await this.storageService.initStorageData();
+    modal.onDidDismiss().then(() => {
+      this.getStorageData();
+    
+      this.notiService.getPending();
     });
     return modal.present();
   }
 
-  deleteData(storageData, data) {
-    this.alrtService.deleteAlert(storageData, data);
+  async deleteData(storageData: RoutineModel[], data: RoutineModel) {
+    this.alrtService.deleteAlert(storageData, data).then(result => {
+      if (result) this.navBar.getRoutineLength(storageData);
+    })
   }
 
-  getTimerOn(data) {
+  async getStorageData() {
+    this.storageData = await this.storageService.initStorageData();
+  }
+
+  async onReorder({ detail }: any) {
+
+    let data = this.storageData[detail.from];
+    let n = detail.from > detail.to ? 0 : 1;
+    
+    this.storageData.splice(detail.to + n, 0, data);
+    this.storageData.splice(detail.from - n + 1, 1);
+    this.storageData = this.storageData;
+    await this.storageService.set('data', this.storageData);
+    await this.storageService.set('reorder', {value: true});
+    this.mainPage.getStorageData();
+    detail.complete(true);
+  }
+
+  getTimerOn(data: RoutineModel) {
     return getTimerOn(data);
   }
-  getDayName(data) {
+  getDayName(data: RoutineModel) {
     return getDayname(data);
   }
 }

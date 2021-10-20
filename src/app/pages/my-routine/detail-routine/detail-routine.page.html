@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="ion-text-center">
     <ion-title>
       <ion-icon name="pie-chart-outline"></ion-icon>
       Detail Routine
     </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button>
+      </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="openComposeTaskModal()">
@@ -18,21 +19,15 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-label class="ion-text-start">
+      <ion-label class="ion-text-center">
         <b>{{ routineTitle }}</b>
       </ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="_editActivate = !_editActivate">
-            {{_editActivate == false ? "Edit" : "Done" }}
-        </ion-button>
-      </ion-buttons>
     </ion-item>
   </ion-card>
 
   <app-view-task
   [storageData]="_storageData"
   [taskList]="_taskList"
-  [selectedData]="_selectedData"
-  [editActivate]="_editActivate">
+  [selectedData]="_selectedData">
   </app-view-task>
 </ion-content>

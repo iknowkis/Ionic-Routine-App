@@ -9,7 +9,7 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class MainNavbarComponent {
 
-  storageData: Promise<RoutineModel[]>;
+  storageData: RoutineModel[];
 
   myRoutineLength: number;
 
@@ -17,12 +17,19 @@ export class MainNavbarComponent {
     private storageService: StorageService,
     ) {
       this.storageService.create();
-      this.getRoutineLength();
+      this.getStorageData().then(()=>
+        this.getRoutineLength());
     }
 
-  async getRoutineLength() {
-    this.storageData = this.storageService.initStorageData();
-    if((await this.storageData) === null) this.myRoutineLength = 0;
-    else this.myRoutineLength = (await this.storageData).length;
+  async getStorageData() {
+    this.storageData = await this.storageService.initStorageData();
+  }
+
+  getRoutineLength(data?:RoutineModel[]) {
+    if(data) {
+      this.myRoutineLength = data.length
+    }
+    else this.myRoutineLength = this.storageData ? this.storageData.length : 0;
+     
   }
 }
