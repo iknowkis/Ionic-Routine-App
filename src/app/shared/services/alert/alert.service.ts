@@ -44,22 +44,25 @@ export class AlertService {
   }
 
   deleteRoutine(storageData: RoutineModel[], data: RoutineModel, task?: TaskType) {
-    if (data.task != null) this.cancelNoti(data, task);
+    // if (data.task != null) this.cancelNoti(data, task); ????
     deleteData(storageData, data, task);
     this.storageService.set('data', storageData);
     this.notiService.set(storageData);
   }
 
-  cancelNoti(data: RoutineModel, task?: TaskType) {
-    if (task) {
-      this.notiService.cancel(changeStringToNumber(task.key));
-      if(data.task.length == 1) {
-        this.notiService.cancel(changeStringToNumber(data.routine.key));
-      }
-    }
-    else {
-      data.task.map(e => this.notiService.cancel(changeStringToNumber(e.key)));
-      this.notiService.cancel(changeStringToNumber(data.routine.key));
-    }
-  }
+  // cancelNoti(data: RoutineModel, task?: TaskType) {
+  //   let weekdayList = data.routine.value.weekday.map(day=> day);
+  //   console.log('weekdayList', weekdayList);
+  //   if (task) {
+  //     console.log('changeStringToNumber(task.key', changeStringToNumber(task.key)); 
+  //     this.notiService.cancel(changeStringToNumber(task.key));
+  //     if(data.task.length == 1) {
+  //       this.notiService.cancel(changeStringToNumber(data.routine.key));
+  //     }
+  //   }
+  //   else {
+  //     data.task.map(e => this.notiService.cancel(changeStringToNumber(e.key)));
+  //     this.notiService.cancel(changeStringToNumber(data.routine.key));
+  //   }
+  // }
 }

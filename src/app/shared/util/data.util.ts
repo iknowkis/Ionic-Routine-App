@@ -42,10 +42,10 @@ export function deleteData(storageData: RoutineModel[], data: RoutineModel, task
     else storageData.splice(storageData.indexOf(data), 1);
 }
 
-// export function getRandomNumber() {
-//     return Math.floor(Math.random() * Math.pow(10, 8));
-// }
+export function getRandomNumber() {
+    return Math.floor(Math.random() * Math.pow(10, 8));
+}
 
 export function changeStringToNumber(data: String) {
-    return Number(data.replace(/[a-z\-]/g,''))
+    return Number(data.replace(/[a-z\-]/g,'').slice(0,9))
 }

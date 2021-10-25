@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
 import { RoutineModel, TaskType } from '../../models/item.model';
-import { changeStringToNumber } from '../../util/data.util';
+import { changeStringToNumber, getRandomNumber } from '../../util/data.util';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class LocalNotificationService {
   
   set(storageData: RoutineModel[]) {
     let notification: ILocalNotification;
-    let array:ILocalNotification[];
+    let array: ILocalNotification[] = [];
 
     this.clear();
     storageData.map(data=> {
@@ -31,14 +31,14 @@ export class LocalNotificationService {
               // Get time after previous task is finished
               notification = this.notificationSetting(timerOn, data, task, +weekday);
               array.push(notification)
-              LocalNotifications.schedule(notification);
+              // LocalNotifications.schedule(notification);
 
               // After pushing last task, push finishing notification
               if(i==data.task.length-1) {
                 timerOn += task.value.duration * 1000 * 60;
                 notification = this.notificationSetting(timerOn, data, task, +weekday, true);
                 array.push(notification)
-                LocalNotifications.schedule(notification);
+                // LocalNotifications.schedule(notification);
               }
             }
           })
@@ -49,17 +49,21 @@ export class LocalNotificationService {
       }
     })
     console.log(array);
-    // LocalNotifications.schedule(array);
+    LocalNotifications.schedule(array);
   }
 
   //  Finishing Notification
   notificationSetting(timerOn:number, data:RoutineModel, task:TaskType, weekday:number, isFinish?:boolean) {
       let notiTIme = new Date(timerOn);
-      let id = changeStringToNumber(task.key);
-      let finishId = changeStringToNumber(data.routine.key);
+      let id = changeStringToNumber(task.key) + weekday;
+      let finishId = changeStringToNumber(data.routine.key) + weekday;
+
+      console.log('id', id);
+      console.log('finishId', finishId);
 
       const notification: ILocalNotification = {
         id: isFinish ? finishId : id,
+        // id: getRandomNumber(),
         title: data.routine.value.title + (isFinish ? ' is finished' : ''),
         text: task.value.title + (isFinish ? ' is finished' : ''),
         trigger: {
