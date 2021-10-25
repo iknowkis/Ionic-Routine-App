@@ -13,9 +13,11 @@ export class LocalNotificationService {
     ) {
   }
   
-  async set(storageData: RoutineModel[]) {
+  set(storageData: RoutineModel[]) {
     let notification: ILocalNotification;
-    let array = [];
+    let array:ILocalNotification[];
+
+    this.clear();
     storageData.map(data=> {
       let timerOn = Date.parse(data.routine.value.timerOn.toString())
       if(data.task!=undefined) {
@@ -29,12 +31,14 @@ export class LocalNotificationService {
               // Get time after previous task is finished
               notification = this.notificationSetting(timerOn, data, task, +weekday);
               array.push(notification)
+              LocalNotifications.schedule(notification);
 
               // After pushing last task, push finishing notification
               if(i==data.task.length-1) {
                 timerOn += task.value.duration * 1000 * 60;
                 notification = this.notificationSetting(timerOn, data, task, +weekday, true);
                 array.push(notification)
+                LocalNotifications.schedule(notification);
               }
             }
           })
