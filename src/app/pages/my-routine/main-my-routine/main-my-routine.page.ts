@@ -1,6 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-navbar.component';
+import { AlertService } from 'src/app/shared/services/alert/alert.service';
 import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
 import { RoutineModel } from '../../../shared/models/item.model';
 import { StorageService } from '../../../shared/services/storage/storage.service';
@@ -16,6 +17,7 @@ export class MainMyRoutinePage {
   sortToggle = false;
 
   constructor(
+    private alrtService: AlertService,
     private modalCtrl: ModalController,
     private navBar: MainNavbarComponent,
     private storageService: StorageService,
@@ -40,12 +42,15 @@ export class MainMyRoutinePage {
 
   async getStorageData() {
     this._storageData = await this.storageService.initStorageData();
-    this.sortToggle = (await this.storageService.getValue('reorder')) != null ? true : false;
+    this.sortToggle = (await this.storageService.getValue('customSort')) != null ? true : false;
   }
 
   sortByTime() {
-    this.storageService.remove('reorder');
-    this.sortToggle = !this.sortToggle;
-    this.getStorageData();
+    this.alrtService.reorderAlert().then(async result => {
+      if (result) {
+        this.sortToggle = !this.sortToggle;
+        await this.getStorageData();
+      }
+    })
   }
 }

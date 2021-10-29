@@ -30,15 +30,13 @@ export class LocalNotificationService {
             if(data.routine.value.statusValue.value) {
               // Get time after previous task is finished
               notification = this.notificationSetting(timerOn, data, task, +weekday);
-              array.push(notification)
-              // LocalNotifications.schedule(notification);
+              array.push(notification);
 
               // After pushing last task, push finishing notification
               if(i==data.task.length-1) {
                 timerOn += task.value.duration * 1000 * 60;
                 notification = this.notificationSetting(timerOn, data, task, +weekday, true);
-                array.push(notification)
-                // LocalNotifications.schedule(notification);
+                array.push(notification);
               }
             }
           })

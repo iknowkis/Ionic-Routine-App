@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { MainMyRoutinePage } from 'src/app/pages/my-routine/main-my-routine/main-my-routine.page';
 import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
@@ -20,6 +21,7 @@ export class ViewRoutineComponent {
   @Input() storageData: RoutineModel[];
 
   constructor(
+    private router: Router,
     private theme: ThemeService,
     private alrtService: AlertService,
     private modalCtrl: ModalController,
@@ -49,29 +51,26 @@ export class ViewRoutineComponent {
     return modal.present();
   }
 
-  async deleteData(storageData: RoutineModel[], data: RoutineModel) {
-    this.alrtService.deleteAlert(storageData, data).then(result => {
-      if (result) this.navBar.getRoutineLength(storageData);
-    })
+  async onReorder( { detail }: any) {
+    await this.storageService.reorder(this.storageData, detail);
+    this.mainPage.getStorageData();
+    detail.complete(true);
   }
 
   async getStorageData() {
     this.storageData = await this.storageService.initStorageData();
   }
 
-  async onReorder({ detail }: any) {
-
-    let data = this.storageData[detail.from];
-    let n = detail.from > detail.to ? 0 : 1;
-    
-    this.storageData.splice(detail.to + n, 0, data);
-    this.storageData.splice(detail.from - n + 1, 1);
-    this.storageData = this.storageData;
-    await this.storageService.set('data', this.storageData);
-    await this.storageService.set('reorder', {value: true});
-    this.mainPage.getStorageData();
-    detail.complete(true);
+  deleteData(storageData: RoutineModel[], data: RoutineModel) {
+    this.alrtService.deleteAlert(storageData, data).then(result => {
+      if (result) this.navBar.getRoutineLength(storageData);
+    })
   }
+
+  // enterRoutine(data: RoutineModel) {
+  //     // this.router.navigate(['../detail-routine',
+  //     //   {title: data.routine.value.title, key: data.routine.key}]);
+  // }
 
   getTimerOn(data: RoutineModel) {
     return getTimerOn(data);

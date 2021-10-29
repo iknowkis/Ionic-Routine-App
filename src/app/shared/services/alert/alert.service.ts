@@ -17,8 +17,32 @@ export class AlertService {
   ) {
   }
 
+  async reorderAlert(): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      const alert = await this.alrtCtrl.create({
+        header: `Sort by time`,
+        message: `Do you really want to sort by time?`,
+        buttons: [
+          {
+            text: 'Agree',
+            handler: () => {
+              this.storageService.remove('customSort');
+              resolve(true);
+            },
+          },
+          {
+            text: 'Disagree',
+            role: 'cancel',
+            handler: _ => resolve(false),
+          }
+        ]
+      });
+      await alert.present();
+    })
+  }
+
   async deleteAlert(storageData: RoutineModel[], data: RoutineModel, task?: TaskType): Promise<boolean> {
-    let target = task ? 'task' : 'routin';
+    let target = task ? 'task' : 'routine';
 
     return new Promise(async (resolve, reject) => {
       const alert = await this.alrtCtrl.create({

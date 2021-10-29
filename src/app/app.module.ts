@@ -10,6 +10,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './pages/main/main.module';
 
 
+// import { AngularFireModule } from "@angular/fire";
+// import { AngularFirestoreModule } from '@angular/fire/firestore';
+// import { AngularFireDatabaseModule } from '@angular/fire/database';
+// import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +25,13 @@ import { MainPageModule } from './pages/main/main.module';
     AppRoutingModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    MainPageModule
+    MainPageModule,
+
+    
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireDatabaseModule,
+    // AngularFirestoreModule,
+    // BrowserAnimationsModule,
   ],
   providers: 
   [{

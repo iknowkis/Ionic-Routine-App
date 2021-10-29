@@ -4,11 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'main-my-rouutin',
+    redirectTo: 'main-my-routine',
     pathMatch: 'full'
   },
   {
-    path: 'main-my-rouutin',
+    path: 'main-my-routine',
     loadChildren: () => import('./main-my-routine/main-my-routine.module').then( m => m.MainMyRoutinePageModule)
   },
   {

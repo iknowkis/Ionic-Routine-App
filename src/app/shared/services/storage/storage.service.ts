@@ -17,7 +17,7 @@ export class StorageService {
 
   async initStorageData(): Promise<RoutineModel[]> {
     this.storageData = this.getValue('data');
-    let reorderCheck = await this.getValue('reorder');
+    let reorderCheck = await this.getValue('customSort');
     if( reorderCheck == null ) routineSort(await this.storageData)
     return this.storageData;
   }
@@ -78,6 +78,29 @@ export class StorageService {
     this.set('data', storageData);
 
     return storageData;
+  }
+
+  async reorder(storageData: RoutineModel[], detail: any, taskList?: TaskType[]) {
+    let list: RoutineModel[] | TaskType[];
+    let data: RoutineModel | TaskType;
+    let n: number;
+    list = taskList ? taskList : storageData;
+    data = list[detail.from];
+    n = detail.from > detail.to ? 0 : 1;
+    
+    list.splice(detail.to + n, 0, data as any);
+    list.splice(detail.from - n + 1, 1);
+
+    if (taskList) {
+      storageData.filter( (e,i) => {
+        if(e.task == taskList)
+          storageData[i].task = list as TaskType[];
+      })
+    }
+    else (await this.set('customSort', {value: true}));
+    
+    taskList ? taskList = list as TaskType[] : storageData = list as RoutineModel[];
+    await this.set('data', storageData);
   }
 
   async create() {

@@ -21,8 +21,8 @@ export class ThemeService {
   
   async dynamicTheme(value) {
     await this.activeTheme(value);
-    await this.storageService.remove('themeValue');
-    await this.storageService.set('themeValue', value)
+    await this.storageService.remove('theme');
+    await this.storageService.set('theme', value)
   }
   
   activeTheme(item) {
@@ -36,6 +36,6 @@ export class ThemeService {
   }
 
   async getThemeValue() {
-    return await this.storageService.getValue('themeValue');
+    return await this.storageService.getValue('theme');
   }
 }

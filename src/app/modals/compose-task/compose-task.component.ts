@@ -19,6 +19,7 @@ export class ComposeTaskComponent {
   existedTask: TaskType;
   selectedData: RoutineModel; // Received from detail-routine.page
   storageData: RoutineModel[];
+  // taskIcon: string;
 
   constructor(
     private data: RoutineModel,
@@ -38,6 +39,7 @@ export class ComposeTaskComponent {
       if(item.data) {
         this.task.value.iconName = item.data[0].split(' ').join('-') as string;
         this.task.value.iconColor = item.data[1]?.split('-')[2]
+        // this.taskIcon = item.data;
       }
     });
     return modal.present();

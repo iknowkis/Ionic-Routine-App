@@ -43,36 +43,21 @@ export class ViewTaskComponent {
     })
     return modal.present();
   }
+  
+  async onReorder({ detail }: any) {
+    await this.storageService.reorder(this.storageData, detail, this.taskList);
+    this.notiService.set(this.storageData);
+    detail.complete(true);
+  }
 
   async getTaskList() {
     this.storageData = (await this.storageService.initStorageData())
     this.storageData.filter( e => {
-      if(e.routine.key === this.selectedData.routine.key) {
-        if(e.task !== this.taskList) {
-          this.selectedData = e;
-          this.taskList = e.task;
-        }
+      if(e.routine.key === this.selectedData.routine.key && e.task !== this.taskList) {
+        this.selectedData = e;
+        this.taskList = e.task;
       }
     });
-  }
-  
-  async onReorder({ detail }: any) {
-
-    let data = this.taskList[detail.from];
-    let n = detail.from > detail.to ? 0 : 1;
-    
-    this.taskList.splice(detail.to + n, 0, data);
-    this.taskList.splice(detail.from - n + 1, 1);
-    this.taskList = this.taskList;
-
-    this.storageData.filter( (e, i) => {
-      if(e.routine.key === this.selectedData.routine.key) {
-        this.storageData[i].task = this.taskList;
-      }
-    });
-    await this.storageService.set('data', this.storageData);
-    await this.notiService.set(this.storageData);
-    detail.complete(true);
   }
 
   deleteTask(task) {

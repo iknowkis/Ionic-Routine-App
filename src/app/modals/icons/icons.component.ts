@@ -19,5 +19,7 @@ export class IconsComponent {
   submit(event) {
     console.log(event.path[1].textContent, event.path[4].classList[2]);
     this.modalCtrl.dismiss([event.path[1].textContent, event.path[4].classList[2]]);
+    // console.log(event.target.innerText)
+    // this.modalCtrl.dismiss(event.target.innerText)
   }
 }
