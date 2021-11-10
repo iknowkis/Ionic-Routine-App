@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, getDebugNode, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { MainMyRoutinePage } from 'src/app/pages/my-routine/main-my-routine/main-my-routine.page';
@@ -11,6 +11,8 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { getDayname, getTimerOn } from '../../util/data.util';
 import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
 
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 @Component({
   selector: 'app-view-routine',
   templateUrl: './view-routine.component.html',
@@ -19,20 +21,23 @@ import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
 export class ViewRoutineComponent {
 
   @Input() storageData: RoutineModel[];
-
+  
   constructor(
+    public firestore: AngularFirestore,
+
     private router: Router,
-    private theme: ThemeService,
-    private alrtService: AlertService,
     private modalCtrl: ModalController,
     private navBar: MainNavbarComponent,
     private mainPage: MainMyRoutinePage,
+
+    private theme: ThemeService,
+    private alrtService: AlertService,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
   ) {
     this.theme.initTheme();
   }
-
+  
   async openComposeRoutineModal(data) {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
@@ -51,20 +56,22 @@ export class ViewRoutineComponent {
     return modal.present();
   }
 
-  async onReorder( { detail }: any) {
-    await this.storageService.reorder(this.storageData, detail);
-    this.mainPage.getStorageData();
-    detail.complete(true);
-  }
-
   async getStorageData() {
     this.storageData = await this.storageService.initStorageData();
   }
-
   deleteData(storageData: RoutineModel[], data: RoutineModel) {
     this.alrtService.deleteAlert(storageData, data).then(result => {
       if (result) this.navBar.getRoutineLength(storageData);
     })
+  }
+
+  deactivatedIonCard(data) {
+    return data.routine.value.statusValue.value ? '' : 'deactivatedIonCard';
+  }
+  async onReorder( { detail }: any) {
+    await this.storageService.reorder(this.storageData, detail);
+    this.mainPage.getStorageData();
+    detail.complete(true);
   }
 
   // enterRoutine(data: RoutineModel) {

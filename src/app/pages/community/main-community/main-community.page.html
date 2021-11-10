@@ -1,0 +1,61 @@
+<div style="font-size: 10px;">
+  <!-- <ion-card *ngFor="let list of peopleRoutineList">
+    <ion-item color="medium">
+      {{list}}
+      <ion-icon slot="end" name="add">
+      </ion-icon>
+    </ion-item>
+  </ion-card> -->
+
+  <!-- <ion-card *ngFor="let data of dbBoard">
+    <ion-item color="medium">
+      Id : {{ data.id | json }}
+    </ion-item>
+    <ion-item>
+      Name : {{ data.name | json }}
+    </ion-item>
+    <ion-item>
+      Data : {{ data.data | json }}
+    </ion-item>
+  </ion-card> -->
+  
+  <ion-card *ngFor="let post of dbPosts">
+    <ion-item color="medium">
+      {{ post?.post_title }}
+      <ion-icon
+        size="small"
+        slot="end"
+        name="chevron-forward-outline"
+        [routerLink]="['../detail-post',
+        {post_id: post?.post_id}]">
+      </ion-icon>
+    </ion-item>
+
+    <ion-item>
+      {{ post?.data?.routine?.value?.title }}
+      <div slot="end">
+        <ion-icon
+          name='heart'
+          color='danger'>
+        </ion-icon>
+          {{ post?.number_liked }}
+      </div>
+    </ion-item>
+    <ion-item *ngIf="post.data?.routine != undefined">
+      <div slot="end">
+        <ion-icon
+          name='alarm-outline'>
+        </ion-icon>
+        {{ getRoutineDuration(post.data) }}
+      </div>
+    </ion-item>
+    <ion-item *ngIf="post.data?.routine != undefined">
+      <div style="font-size: 14px" slot="end">
+        <ion-icon
+          name='pie-chart-outline'>
+        </ion-icon>
+        {{ getTimerOn(post.data) }}
+      </div>
+    </ion-item>
+  </ion-card>
+</div>

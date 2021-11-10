@@ -5,7 +5,7 @@ import { WeekdayUtil } from "../models/weekday.model";
 export function routineSort(storageData: RoutineModel[]) {
     if(storageData===null) return;
     storageData.sort((firstEl: any, nextEl: any) =>
-      (getStatusValue(firstEl) - getStatusValue(nextEl)) ||
+      (getStatusValue(firstEl) + getStatusValue(nextEl)) ||
       (getTimerHours(firstEl) - getTimerHours(nextEl)) ||
       (getTimerMinutes(firstEl) - getTimerMinutes(nextEl)));
 }
@@ -18,7 +18,8 @@ export function getDayname(data: RoutineModel) {
     return arr.join(' ');
 }
 
-export function getTimerOn(data: RoutineModel) {
+export function getTimerOn(data?: RoutineModel) {
+    if(data===null) return;
     if(data.routine.value.timerOn===undefined) return;
     return `${getTimerHours(data)} : ${getTimerMinutes(data)}`
 }

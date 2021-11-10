@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { LocalNotificationService } from 'src/app/shared/services/local-notification/local-notification.service';
+import { DbcrudService } from '../../shared/services/dbcrud/dbcrud.service';
+import { LocalNotificationService } from '../../shared/services/local-notification/local-notification.service';
 import { RoutineModel, RoutineUtil, RoutineValueType, SaveModel } from '../../shared/models/item.model';
 import { StorageService } from '../../shared/services/storage/storage.service';
 
@@ -21,6 +22,8 @@ export class ComposeRoutineComponent {
     private modalCtrl: ModalController,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
+
+    private dbService: DbcrudService,
   ) {
     this.data = RoutineModel.initRoutineModel(this.data);
     this.routine = this.data.routine.value;
@@ -39,9 +42,24 @@ export class ComposeRoutineComponent {
       routine: this.routine,
     }
     this.storageData = await this.storageService.saveData(saveModel);
+    // this.addDBdata(this.storageData);
     this.notiService.set(this.storageData);
+
+    let dbId:string;
+    await this.storageService.getDBId(dbId)
+      .then(result => {
+        console.log('result b', result)
+        if(result) {
+          console.log('result', result)
+          this.dbService.updatePost(result as string, this.storageData);
+        }
+      });
     this.dismissModal();
   }
+
+  // addDBdata(data) {
+  //   this.dbService.addPost(data)
+  // }
 
   dismissModal() {
     this.modalCtrl.dismiss();

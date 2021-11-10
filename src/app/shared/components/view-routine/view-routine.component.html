@@ -1,5 +1,5 @@
 <ion-reorder-group (ionItemReorder)="onReorder($event)" [disabled]="false">
-  <ion-card *ngFor="let data of storageData">
+  <ion-card *ngFor="let data of storageData" class={{deactivatedIonCard(data)}}>
     <ion-item-sliding>
       <ion-item>
         <ion-reorder slot="start">

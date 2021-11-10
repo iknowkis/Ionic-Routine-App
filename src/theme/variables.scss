@@ -121,6 +121,10 @@
       --button-background-selected-opacity: 0.3;
       --button-color-selected: #ffffff;
     }
+    .deactivatedIonCard {
+      --ion-card-background: #000000;
+      --ion-item-background: #000000;
+    }
   }
 }
 

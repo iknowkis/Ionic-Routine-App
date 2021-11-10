@@ -38,7 +38,8 @@ export class ComposeTaskComponent {
     modal.onDidDismiss().then((item?:OverlayEventDetail) => {
       if(item.data) {
         this.task.value.iconName = item.data[0].split(' ').join('-') as string;
-        this.task.value.iconColor = item.data[1]?.split('-')[2]
+        let iconColor = item.data[1]?.split('-')[2]
+        this.task.value.iconColor = iconColor ? iconColor : 'medium'
         // this.taskIcon = item.data;
       }
     });
