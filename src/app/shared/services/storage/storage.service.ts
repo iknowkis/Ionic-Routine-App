@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { RoutineModel, RoutineValueType, SaveModel, TaskType } from '../../models/item.model';
 import { routineSort } from '../../util/data.util';
+import { DbcrudService } from '../dbcrud/dbcrud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ export class StorageService {
 
   constructor(
     private storage: Storage,
+    private dbService: DbcrudService,
   ) {
   }
 
   async initStorageData(): Promise<RoutineModel[]> {
-    this.storageData = this.getValue('data');
+    this.storageData = await this.getValue('data');
     let reorderCheck = await this.getValue('customSort');
     if( reorderCheck == null ) routineSort(await this.storageData)
     return this.storageData;
@@ -78,6 +80,24 @@ export class StorageService {
     this.set('data', storageData);
 
     return storageData;
+  }
+
+  async getDBId(datatest:string) {
+    datatest = await this.getValue('dbid');
+    if(datatest == null) {
+      this.dbService.getBoard().subscribe(post =>{
+        post.map(async (e: any) => {
+          let data = e.payload.doc.data();
+          console.log('data', data.name)
+          if (data.name == 'Armton') datatest = await e.payload.doc.id;
+        });
+      });
+      return await new Promise(async result => {
+        console.log('re1', datatest)
+        result(datatest)
+      })
+      // setTimeout(() => console.log('b', datatest), 100);
+    }
   }
 
   async reorder(storageData: RoutineModel[], detail: any, taskList?: TaskType[]) {

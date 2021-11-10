@@ -2,19 +2,17 @@
   <ion-toolbar class="ion-text-center" color="medium">
     <ion-text>
       <ion-icon name="git-pull-request-outline"></ion-icon>
-      Task
+      Post
     </ion-text>
     <ion-buttons slot="start">
-      <ion-button
-        (click)="dismissModal()">
+      <ion-button (click)="dismissModal()">
         <ion-icon name="chevron-back-outline"></ion-icon>
         Back
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button
-        (click)="saveTask()"
-        [disabled]="task.value.title == undefined">
+        (click)="savePost()">
         Save
       </ion-button>
     </ion-buttons>
@@ -31,7 +29,7 @@
         class="ion-text-end"
         type="text"
         placeholder="_"
-        [(ngModel)]="task.value.title">
+        [(ngModel)]="postTitle">
       </ion-input>
     </ion-item>
   </ion-card>
@@ -39,39 +37,38 @@
   <ion-card>
     <ion-item>
       <ion-label>
-        Duration
+        Content
       </ion-label>
       <ion-input
-        class="ion-text-center"
-        type="number"
-        [(ngModel)]="task.value.duration">
+        class="ion-text-end"
+        type="text"
+        placeholder="_"
+        [(ngModel)]="postContent">
       </ion-input>
-      <ion-range
-        min="0"
-        max="60"
-        step="5"
-        snaps="true"
-        color="primary"
-        [(ngModel)]="task.value.duration">
-      </ion-range>
     </ion-item>
   </ion-card>
-
+  
   <ion-item-divider></ion-item-divider>
 
   <ion-card>
     <ion-item>
       <ion-label>
-        Icon
+        Select routine
       </ion-label>
-      <ion-buttons>
-        <ion-button
-          class="ion-text-end"
-          (click)="openIconsModal()">
-          <!-- <ion-text>{{taskIcon}}</ion-text> -->
-          <ion-icon name={{task.value.iconName}} color={{task.value.iconColor}}></ion-icon>
-        </ion-button>
-      </ion-buttons>
+      <ion-select
+        class="ion-text-end"
+        style="font-size: 14px"
+        [(ngModel)]="selectedRoutine">
+        <ion-select-option
+          *ngFor="let data of storageData"
+          [value]="data">
+          {{data.routine.value.title}}
+        </ion-select-option>
+        <ion-select-option
+          [value]="">
+          Without routine
+        </ion-select-option>
+      </ion-select>
     </ion-item>
   </ion-card>
 </ion-content>

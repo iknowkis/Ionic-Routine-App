@@ -9,11 +9,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './pages/main/main.module';
 
-
-// import { AngularFireModule } from "@angular/fire";
-// import { AngularFirestoreModule } from '@angular/fire/firestore';
-// import { AngularFireDatabaseModule } from '@angular/fire/database';
-// import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore'
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -27,11 +26,9 @@ import { MainPageModule } from './pages/main/main.module';
     IonicStorageModule.forRoot(),
     MainPageModule,
 
-    
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFireDatabaseModule,
-    // AngularFirestoreModule,
-    // BrowserAnimationsModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence({experimentalForceOwningTab:true}),
   ],
   providers: 
   [{

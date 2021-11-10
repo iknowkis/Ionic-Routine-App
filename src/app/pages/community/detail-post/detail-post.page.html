@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-text><b>
+      <ion-icon name="pie-chart-outline"></ion-icon>
+      Detail Post
+    </b></ion-text>
+    <ion-buttons slot="start">
+      <ion-back-button>
+      </ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button> <!-- (click)="openComposeTaskModal()" -->
+        <ion-icon
+          name="archive"
+          color="warning">
+      </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item color="warning">
+      <ion-label class="ion-text-center">
+        <b>
+          {{ selected_post?.post_title }}
+        </b>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card class="dataInfo">
+    <ion-item *ngIf="selected_post?.data?.routine != undefined">
+      <ion-grid class="ion-text-center">
+        <ion-col>
+          <ion-icon
+            name='pie-chart-outline'>
+          </ion-icon>
+          {{ getTimerOn(selected_post?.data) }}
+        </ion-col>
+        <ion-col>
+          <ion-icon
+            name='alarm-outline'>
+          </ion-icon>
+          {{ getRoutineDuration(selected_post?.data) }}
+        </ion-col>
+        <ion-col>
+          <ion-icon
+            name='heart'
+            color='danger'>
+          </ion-icon>
+          {{ selected_post?.number_liked }}
+        </ion-col>
+      </ion-grid>
+    </ion-item>
+    <ion-item>
+      <ion-text class="ion-text-start">
+        {{ selected_post?.post_content }}
+      </ion-text>
+    </ion-item>
+  </ion-card>
+
+  <ion-item-divider></ion-item-divider>
+
+  <ion-card>
+    <ion-item color="medium">
+      <ion-label class="ion-text-center">
+        {{ selected_post?.data?.routine?.value?.title }}
+      </ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-item *ngFor="let task of taskList">
+      <div slot="start">
+        <ion-icon
+          name={{task.value.iconName}}
+          color={{task.value.iconColor}}>
+        </ion-icon>
+      </div>
+      {{task.value.title}}
+      <div slot="end">
+        {{task.value.duration}}m
+      </div>
+    </ion-item>
+  </ion-card>
+</ion-content>

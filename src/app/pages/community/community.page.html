@@ -1,18 +1,38 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <ion-icon name="chatbubbles-outline"></ion-icon>
-      Community
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start" content-id="main-content">
+  <ion-header>
+    <ion-toolbar translucent>
+        <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <app-menu-community></app-menu-community>
+  </ion-content>
+</ion-menu>
 
-<ion-content>
-  <ion-card *ngFor="let list of peopleRoutineList">
-    <ion-item color="tertiary">
-      {{list}}
-      <ion-icon slot="end" name="add">
-      </ion-icon>
-    </ion-item>
-  </ion-card>
-</ion-content>
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar class="ion-text-center">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-text><b>
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+        Community
+      </b></ion-text>
+      <ion-buttons slot="end">
+        <ion-button
+        (click)="openComposePostModal()">
+          <ion-icon
+            name="add"
+            color="primary">
+          </ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <app-main-community></app-main-community>
+    <!-- <ion-router-outlet></ion-router-outlet> -->
+  </ion-content>
+</div>

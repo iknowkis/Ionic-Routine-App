@@ -1,9 +1,16 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
-    <ion-title>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon
+          name="cube">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-text><b>
       <ion-icon name="time-outline"></ion-icon>
       My Routine
-    </ion-title>
+    </b></ion-text>
     <ion-buttons slot="end">
       <ion-button
         *ngIf="sortToggle"
@@ -17,7 +24,9 @@
       </ion-button>
       <ion-button
         (click)="openComposeRoutineModal()">
-        <ion-icon name="add">
+        <ion-icon
+          name="add"
+          color="primary">
         </ion-icon>
       </ion-button>
     </ion-buttons>

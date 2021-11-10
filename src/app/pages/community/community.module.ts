@@ -7,14 +7,23 @@ import { IonicModule } from '@ionic/angular';
 import { CommunityPageRoutingModule } from './community-routing.module';
 
 import { CommunityPage } from './community.page';
+import { MenuCommunityPage } from './menu-community/menu-community.page';
+import { ComposePostComponent } from '../../modals/compose-post/compose-post.component';
+import { MainCommunityPageModule } from './main-community/main-community.module';
 
 @NgModule({
+  declarations: [
+    CommunityPage,
+
+    ComposePostComponent,
+    MenuCommunityPage,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CommunityPageRoutingModule
-  ],
-  declarations: [CommunityPage]
+    CommunityPageRoutingModule,
+    MainCommunityPageModule,
+  ]
 })
 export class CommunityPageModule {}
