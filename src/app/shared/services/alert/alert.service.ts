@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { RoutineModel, TaskType } from '../../models/item.model';
-import { changeStringToNumber, deleteData } from '../../util/data.util';
+import { RoutineModel, SaveModel, TaskType } from '../../models/item.model';
+import { deleteData } from '../../util/data.util';
 import { LocalNotificationService } from '../local-notification/local-notification.service';
 import { StorageService } from '../storage/storage.service';
 
@@ -71,6 +71,42 @@ export class AlertService {
     // if (data.task != null) this.cancelNoti(data, task); ????
     deleteData(storageData, data, task);
     this.storageService.set('data', storageData);
+    this.notiService.set(storageData);
+  }
+
+  async importAlert(data: any): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      const alert = await this.alrtCtrl.create({
+        header: `Import routine`,
+        message: `Do you want to import this routine into your routine list?`,
+        buttons: [
+          {
+            text: 'Agree',
+            handler: () => {
+              this.importRoutine(data);
+              resolve(true);
+            },
+          },
+          {
+            text: 'Disagree',
+            role: 'cancel',
+            handler: _ => resolve(false),
+          }
+        ]
+      });
+      await alert.present();
+    })
+  }
+
+  async importRoutine(data) {
+    let saveModel: SaveModel = {
+      data: data,
+      storageData: [],
+      existedData: undefined,
+    }
+
+    let storageData = await this.storageService.saveData(saveModel);
+    // this.addDBdata(this.storageData);
     this.notiService.set(storageData);
   }
 

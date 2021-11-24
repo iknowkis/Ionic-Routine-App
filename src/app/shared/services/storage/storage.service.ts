@@ -20,7 +20,7 @@ export class StorageService {
   async initStorageData(): Promise<RoutineModel[]> {
     this.storageData = await this.getValue('data');
     let reorderCheck = await this.getValue('customSort');
-    if( reorderCheck == null ) routineSort(await this.storageData)
+    if( reorderCheck == null ) routineSort(await this.storageData);
     return this.storageData;
   }
 

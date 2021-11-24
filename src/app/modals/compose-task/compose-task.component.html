@@ -24,13 +24,13 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-label>
+      <ion-label
+        position="floating">
         Title
       </ion-label>
       <ion-input
         class="ion-text-end"
         type="text"
-        placeholder="_"
         [(ngModel)]="task.value.title">
       </ion-input>
     </ion-item>
@@ -38,7 +38,8 @@
 
   <ion-card>
     <ion-item>
-      <ion-label>
+      <ion-label
+        position="floating">
         Duration
       </ion-label>
       <ion-input

@@ -9,10 +9,17 @@
       </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button> <!-- (click)="openComposeTaskModal()" -->
+      <ion-button (click)="likePost()">
         <ion-icon
-          name="archive"
-          color="warning">
+          name="heart"
+          color="danger">
+      </ion-icon>
+      </ion-button>
+      <ion-button
+        *ngIf="selected_post?.data?.routine != undefined"
+        (click)="importIntoMyRoutine()">
+        <ion-icon
+          name="archive">
       </ion-icon>
       </ion-button>
     </ion-buttons>
@@ -30,27 +37,35 @@
     </ion-item>
   </ion-card>
   <ion-card class="dataInfo">
-    <ion-item *ngIf="selected_post?.data?.routine != undefined">
+    <ion-item>
       <ion-grid class="ion-text-center">
         <ion-col>
           <ion-icon
-            name='pie-chart-outline'>
-          </ion-icon>
-          {{ getTimerOn(selected_post?.data) }}
-        </ion-col>
-        <ion-col>
-          <ion-icon
-            name='alarm-outline'>
-          </ion-icon>
-          {{ getRoutineDuration(selected_post?.data) }}
-        </ion-col>
-        <ion-col>
-          <ion-icon
-            name='heart'
-            color='danger'>
+            name="heart"
+            color="danger">
           </ion-icon>
           {{ selected_post?.number_liked }}
         </ion-col>
+        <ion-col *ngIf="selected_post?.data?.routine != undefined">
+          <ion-icon
+            name="archive">
+          </ion-icon>
+          {{ selected_post?.number_archived }}
+        </ion-col>
+          <ion-grid *ngIf="selected_post?.data?.routine != undefined">
+          <ion-col>
+            <ion-icon
+              name="pie-chart-outline">
+            </ion-icon>
+            {{ getTimerOn(selected_post?.data) }}
+          </ion-col>
+          <ion-col>
+            <ion-icon
+              name="alarm-outline">
+            </ion-icon>
+            {{ getRoutineDuration(selected_post?.data) }}
+          </ion-col>
+        </ion-grid>
       </ion-grid>
     </ion-item>
     <ion-item>
@@ -62,7 +77,7 @@
 
   <ion-item-divider></ion-item-divider>
 
-  <ion-card>
+  <ion-card *ngIf="selected_post?.data?.routine != undefined">
     <ion-item color="medium">
       <ion-label class="ion-text-center">
         {{ selected_post?.data?.routine?.value?.title }}

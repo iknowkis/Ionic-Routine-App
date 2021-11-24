@@ -22,29 +22,30 @@
 <ion-content>
   <ion-card>
     <ion-item>
-      <ion-label>
+      <ion-label
+        position="floating">
         Title
       </ion-label>
       <ion-input
         class="ion-text-end"
         type="text"
-        placeholder="_"
         [(ngModel)]="postTitle">
       </ion-input>
     </ion-item>
   </ion-card>
 
   <ion-card>
-    <ion-item>
-      <ion-label>
+    <ion-item style="--border-style: none;">
+      <ion-label
+        position="floating">
         Content
       </ion-label>
-      <ion-input
+      <ion-textarea
         class="ion-text-end"
-        type="text"
-        placeholder="_"
+        autoGrow="true"
+        rows="4"
         [(ngModel)]="postContent">
-      </ion-input>
+      </ion-textarea>
     </ion-item>
   </ion-card>
   
@@ -52,7 +53,8 @@
 
   <ion-card>
     <ion-item>
-      <ion-label>
+      <ion-label
+        position="floating">
         Select routine
       </ion-label>
       <ion-select

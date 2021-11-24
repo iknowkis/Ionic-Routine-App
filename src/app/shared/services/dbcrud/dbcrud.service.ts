@@ -36,38 +36,35 @@ export class DbcrudService {
   getSelectedPost(id: string){
     return this.dbPosts.doc(id).valueChanges();
   }
+
   addPost(title: string, content: string, data: any){
     this.dbPosts.add({
       // post_id: uuidv4(),
       post_title: title,
       post_content: content,
+      number_archived: 0,
       number_liked: 0,
       data: data,
       // date: firebase.default.firestore.FieldValue.serverTimestamp()
     });
   }
+  updatePost(id: string, post: any){
+    this.dbPosts.doc(id).update({...post,
+      // date: firebase.default.firestore.FieldValue.serverTimestamp()
+    });
+  }
+
+  
+  //아직
   deletePost(id: string){
     this.dbPosts.doc(id).delete();
   }
-
-
-
-
 
   /**
    * 아이디를 어떻게 불러올 것인지?
    * local Storage Id랑 비교? 
    */
 
-  updatePost(id: string, post: any){
-    console.log('DBID: ', id);
-    this.firestore
-    .collection<any>('board')
-    .doc(id)
-    .update({...post,
-      // date: firebase.default.firestore.FieldValue.serverTimestamp()
-    });
-  }
 }
 
 
