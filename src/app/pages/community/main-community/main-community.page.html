@@ -32,22 +32,9 @@
     </ion-item>
 
     <ion-item>
-      {{ post?.data?.routine?.value?.title }}
-      <div slot="end">
-        <ion-icon
-          name='heart'
-          color='danger'>
-        </ion-icon>
-          {{ post?.number_liked }}
-      </div>
-    </ion-item>
-    <ion-item *ngIf="post.data?.routine != undefined">
-      <div slot="end">
-        <ion-icon
-          name='alarm-outline'>
-        </ion-icon>
-        {{ getRoutineDuration(post.data) }}
-      </div>
+      <ion-text class="post_content">
+        {{ post?.post_content }}
+      </ion-text>
     </ion-item>
     <ion-item *ngIf="post.data?.routine != undefined">
       <div style="font-size: 14px" slot="end">
@@ -55,6 +42,27 @@
           name='pie-chart-outline'>
         </ion-icon>
         {{ getTimerOn(post.data) }}
+      </div>
+    </ion-item>
+    <ion-item>
+      <div slot="start">
+        <ion-icon
+          name='heart'
+          color='danger'>
+        </ion-icon>
+          {{ post?.number_liked }}
+      </div>
+      <div slot="start" *ngIf="post.data?.routine != undefined">
+        <ion-icon
+          name='archive'>
+        </ion-icon>
+          {{ post?.number_archived }}
+      </div>
+      <div slot="end" *ngIf="post.data?.routine != undefined">
+        <ion-icon
+          name='alarm-outline'>
+        </ion-icon>
+        {{ getRoutineDuration(post.data) }}
       </div>
     </ion-item>
   </ion-card>

@@ -1,8 +1,8 @@
 # Routine-App
 
-### 1. Manage time by self
-### 2. Share with other your routine
-### 3. Add other's routine into your Routine list
+### 1. Manage time by yourself.
+### 2. Share your routine with others.
+### 3. Import other's routine into your Routine list.
 
 | Main | Routine detail | Compose routine |
 | ------------- | ------------- |------------- |

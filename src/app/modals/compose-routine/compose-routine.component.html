@@ -23,13 +23,13 @@
 <ion-content>  
   <ion-card>
     <ion-item>
-      <ion-label>
+      <ion-label
+        position="floating">
         Title
       </ion-label>
       <ion-input
         class="ion-text-end"
         type="text"
-        placeholder="_"
         [(ngModel)]="routine.title">
       </ion-input>
     </ion-item>
@@ -42,7 +42,6 @@
       </ion-label>
       <ion-datetime
         display-format="h:mm A"
-        placeholder="_"
         picker-format="h:mm A"
         [(ngModel)]="routine.timerOn">
       </ion-datetime>

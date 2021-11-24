@@ -32,3 +32,22 @@ ion-list {
     display: inline-grid;
     width: inherit;
 }
+
+// For hiding scoll-bar
+ion-content {
+    // overwrite inline styles
+    --offset-bottom: auto!important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+}
+
+.textarea-wrapper {
+    height:fit-content !important;
+}
+.native-textarea {
+    min-height: 105px !important;
+    overflow-x: hidden;
+}

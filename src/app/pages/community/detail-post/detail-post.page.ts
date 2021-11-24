@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Posts } from 'src/app/shared/models/db.model';
-import { RoutineModel, TaskType } from 'src/app/shared/models/item.model';
-import { DbcrudService } from 'src/app/shared/services/dbcrud/dbcrud.service';
-import { getTimerOn } from 'src/app/shared/util/data.util';
+import { Posts } from '../../../shared/models/db.model';
+import { RoutineModel, TaskType } from '../../../shared/models/item.model';
+
+import { getTimerOn } from '../../../shared/util/data.util';
+
+import { DbcrudService } from '../../../shared/services/dbcrud/dbcrud.service';
+import { AlertService } from '../../../shared/services/alert/alert.service';
+import { MainNavbarComponent } from '../../../shared/components/main-navbar/main-navbar.component';
+import { StorageService } from '../../../shared/services/storage/storage.service';
 
 @Component({
   selector: 'app-detail-post',
@@ -18,7 +23,11 @@ export class DetailPostPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private navBar: MainNavbarComponent,
+    
     private dbService: DbcrudService,
+    private alrtService: AlertService,
+    private storageService: StorageService,
     ) { }
 
   ngOnInit() {
@@ -26,6 +35,22 @@ export class DetailPostPage implements OnInit {
   }
 
   async ionViewWillEnter() {
+  }
+
+  async importIntoMyRoutine() {
+    this.alrtService.importAlert(this.selected_post.data).then(async result => {
+      if (result) {
+        this.selected_post.number_archived++;
+        this.dbService.updatePost(this.selected_post_id, this.selected_post);
+        let storageData = await this.storageService.initStorageData();
+        this.navBar.getRoutineLength(storageData);
+      }
+    })
+  }
+
+  async likePost() {
+    this.selected_post.number_liked++;
+    this.dbService.updatePost(this.selected_post_id, this.selected_post);
   }
 
   async getSelectedPostId() {
