@@ -16,15 +16,16 @@
         {{ post?.post_content }}
       </ion-text>
     </ion-item>
-    <ion-item *ngIf="post.data?.routine">
-      <div style="font-size: 14px" slot="end">
+    <ion-item style="font-size: 12px"
+      *ngIf="post.data?.routine">
+      <div slot="end">
         <ion-icon
           name='pie-chart-outline'>
         </ion-icon>
         {{ getTimerOn(post.data) }}
       </div>
     </ion-item>
-    <ion-item>
+    <ion-item style="font-size: 12px">
       <div slot="start">
         <ion-icon
           name='heart'

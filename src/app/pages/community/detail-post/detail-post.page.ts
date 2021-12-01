@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../../shared/models/db.model';
 import { RoutineModel, SaveModel, TaskType } from '../../../shared/models/item.model';
 
-import { getRoutineDuration_util, getTimerOn } from '../../../shared/util/data.util';
+import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../../shared/util/data.util';
 
 import { DbcrudService } from '../../../shared/services/dbcrud/dbcrud.service';
 import { AlertService } from '../../../shared/services/alert/alert.service';
@@ -79,6 +79,9 @@ export class DetailPostPage implements OnInit {
   }
   getTimerOn(data: RoutineModel) {
     return getTimerOn(data);
+  }
+  getTimerOff(data: RoutineModel) {
+    return getTimerOff(data);
   }
   getRoutineDuration(data: RoutineModel) {
     return getRoutineDuration_util(data);

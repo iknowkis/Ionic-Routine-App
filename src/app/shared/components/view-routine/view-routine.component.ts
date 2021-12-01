@@ -5,7 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
 import { MainMyRoutinePage } from '../../../pages/my-routine/main-my-routine/main-my-routine.page';
 import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
-import { getDayname, getTimerOn } from '../../util/data.util';
+import { getDayname, getRoutineDuration_util, getTimerOn } from '../../util/data.util';
 import { RoutineModel } from '../../models/item.model';
 
 
@@ -83,5 +83,8 @@ export class ViewRoutineComponent {
   }
   getDayName(data: RoutineModel) {
     return getDayname(data);
+  }
+  getRoutineDuration(data: RoutineModel) {
+    return getRoutineDuration_util(data);
   }
 }

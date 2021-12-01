@@ -21,7 +21,16 @@ export function getDayname(data: RoutineModel) {
 export function getTimerOn(data?: RoutineModel) {
     if(data===null) return;
     if(data.routine.value.timerOn===undefined) return;
-    return `${getTimerHours(data)} : ${getTimerMinutes(data) < 10 ? '0'+getTimerMinutes(data) : getTimerMinutes(data)}`
+    return `${getTimerHours(data)}:${getTimerMinutes(data) < 10 ? '0'+getTimerMinutes(data) : getTimerMinutes(data)}`;
+}
+
+export function getTimerOff(data: RoutineModel) {
+    if(data===null) return;
+    if(data.routine.value.timerOn===undefined) return;
+    let timerOn = Date.parse(data.routine.value.timerOn.toString());
+    data.task.map(task=> timerOn += task.value.duration * 1000 * 60);
+    let timerOff = new Date(timerOn);
+    return `${timerOff.getHours()}:${timerOff.getMinutes() < 10 ? '0'+timerOff.getMinutes() : timerOff.getMinutes()}`;
 }
 
 export function getTimerHours(data: RoutineModel): number {
@@ -57,4 +66,4 @@ export function getRoutineDuration_util(data: RoutineModel) {
     let hours = sum >= 60 ? Math.floor(sum / 60) : 0;
     let minutes = sum % 60;
     return `${hours}h ${minutes}m`;
-  }
+}

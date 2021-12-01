@@ -41,6 +41,7 @@ export class ComposeRoutineComponent {
     }
     this.storageData = await this.storageService.saveData(saveModel);
     this.notiService.set(this.storageData);
+    this.dismissModal();
   }
 
   dismissModal() {

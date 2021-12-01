@@ -35,13 +35,20 @@
       </ion-item-options>
     </ion-item-sliding>
 
-    <ion-item style="font-size: 12px">
-      {{ getTimerOn(data) }}
-      <div slot="end">
+    <ion-item style="font-size: 12px; --border-style: none">
+      <div slot="start">
+        <ion-icon
+          name='pie-chart-outline'>
+        </ion-icon>
+        {{ getTimerOn(data) }}
+      </div>
+      <div slot="end" style="font-size: 10px">
         {{ getDayName(data) }}
       </div>
     </ion-item>
   </ion-card>
+
+  <!-- Add new routine -->
   <ion-card>
     <ion-slide (click)="openNewComposeRoutineModal()">
       <h1>
