@@ -50,3 +50,11 @@ export function getRandomNumber() {
 export function changeStringToNumber(data: String) {
     return Number(data.replace(/[a-z\-]/g,'').slice(0,9))
 }
+
+export function getRoutineDuration_util(data: RoutineModel) {
+    let sum = 0;
+    data.task.map(e=> sum += e.value.duration);
+    let hours = sum >= 60 ? Math.floor(sum / 60) : 0;
+    let minutes = sum % 60;
+    return `${hours}h ${minutes}m`;
+  }

@@ -74,7 +74,7 @@ export class AlertService {
     this.notiService.set(storageData);
   }
 
-  async importAlert(data: any): Promise<boolean> {
+  async importAlert(): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
       const alert = await this.alrtCtrl.create({
         header: `Import routine`,
@@ -82,10 +82,7 @@ export class AlertService {
         buttons: [
           {
             text: 'Agree',
-            handler: () => {
-              this.importRoutine(data);
-              resolve(true);
-            },
+            handler: () => resolve(true),
           },
           {
             text: 'Disagree',
@@ -96,18 +93,6 @@ export class AlertService {
       });
       await alert.present();
     })
-  }
-
-  async importRoutine(data) {
-    let saveModel: SaveModel = {
-      data: data,
-      storageData: [],
-      existedData: undefined,
-    }
-
-    let storageData = await this.storageService.saveData(saveModel);
-    // this.addDBdata(this.storageData);
-    this.notiService.set(storageData);
   }
 
   // cancelNoti(data: RoutineModel, task?: TaskType) {

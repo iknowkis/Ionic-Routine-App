@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center" color="medium">
+    <ion-text>
+      <ion-icon name="person-outline"></ion-icon>
+      Authentication
+    </ion-text>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="updateDbAccount()"
+        [disabled]="!(authValue?.name && authValue?.password)">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-slide>
+      <h1>
+        <ion-icon name="person-outline"></ion-icon>
+      </h1>
+    </ion-slide>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Name
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        class="ion-text-end"
+        type="text"
+        required
+        [(ngModel)]="authValue.name">
+      </ion-input>
+    </ion-item>
+  </ion-card>
+
+  <ion-card>
+    <ion-item>
+      <ion-label>
+        Password
+      </ion-label>
+      <ion-icon
+        [name]="showPassword ? 'eye-off' : 'eye'"
+        (click)="showHide()">
+      </ion-icon>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        class="ion-text-end"
+        [type]="showPassword ? 'text' : 'password'"
+        required
+        [(ngModel)]="authValue.password">
+      </ion-input>
+    </ion-item>
+  </ion-card>
+</ion-content>

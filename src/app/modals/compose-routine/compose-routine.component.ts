@@ -35,31 +35,27 @@ export class ComposeRoutineComponent {
   }
 
   async saveRoutine() {
-    let saveModel:SaveModel = {
+    let saveModel: SaveModel = {
       storageData: this.storageData,
       data: this.data,
       existedData: this.existedRoutine,
       routine: this.routine,
     }
     this.storageData = await this.storageService.saveData(saveModel);
-    // this.addDBdata(this.storageData);
     this.notiService.set(this.storageData);
 
+    // 아직 미완성
     let dbId:string;
     await this.storageService.getDBId(dbId)
       .then(result => {
         console.log('result b', result)
         if(result) {
-          console.log('result', result)
-          this.dbService.updatePost(result as string, this.storageData);
+          // console.log('result', result)
+          // this.dbService.updatePost(result as string, this.storageData);
         }
       });
     this.dismissModal();
   }
-
-  // addDBdata(data) {
-  //   this.dbService.addPost(data)
-  // }
 
   dismissModal() {
     this.modalCtrl.dismiss();

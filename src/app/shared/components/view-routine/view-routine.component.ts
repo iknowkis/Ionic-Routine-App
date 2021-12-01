@@ -1,17 +1,20 @@
-import { Component, getDebugNode, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { MainMyRoutinePage } from 'src/app/pages/my-routine/main-my-routine/main-my-routine.page';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
+import { MainMyRoutinePage } from '../../../pages/my-routine/main-my-routine/main-my-routine.page';
+import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
+import { getDayname, getTimerOn } from '../../util/data.util';
 import { RoutineModel } from '../../models/item.model';
+
+
+import { AuthService } from '../../services/auth/auth.service';
+import { ThemeService } from '../../services/theme/theme.service';
 import { AlertService } from '../../services/alert/alert.service';
 import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { ThemeService } from '../../services/theme/theme.service';
-import { getDayname, getTimerOn } from '../../util/data.util';
-import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
-
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-view-routine',
@@ -30,15 +33,21 @@ export class ViewRoutineComponent {
     private navBar: MainNavbarComponent,
     private mainPage: MainMyRoutinePage,
 
+    private auth: AuthService,
     private theme: ThemeService,
     private alrtService: AlertService,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
   ) {
     this.theme.initTheme();
+    this.auth.initAuth();
   }
   
-  async openComposeRoutineModal(data) {
+  openNewComposeRoutineModal() {
+    this.mainPage.openComposeRoutineModal();
+  }
+
+  async openComposeRoutineModal(data: RoutineModel) {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
       componentProps: {
@@ -50,8 +59,7 @@ export class ViewRoutineComponent {
     });
     modal.onDidDismiss().then(() => {
       this.getStorageData();
-    
-      this.notiService.getPending();
+      // this.notiService.getPending();
     });
     return modal.present();
   }

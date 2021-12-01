@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 // import * as firebase from 'firebase/compat';
-import { Posts } from '../../models/db.model';
+import { Account, Post } from '../../models/db.model';
 import { v4 as uuidv4 } from 'uuid';
+import { RoutineModel } from '../../models/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,24 @@ export class DbcrudService {
   dbPosts = this.firestore.collection<any>('posts', (ref) => ref);
   dbAccounts = this.firestore.collection<any>('accounts', (ref) => ref);
 
-  // this.firestore.collection<any>('posts').doc('posts').collection('Mycomment')
-
-  getBoard() {
-    return this.dbBoard.snapshotChanges();
-  }
   getAccounts() {
     return this.dbAccounts.snapshotChanges();
+  }
+  getSelectedAccount(id: string){
+    return this.dbAccounts.doc(id).valueChanges();
+  }
+  addAccount(account: Account){
+    this.dbAccounts.add({
+      name: account.name,
+      password: account.password,
+    });
+  }
+  updateAccount(id: string, account: Account){
+    this.dbAccounts.doc(id).update({...{
+      name: account.name,
+      password: account.password,
+    },
+    });
   }
 
   getPosts() {
@@ -36,19 +48,18 @@ export class DbcrudService {
   getSelectedPost(id: string){
     return this.dbPosts.doc(id).valueChanges();
   }
-
-  addPost(title: string, content: string, data: any){
+  addPost(title: string, content: string, data: RoutineModel, account_id: string){
     this.dbPosts.add({
-      // post_id: uuidv4(),
       post_title: title,
       post_content: content,
-      number_archived: 0,
+      writer_id: account_id,
       number_liked: 0,
+      number_archived: 0,
       data: data,
-      // date: firebase.default.firestore.FieldValue.serverTimestamp()
+      //numOfPost
     });
   }
-  updatePost(id: string, post: any){
+  updatePost(id: string, post: Post){
     this.dbPosts.doc(id).update({...post,
       // date: firebase.default.firestore.FieldValue.serverTimestamp()
     });
@@ -59,11 +70,15 @@ export class DbcrudService {
   deletePost(id: string){
     this.dbPosts.doc(id).delete();
   }
-
+  getBoard() {
+    return this.dbBoard.snapshotChanges();
+  }
   /**
    * 아이디를 어떻게 불러올 것인지?
    * local Storage Id랑 비교? 
    */
+ // this.firestore.collection<any>('posts').doc('posts').collection('Mycomment')
+
 
 }
 

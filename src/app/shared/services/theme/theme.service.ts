@@ -32,7 +32,9 @@ export class ThemeService {
   }
 
   async initTheme() {
-    this.activeTheme(await this.getThemeValue());
+    let themeValue = await this.getThemeValue();
+    if(themeValue==null) this.dynamicTheme('light');
+    else this.activeTheme(themeValue);
   }
 
   async getThemeValue() {
