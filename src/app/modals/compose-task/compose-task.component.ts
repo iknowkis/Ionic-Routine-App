@@ -47,7 +47,7 @@ export class ComposeTaskComponent {
   }
   
   async saveTask() {
-    let saveModel:SaveModel = {
+    let saveModel: SaveModel = {
       storageData: this.storageData,
       data: this.selectedData,
       existedData: this.existedTask,

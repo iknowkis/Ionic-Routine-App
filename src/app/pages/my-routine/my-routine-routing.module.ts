@@ -15,10 +15,6 @@ const routes: Routes = [
     path: 'detail-routine',
     loadChildren: () => import('./detail-routine/detail-routine.module').then( m => m.DetailRoutinePageModule)
   },
-  {
-    path: 'detail-task',
-    loadChildren: () => import('./detail-task/detail-task.module').then( m => m.DetailTaskPageModule)
-  },
 ];
 
 @NgModule({

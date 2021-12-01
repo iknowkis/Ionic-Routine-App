@@ -19,7 +19,7 @@
         *ngIf="selected_post?.data?.routine != undefined"
         (click)="importIntoMyRoutine()">
         <ion-icon
-          name="archive">
+          name="archive-outline">
       </ion-icon>
       </ion-button>
     </ion-buttons>
@@ -30,12 +30,11 @@
   <ion-card>
     <ion-item color="warning">
       <ion-label class="ion-text-center">
-        <b>
-          {{ selected_post?.post_title }}
-        </b>
+        {{ selected_post?.post_title }}
       </ion-label>
     </ion-item>
   </ion-card>
+
   <ion-card class="dataInfo">
     <ion-item>
       <ion-grid class="ion-text-center">
@@ -48,11 +47,11 @@
         </ion-col>
         <ion-col *ngIf="selected_post?.data?.routine != undefined">
           <ion-icon
-            name="archive">
+            name="archive-outline">
           </ion-icon>
           {{ selected_post?.number_archived }}
         </ion-col>
-          <ion-grid *ngIf="selected_post?.data?.routine != undefined">
+        <ion-grid *ngIf="selected_post?.data?.routine != undefined">
           <ion-col>
             <ion-icon
               name="pie-chart-outline">
@@ -66,6 +65,9 @@
             {{ getRoutineDuration(selected_post?.data) }}
           </ion-col>
         </ion-grid>
+        <ion-col>
+          By {{ writer_name }}
+        </ion-col>
       </ion-grid>
     </ion-item>
     <ion-item>

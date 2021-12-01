@@ -1,24 +1,4 @@
 <div style="font-size: 10px;">
-  <!-- <ion-card *ngFor="let list of peopleRoutineList">
-    <ion-item color="medium">
-      {{list}}
-      <ion-icon slot="end" name="add">
-      </ion-icon>
-    </ion-item>
-  </ion-card> -->
-
-  <!-- <ion-card *ngFor="let data of dbBoard">
-    <ion-item color="medium">
-      Id : {{ data.id | json }}
-    </ion-item>
-    <ion-item>
-      Name : {{ data.name | json }}
-    </ion-item>
-    <ion-item>
-      Data : {{ data.data | json }}
-    </ion-item>
-  </ion-card> -->
-  
   <ion-card *ngFor="let post of dbPosts">
     <ion-item color="medium">
       {{ post?.post_title }}
@@ -54,7 +34,7 @@
       </div>
       <div slot="start" *ngIf="post.data?.routine != undefined">
         <ion-icon
-          name='archive'>
+          name='archive-outline'>
         </ion-icon>
           {{ post?.number_archived }}
       </div>

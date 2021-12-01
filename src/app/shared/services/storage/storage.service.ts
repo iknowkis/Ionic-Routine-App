@@ -82,6 +82,7 @@ export class StorageService {
     return storageData;
   }
 
+  // 아직 미완성
   async getDBId(datatest:string) {
     datatest = await this.getValue('dbid');
     if(datatest == null) {

@@ -17,8 +17,7 @@ export class MainNavbarComponent {
     private storageService: StorageService,
     ) {
       this.storageService.create();
-      this.getStorageData().then(()=>
-        this.getRoutineLength());
+      this.getStorageData().then(()=> this.getRoutineLength());
     }
 
   async getStorageData() {

@@ -1,10 +1,12 @@
 import { Component, Output } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-navbar.component';
-import { AlertService } from 'src/app/shared/services/alert/alert.service';
+import { MainNavbarComponent } from '../../../shared/components/main-navbar/main-navbar.component';
 import { ComposeRoutineComponent } from '../../../modals/compose-routine/compose-routine.component';
 import { RoutineModel } from '../../../shared/models/item.model';
+
 import { StorageService } from '../../../shared/services/storage/storage.service';
+import { AlertService } from '../../../shared/services/alert/alert.service';
+
 
 @Component({
   selector: 'app-main-my-routine',
@@ -17,11 +19,13 @@ export class MainMyRoutinePage {
   sortToggle = false;
 
   constructor(
-    private alrtService: AlertService,
     private modalCtrl: ModalController,
     private navBar: MainNavbarComponent,
+
+    private alrtService: AlertService,
     private storageService: StorageService,
-  ) { }
+  ) {
+  }
   
   async openComposeRoutineModal() {
     const modal = await this.modalCtrl.create({

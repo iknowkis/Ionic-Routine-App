@@ -7,16 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { SettingsPageRoutingModule } from './settings-routing.module';
 
 import { SettingsPage } from './settings.page';
+import { AuthComponent } from '../../modals/auth/auth.component';
 
 @NgModule({
+  declarations: [
+    SettingsPage,
+    AuthComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     SettingsPageRoutingModule
   ],
-  declarations: [
-    SettingsPage,
-  ]
 })
 export class SettingsPageModule {}
