@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -13,7 +12,6 @@ import { RoutineModel } from '../../models/item.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { ThemeService } from '../../services/theme/theme.service';
 import { AlertService } from '../../services/alert/alert.service';
-import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
 
 @Component({
@@ -28,7 +26,6 @@ export class ViewRoutineComponent {
   constructor(
     public firestore: AngularFirestore,
 
-    private router: Router,
     private modalCtrl: ModalController,
     private navBar: MainNavbarComponent,
     private mainPage: MainMyRoutinePage,
@@ -37,7 +34,6 @@ export class ViewRoutineComponent {
     private theme: ThemeService,
     private alrtService: AlertService,
     private storageService: StorageService,
-    private notiService: LocalNotificationService,
   ) {
     this.theme.initTheme();
     this.auth.initAuth();
@@ -81,11 +77,6 @@ export class ViewRoutineComponent {
     this.mainPage.getStorageData();
     detail.complete(true);
   }
-
-  // enterRoutine(data: RoutineModel) {
-  //     // this.router.navigate(['../detail-routine',
-  //     //   {title: data.routine.value.title, key: data.routine.key}]);
-  // }
 
   getTimerOn(data: RoutineModel) {
     return getTimerOn(data);

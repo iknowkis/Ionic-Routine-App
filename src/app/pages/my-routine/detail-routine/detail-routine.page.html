@@ -20,17 +20,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-item>
-      <ion-label class="ion-text-center">
-        {{ routineTitle }}
-      </ion-label>
-    </ion-item>
-  </ion-card>
-
   <app-view-task
+  [routineTitle]="_selectedData?.routine?.value?.title"
   [storageData]="_storageData"
-  [taskList]="_taskList"
-  [selectedData]="_selectedData">
+  [selectedData]="_selectedData"
+  [taskList]="_taskList">
   </app-view-task>
 </ion-content>

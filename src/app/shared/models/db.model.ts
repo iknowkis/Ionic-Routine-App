@@ -9,7 +9,7 @@ export class Post {
     writer_id: string;
     number_liked: number;
     number_archived: number;
-    data?: Array<string>;
+    data?: Array<string>; // RoutineModel
 }
 export class Account {
     // user_id!: string;

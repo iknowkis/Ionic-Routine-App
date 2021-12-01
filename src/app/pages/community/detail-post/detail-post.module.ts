@@ -8,6 +8,7 @@ import { DetailPostPageRoutingModule } from './detail-post-routing.module';
 
 import { DetailPostPage } from './detail-post.page';
 import { MainCommunityPageModule } from '../main-community/main-community.module';
+import { ViewTaskModule } from 'src/app/shared/components/view-task/view-task.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MainCommunityPageModule } from '../main-community/main-community.module
     FormsModule,
     IonicModule,
     DetailPostPageRoutingModule,
+    ViewTaskModule,
   ],
   declarations: [
     DetailPostPage,

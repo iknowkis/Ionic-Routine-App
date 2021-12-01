@@ -22,8 +22,6 @@ export class ComposeRoutineComponent {
     private modalCtrl: ModalController,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
-
-    private dbService: DbcrudService,
   ) {
     this.data = RoutineModel.initRoutineModel(this.data);
     this.routine = this.data.routine.value;
@@ -43,18 +41,6 @@ export class ComposeRoutineComponent {
     }
     this.storageData = await this.storageService.saveData(saveModel);
     this.notiService.set(this.storageData);
-
-    // 아직 미완성
-    let dbId:string;
-    await this.storageService.getDBId(dbId)
-      .then(result => {
-        console.log('result b', result)
-        if(result) {
-          // console.log('result', result)
-          // this.dbService.updatePost(result as string, this.storageData);
-        }
-      });
-    this.dismissModal();
   }
 
   dismissModal() {
