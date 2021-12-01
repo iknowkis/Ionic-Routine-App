@@ -16,7 +16,7 @@
         {{ post?.post_content }}
       </ion-text>
     </ion-item>
-    <ion-item *ngIf="post.data?.routine != undefined">
+    <ion-item *ngIf="post.data?.routine">
       <div style="font-size: 14px" slot="end">
         <ion-icon
           name='pie-chart-outline'>
@@ -32,13 +32,13 @@
         </ion-icon>
           {{ post?.number_liked }}
       </div>
-      <div slot="start" *ngIf="post.data?.routine != undefined">
+      <div slot="start" *ngIf="post.data?.routine">
         <ion-icon
           name='archive-outline'>
         </ion-icon>
           {{ post?.number_archived }}
       </div>
-      <div slot="end" *ngIf="post.data?.routine != undefined">
+      <div slot="end" *ngIf="post.data?.routine">
         <ion-icon
           name='alarm-outline'>
         </ion-icon>

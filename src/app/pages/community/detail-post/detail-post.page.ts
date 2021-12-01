@@ -74,7 +74,6 @@ export class DetailPostPage implements OnInit {
           take(1)
           ).subscribe(account => {
             this.writer_name = account.name;
-            console.log('1')
         });
     });
   }

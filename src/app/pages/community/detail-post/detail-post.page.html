@@ -16,7 +16,7 @@
       </ion-icon>
       </ion-button>
       <ion-button
-        *ngIf="selected_post?.data?.routine != undefined"
+        *ngIf="selected_post?.data?.routine"
         (click)="importIntoMyRoutine()">
         <ion-icon
           name="archive-outline">
@@ -45,13 +45,13 @@
           </ion-icon>
           {{ selected_post?.number_liked }}
         </ion-col>
-        <ion-col *ngIf="selected_post?.data?.routine != undefined">
+        <ion-col *ngIf="selected_post?.data?.routine">
           <ion-icon
             name="archive-outline">
           </ion-icon>
           {{ selected_post?.number_archived }}
         </ion-col>
-        <ion-grid *ngIf="selected_post?.data?.routine != undefined">
+        <ion-grid *ngIf="selected_post?.data?.routine">
           <ion-col>
             <ion-icon
               name="pie-chart-outline">
@@ -78,26 +78,9 @@
   </ion-card>
 
   <ion-item-divider></ion-item-divider>
-
-  <ion-card *ngIf="selected_post?.data?.routine != undefined">
-    <ion-item color="medium">
-      <ion-label class="ion-text-center">
-        {{ selected_post?.data?.routine?.value?.title }}
-      </ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item *ngFor="let task of taskList">
-      <div slot="start">
-        <ion-icon
-          name={{task.value.iconName}}
-          color={{task.value.iconColor}}>
-        </ion-icon>
-      </div>
-      {{task.value.title}}
-      <div slot="end">
-        {{task.value.duration}}m
-      </div>
-    </ion-item>
-  </ion-card>
+  
+  <app-view-task *ngIf="selected_post?.data?.routine"
+    [routineTitle]="selected_post?.data?.routine.value?.title"
+    [taskList]="taskList">
+  </app-view-task>
 </ion-content>

@@ -23,7 +23,6 @@ export class AuthService {
     if(authValue==null) {
       this.addDbAccount();
     }
-    // console.log('authValue', authValue);
   }
 
   addDbAccount() {
@@ -63,7 +62,7 @@ export class AuthService {
     return new Promise(resolve => {
       this.dbService.getAccounts().pipe(
          take(1)
-       ).subscribe((data:any) => {
+         ).subscribe((data:any) => {
           data.map(e=> {
             if(e.payload.doc.data().name == account.name) {
               dbAccount =  {

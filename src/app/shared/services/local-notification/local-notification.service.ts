@@ -20,7 +20,7 @@ export class LocalNotificationService {
     this.clear();
     storageData.map(data=> {
       let timerOn = Date.parse(data.routine.value.timerOn.toString())
-      if(data.task!=undefined) {
+      if(data.task) {
         data.task.map((task, i)=> {
 
           // Check weekdayList

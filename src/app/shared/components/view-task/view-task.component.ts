@@ -17,6 +17,7 @@ export class ViewTaskComponent {
   @Input() storageData: RoutineModel[];
   @Input() selectedData: RoutineModel;
   @Input() taskList: TaskType[];
+  @Input() routineTitle: string;
 
   constructor(
     private alrtService: AlertService,
@@ -45,8 +46,10 @@ export class ViewTaskComponent {
   }
   
   async onReorder({ detail }: any) {
-    await this.storageService.reorder(this.storageData, detail, this.taskList);
-    this.notiService.set(this.storageData);
+    if(this.storageData) {
+      await this.storageService.reorder(this.storageData, detail, this.taskList);
+      this.notiService.set(this.storageData);
+    }
     detail.complete(true);
   }
 

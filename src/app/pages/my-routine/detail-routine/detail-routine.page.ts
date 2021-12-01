@@ -18,8 +18,6 @@ export class DetailRoutinePage {
   @Output() _storageData: RoutineModel[];
   @Output() _selectedData: RoutineModel;
 
-  routineTitle: string;
-
   constructor(
     private route: ActivatedRoute,
     private storageService: StorageService,
@@ -51,7 +49,6 @@ export class DetailRoutinePage {
   // Received from main-my-routine.page
   async getRoutineKey() {
     let routine = this.route.snapshot.params;
-    this.routineTitle = await routine.title;
     this._routineKey = await routine.key;
     await this.getTaskList();
   }

@@ -82,25 +82,6 @@ export class StorageService {
     return storageData;
   }
 
-  // 아직 미완성
-  async getDBId(datatest:string) {
-    datatest = await this.getValue('dbid');
-    if(datatest == null) {
-      this.dbService.getBoard().subscribe(post =>{
-        post.map(async (e: any) => {
-          let data = e.payload.doc.data();
-          console.log('data', data.name)
-          if (data.name == 'Armton') datatest = await e.payload.doc.id;
-        });
-      });
-      return await new Promise(async result => {
-        console.log('re1', datatest)
-        result(datatest)
-      })
-      // setTimeout(() => console.log('b', datatest), 100);
-    }
-  }
-
   async reorder(storageData: RoutineModel[], detail: any, taskList?: TaskType[]) {
     let list: RoutineModel[] | TaskType[];
     let data: RoutineModel | TaskType;
