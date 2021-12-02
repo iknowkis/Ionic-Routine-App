@@ -1,13 +1,4 @@
-ion-item {
-    --min-height: none;
-    --border-style: none;
-    font-size: 14px;
-}
-
-// For truncate content
-.post_content {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+ion-menu {
+    --max-width: 80%;
+    --min-width: 80%;
 }

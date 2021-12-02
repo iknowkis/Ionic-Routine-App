@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { ComposePostComponent } from 'src/app/modals/compose-post/compose-post.component';
 
 @Component({
   selector: 'app-community',
@@ -9,19 +7,9 @@ import { ComposePostComponent } from 'src/app/modals/compose-post/compose-post.c
 })
 export class CommunityPage implements OnInit {
 
-  constructor(
-    private modalCtrl: ModalController,
-    ) { }
+  constructor() { }
 
   ngOnInit() {
   }
-  
-  async openComposePostModal() {
-    const modal = await this.modalCtrl.create({
-      component: ComposePostComponent,
-      // swipeToClose: true, // <-- Enable swipe to close only in iOS.
-      // presentingElement: await this.modalCtrl.getTop()
-    });
-    return modal.present();
-  }
+
 }

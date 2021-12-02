@@ -12,17 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'main-community',
-    loadChildren: () => import('./main-community/main-community.module').then( m => m.MainCommunityPageModule),
-    component: CommunityPage
-  },  {
+    loadChildren: () => import('./main-community/main-community.module').then( m => m.MainCommunityPageModule)
+  },
+  {
     path: 'detail-post',
     loadChildren: () => import('./detail-post/detail-post.module').then( m => m.DetailPostPageModule)
+  },  {
+    path: 'my-post',
+    loadChildren: () => import('./my-post/my-post.module').then( m => m.MyPostPageModule)
   },
 
-  // {
-  //   path: 'menu-community',
-  //   loadChildren: () => import('./menu-community/menu-community.module').then( m => m.MenuCommunityPageModule)
-  // },
 ];
 
 @NgModule({

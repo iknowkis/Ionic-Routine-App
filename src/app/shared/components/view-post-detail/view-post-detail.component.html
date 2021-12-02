@@ -1,0 +1,35 @@
+<ion-card>
+  <ion-item color="warning">
+    <ion-label class="ion-text-center">
+      {{ selected_post?.post_title }}
+    </ion-label>
+  </ion-item>
+</ion-card>
+
+<ion-card class="dataInfo">
+  <ion-item>
+    <ion-grid class="ion-text-center">
+      <ion-col>
+        <ion-icon
+          name="heart"
+          color="danger">
+        </ion-icon>
+        {{ selected_post?.number_liked }}
+      </ion-col>
+      <ion-col *ngIf="selected_post?.data?.routine">
+        <ion-icon
+          name="archive-outline">
+        </ion-icon>
+        {{ selected_post?.number_archived }}
+      </ion-col>
+      <ion-col>
+        By {{ writer_name }}
+      </ion-col>
+    </ion-grid>
+  </ion-item>
+  <ion-item>
+    <ion-text class="ion-text-start">
+      {{ selected_post?.post_content }}
+    </ion-text>
+  </ion-item>
+</ion-card>

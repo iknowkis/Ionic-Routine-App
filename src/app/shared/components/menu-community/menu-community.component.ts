@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController } from '@ionic/angular';
-import { menuItemListModel } from '../../../shared/models/db.model';
+import { menuItemListModel } from '../../models/db.model';
 
 @Component({
   selector: 'app-menu-community',
-  templateUrl: './menu-community.page.html',
-  styleUrls: ['./menu-community.page.scss'],
+  templateUrl: './menu-community.component.html',
+  styleUrls: ['./menu-community.component.scss'],
 })
-export class MenuCommunityPage implements OnInit {
+export class MenuCommunityComponent implements OnInit {
 
   constructor(
     public menuCtrl: MenuController,
