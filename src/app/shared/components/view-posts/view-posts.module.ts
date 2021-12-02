@@ -1,21 +1,21 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewTaskComponent } from './view-task.component';
+import { ViewPostsComponent } from './view-posts.component';
 import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
   declarations: [
-    ViewTaskComponent,
+    ViewPostsComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
   ],
   exports: [
-    ViewTaskComponent
+    ViewPostsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
-export class ViewTaskModule { }
+export class ViewPostsModule { }

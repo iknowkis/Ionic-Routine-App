@@ -6,6 +6,7 @@ import { RoutineModel, TaskType } from '../../models/item.model';
 import { AlertService } from '../../services/alert/alert.service';
 import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
 
 @Component({
   selector: 'app-view-task',
@@ -44,14 +45,6 @@ export class ViewTaskComponent {
     })
     return modal.present();
   }
-  
-  async onReorder({ detail }: any) {
-    if(this.storageData) {
-      await this.storageService.reorder(this.storageData, detail, this.taskList);
-      this.notiService.set(this.storageData);
-    }
-    detail.complete(true);
-  }
 
   async getTaskList() {
     this.storageData = (await this.storageService.initStorageData())
@@ -63,7 +56,24 @@ export class ViewTaskComponent {
     });
   }
 
+  async onReorder({ detail }: any) {
+    if(this.storageData) {
+      await this.storageService.reorder(this.storageData, detail, this.taskList);
+      this.notiService.set(this.storageData);
+    }
+    detail.complete(true);
+  }
   deleteTask(task) {
     this.alrtService.deleteAlert(this.storageData, this.selectedData, task);
+  }
+
+  getTimerOn(data: RoutineModel) {
+    return getTimerOn(data);
+  }
+  getTimerOff(data: RoutineModel) {
+    return getTimerOff(data);
+  }
+  getRoutineDuration(data: RoutineModel) {
+    return getRoutineDuration_util(data);
   }
 }

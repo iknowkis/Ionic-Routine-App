@@ -12,10 +12,8 @@ export class Post {
     data?: Array<string>; // RoutineModel
 }
 export class Account {
-    // user_id!: string;
-    // user_name!: string;
     // liked_post_id_list : Array<string>;
-    // post_id_list!: Array<string>;
+    // followed_id_list: Array<string>;
     id?: string;
     name!: string;
     password!: string;
@@ -27,4 +25,5 @@ export class menuItemListModel {
     icon_name!: string;
     label_color!: string;
     label_text!: string;
+    link?: string;
 }

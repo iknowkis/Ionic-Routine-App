@@ -4,20 +4,48 @@
       {{ routineTitle }}
     </ion-label>
   </ion-item>
+  
+  <ion-grid class="ion-text-center" *ngIf="selectedData">
+    <ion-grid style="color:black">
+      <ion-col>
+        <ion-icon
+          name="pie-chart-outline">
+        </ion-icon>
+        {{ getTimerOn(selectedData) }} - {{ getTimerOff(selectedData) }}
+      </ion-col>
+      <ion-col>
+        <ion-icon
+          name="alarm-outline">
+        </ion-icon>
+        {{ getRoutineDuration(selectedData) }}
+      </ion-col>
+    </ion-grid>
+  </ion-grid>
 </ion-card>
   
 <ion-reorder-group (ionItemReorder)="onReorder($event)" [disabled]="false">
   <ion-card *ngFor="let task of taskList">
     <ion-item-sliding>
       <ion-item>
-        <ion-reorder slot="start">
+        <!-- In MyRoutine -->
+        <ion-reorder slot="start" *ngIf="storageData">
           <ion-icon
             name={{task.value.iconName}}
             color={{task.value.iconColor}}>
           </ion-icon>
         </ion-reorder>
-        {{task.value.title}}
-        <div slot="end">
+        <!-- In post from community -->
+        <div class="icon-margin-right" *ngIf="!storageData">
+          <ion-icon
+            name={{task.value.iconName}}
+            color={{task.value.iconColor}}>
+          </ion-icon>
+        </div>
+
+        <ion-text class="taskText">
+          {{task.value.title}}
+        </ion-text>
+        <div slot="end" class="taskText">
           {{task.value.duration}}m
         </div>
       </ion-item>

@@ -1,9 +1,10 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
     <ion-buttons slot="start">
-      <ion-button>
+      <ion-button
+        (click)="deactivateAll()">
         <ion-icon
-          name="cube">
+          name="{{isDeactivated ? 'body-outline' : 'man-outline'}}">
         </ion-icon>
       </ion-button>
     </ion-buttons>

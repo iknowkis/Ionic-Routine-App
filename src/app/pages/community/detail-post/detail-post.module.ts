@@ -7,19 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { DetailPostPageRoutingModule } from './detail-post-routing.module';
 
 import { DetailPostPage } from './detail-post.page';
-import { MainCommunityPageModule } from '../main-community/main-community.module';
 import { ViewTaskModule } from 'src/app/shared/components/view-task/view-task.module';
+import { ViewPostDetailModule } from 'src/app/shared/components/view-post-detail/view-post-detail.module';
 
 @NgModule({
+  declarations: [
+    DetailPostPage,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     DetailPostPageRoutingModule,
     ViewTaskModule,
-  ],
-  declarations: [
-    DetailPostPage,
+    ViewPostDetailModule,
   ]
 })
 export class DetailPostPageModule {}

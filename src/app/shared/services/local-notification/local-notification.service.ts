@@ -43,10 +43,9 @@ export class LocalNotificationService {
 
           // Add duration of task After set task
           timerOn += task.value.duration * 1000 * 60;
-        })
+        });
       }
-    })
-    console.log(array);
+    });
     LocalNotifications.schedule(array);
   }
 
@@ -55,13 +54,11 @@ export class LocalNotificationService {
       let notiTIme = new Date(timerOn);
       let id = changeStringToNumber(task.key) + weekday;
       let finishId = changeStringToNumber(data.routine.key) + weekday;
-
-      console.log('id', id);
-      console.log('finishId', finishId);
+      let sound = data.routine.value.soundValue;
+      let vibrate = data.routine.value.viberationValue;
 
       const notification: ILocalNotification = {
         id: isFinish ? finishId : id,
-        // id: getRandomNumber(),
         title: data.routine.value.title + (isFinish ? ' is finished' : ''),
         text: task.value.title + (isFinish ? ' is finished' : ''),
         trigger: {
@@ -71,7 +68,8 @@ export class LocalNotificationService {
             minute: notiTIme.getMinutes(),
           },
         },
-        sound: "beep.wav"
+        sound: sound == 'default' ? null : sound,
+        vibrate: vibrate == 'true' ? true : false,
       }
       return notification
   }

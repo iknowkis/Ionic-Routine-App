@@ -1,0 +1,50 @@
+<div style="font-size: 10px;" *ngIf="dbPosts">
+  <ion-card *ngFor="let post of dbPosts">
+    <ion-item color="medium">
+      {{ post.post_title }}
+      <ion-icon
+        size="small"
+        slot="end"
+        name="chevron-forward-outline"
+        [routerLink]="['../detail-post',
+        {post_id: post.post_id}]">
+      </ion-icon>
+    </ion-item>
+
+    <ion-item>
+      <ion-text class="post_content">
+        {{ post?.post_content }}
+      </ion-text>
+    </ion-item>
+    <ion-item style="font-size: 12px"
+      *ngIf="post.data.routine">
+      <div slot="end">
+        <ion-icon
+          name='pie-chart-outline'>
+        </ion-icon>
+        {{ getTimerOn(post.data) }}
+      </div>
+    </ion-item>
+    <ion-item style="font-size: 12px">
+      <div slot="start">
+        <ion-icon
+          name='heart'
+          color='danger'>
+        </ion-icon>
+          {{ post.number_liked }}
+      </div>
+      <div slot="start" *ngIf="post.data.routine">
+        <ion-icon
+          name='archive-outline'>
+        </ion-icon>
+          {{ post.number_archived }}
+      </div>
+      <div slot="end" *ngIf="post.data.routine">
+        <ion-icon
+          name='alarm-outline'>
+        </ion-icon>
+        {{ getRoutineDuration(post.data) }}
+      </div>
+    </ion-item>
+  </ion-card>
+</div>

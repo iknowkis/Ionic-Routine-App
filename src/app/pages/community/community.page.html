@@ -1,37 +1,28 @@
-<ion-menu side="start" content-id="main-content">
-  <ion-header>
-    <ion-toolbar translucent>
-        <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <app-menu-community></app-menu-community>
-  </ion-content>
-</ion-menu>
-
-<div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar class="ion-text-center">
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-text><b>
-        <ion-icon name="chatbubbles-outline"></ion-icon>
-        Community
-      </b></ion-text>
-      <ion-buttons slot="end">
-        <ion-button
-        (click)="openComposePostModal()">
-          <ion-icon
-            name="add">
-          </ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <app-main-community></app-main-community>
-    <!-- <ion-router-outlet></ion-router-outlet> -->
-  </ion-content>
-</div>
+<ion-split-pane contentId="main-content">
+    <ion-menu side="start" contentId="main-content" type="overlay">
+        <ion-header>
+            <ion-toolbar translucent>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-col *ngFor="let item of menuItemList">
+                <ion-item
+                    color = {{item.item_color}}
+                    [routerLink]="[item.link]" routerDirection="root" 
+                    (click)="closeMenu()">
+                    <ion-icon
+                        color = {{item.icon_color}}
+                        name = {{item.icon_name}}
+                        slot="start">
+                    </ion-icon>
+                    <ion-label class="labelText" color = {{item.label_color}}>
+                        {{item.label_text}}
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-content>
+    </ion-menu>
+  
+<ion-router-outlet class="ion-page" id="main-content" main></ion-router-outlet>
+</ion-split-pane>

@@ -8,7 +8,6 @@ import { MainMyRoutinePageRoutingModule } from './main-my-routine-routing.module
 
 import { MainMyRoutinePage } from './main-my-routine.page';
 import { ViewRoutineComponent } from '../../../shared/components/view-routine/view-routine.component';
-import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-navbar.component';
 
 @NgModule({
   imports: [
@@ -20,9 +19,6 @@ import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-
   declarations: [
     MainMyRoutinePage,
     ViewRoutineComponent,
-  ],
-  providers: [
-    MainNavbarComponent
   ]
 })
 export class MainMyRoutinePageModule {}

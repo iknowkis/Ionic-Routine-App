@@ -17,6 +17,7 @@ export class MainMyRoutinePage {
 
   @Output() _storageData: RoutineModel[];
   sortToggle = false;
+  isDeactivated = false;
 
   constructor(
     private modalCtrl: ModalController,
@@ -27,6 +28,11 @@ export class MainMyRoutinePage {
   ) {
   }
   
+  ionViewWillEnter() {
+    this.getStorageData();
+    this.CheckIsDeactivated();
+  }
+
   async openComposeRoutineModal() {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
@@ -40,13 +46,21 @@ export class MainMyRoutinePage {
     return modal.present();
   }
 
-  ionViewWillEnter() {
-    this.getStorageData();
-  }
-
   async getStorageData() {
     this._storageData = await this.storageService.initStorageData();
     this.sortToggle = (await this.storageService.getValue('customSort')) != null ? true : false;
+  }
+
+  deactivateAll() {
+    this._storageData.map(data=>
+      data.routine.value.statusValue.value = this.isDeactivated);
+    this.storageService.set('data', this._storageData);
+    this.isDeactivated = !this.isDeactivated;
+    this.storageService.set('isDeactivated', {value: this.isDeactivated});
+  }
+
+  async CheckIsDeactivated() {
+    this.isDeactivated = (await this.storageService.getValue('isDeactivated')).value;
   }
 
   sortByTime() {
@@ -55,6 +69,6 @@ export class MainMyRoutinePage {
         this.sortToggle = !this.sortToggle;
         await this.getStorageData();
       }
-    })
+    });
   }
 }

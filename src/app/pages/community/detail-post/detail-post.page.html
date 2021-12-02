@@ -5,82 +5,37 @@
       Detail Post
     </b></ion-text>
     <ion-buttons slot="start">
-      <ion-back-button>
-      </ion-back-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="likePost()">
         <ion-icon
           name="heart"
           color="danger">
-      </ion-icon>
+        </ion-icon>
       </ion-button>
       <ion-button
         *ngIf="selected_post?.data?.routine"
         (click)="importIntoMyRoutine()">
         <ion-icon
           name="archive-outline">
-      </ion-icon>
+        </ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-item color="warning">
-      <ion-label class="ion-text-center">
-        {{ selected_post?.post_title }}
-      </ion-label>
-    </ion-item>
-  </ion-card>
-
-  <ion-card class="dataInfo">
-    <ion-item>
-      <ion-grid class="ion-text-center">
-        <ion-col>
-          <ion-icon
-            name="heart"
-            color="danger">
-          </ion-icon>
-          {{ selected_post?.number_liked }}
-        </ion-col>
-        <ion-col *ngIf="selected_post?.data?.routine">
-          <ion-icon
-            name="archive-outline">
-          </ion-icon>
-          {{ selected_post?.number_archived }}
-        </ion-col>
-        <ion-grid *ngIf="selected_post?.data?.routine">
-          <ion-col>
-            <ion-icon
-              name="pie-chart-outline">
-            </ion-icon>
-            {{ getTimerOn(selected_post?.data) }}
-          </ion-col>
-          <ion-col>
-            <ion-icon
-              name="alarm-outline">
-            </ion-icon>
-            {{ getRoutineDuration(selected_post?.data) }}
-          </ion-col>
-        </ion-grid>
-        <ion-col>
-          By {{ writer_name }}
-        </ion-col>
-      </ion-grid>
-    </ion-item>
-    <ion-item>
-      <ion-text class="ion-text-start">
-        {{ selected_post?.post_content }}
-      </ion-text>
-    </ion-item>
-  </ion-card>
+  <app-view-post-detail
+    [selected_post]="selected_post"
+    [writer_name]="writer_name">
+  </app-view-post-detail>
 
   <ion-item-divider></ion-item-divider>
   
   <app-view-task *ngIf="selected_post?.data?.routine"
     [routineTitle]="selected_post?.data?.routine.value?.title"
+    [selectedData]="selected_post?.data"
     [taskList]="taskList">
   </app-view-task>
 </ion-content>

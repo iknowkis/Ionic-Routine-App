@@ -1,24 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { RoutineModel } from 'src/app/shared/models/item.model';
-import { getRoutineDuration_util, getTimerOn } from 'src/app/shared/util/data.util';
-import { Post } from '../../../shared/models/db.model';
-import { DbcrudService } from '../../../shared/services/dbcrud/dbcrud.service';
+import { Component, OnInit, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { ComposePostComponent } from 'src/app/modals/compose-post/compose-post.component';
+import { MainNavbarComponent } from 'src/app/shared/components/main-navbar/main-navbar.component';
+import { Post } from 'src/app/shared/models/db.model';
+import { DbcrudService } from 'src/app/shared/services/dbcrud/dbcrud.service';
+
 
 @Component({
   selector: 'app-main-community',
   templateUrl: './main-community.page.html',
   styleUrls: ['./main-community.page.scss'],
 })
-export class MainCommunityPage implements OnInit {
-  
-  dbPosts: any;
+export class MainCommunityPage {
+
+  @Output() dbPosts: any;
 
   constructor(
+    private modalCtrl: ModalController,
+    private navBar: MainNavbarComponent,
+
     private dbService: DbcrudService,
     ) {
       this.getDbPosts();
     }
-  ngOnInit() {
+
+  async openComposePostModal() {
+    const modal = await this.modalCtrl.create({
+      component: ComposePostComponent,
+      // swipeToClose: true, // <-- Enable swipe to close only in iOS.
+      // presentingElement: await this.modalCtrl.getTop()
+    });
+    modal.onDidDismiss().then(() => {
+        this.navBar.getCommunityPostsLength();
+    });
+    return modal.present();
   }
 
   getDbPosts() { 
@@ -30,12 +45,5 @@ export class MainCommunityPage implements OnInit {
           } as Post;
       });
     });
-  }
-
-  getTimerOn(data: RoutineModel) {
-    return getTimerOn(data);
-  }
-  getRoutineDuration(data: RoutineModel) {
-    return getRoutineDuration_util(data);
   }
 }
