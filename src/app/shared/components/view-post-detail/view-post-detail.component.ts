@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-view-post-detail',
@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPostDetailComponent implements OnInit {
 
-  selected_post: any;
-  writer_name: any;
+  @Input() selected_post: any;
+  @Input() writer_name: any;
 
   constructor() { }
 

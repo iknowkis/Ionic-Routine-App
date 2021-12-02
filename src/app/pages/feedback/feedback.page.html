@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
     <ion-title>
-      <ion-icon name="calendar-outline"></ion-icon>
+      <ion-icon name="reader-outline"></ion-icon>
       feedback
     </ion-title>
   </ion-toolbar>
@@ -9,20 +9,11 @@
 
 <ion-content>
   <ion-card>
-    <ion-item color="primary">
-      Memo will be placed here
-      <br/>
-      <br/>
-    </ion-item>
-  </ion-card>
-  <ion-card>
-    <ion-item color="tertiary">
-      <br/>
-      <br/>
-      Calendar will be placed here
-      <br/>
-      <br/>
-      <br/>
+    <ion-item>
+      <ion-textarea
+        autoGrow="true" rows="16"
+        [ngModel]="memo" (ngModelChange)="onChange($event)">
+      </ion-textarea>
     </ion-item>
   </ion-card>
 </ion-content>

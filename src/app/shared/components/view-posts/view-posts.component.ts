@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { RoutineModel } from 'src/app/shared/models/item.model';
-import { getRoutineDuration_util, getTimerOn } from 'src/app/shared/util/data.util';
-import { Post } from '../../models/db.model';
-import { DbcrudService } from '../../services/dbcrud/dbcrud.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { RoutineModel } from '../../models/item.model';
+import { getRoutineDuration_util, getTimerOn } from '../../util/data.util';
+
 
 @Component({
   selector: 'app-view-posts',
@@ -11,25 +10,12 @@ import { DbcrudService } from '../../services/dbcrud/dbcrud.service';
 })
 export class ViewPostsComponent implements OnInit {
 
-  dbPosts: any;
+  @Input() dbPosts: any;
 
   constructor(
-    private dbService: DbcrudService,
     ) {
-      this.getDbPosts();
     }
   ngOnInit() {
-  }
-
-  getDbPosts() { 
-    this.dbService.getPosts().subscribe(post => {
-      this.dbPosts = post.map((e: any) => {
-          return {
-            post_id: e.payload.doc.id,
-            ...e.payload.doc.data(),
-          } as Post;
-      });
-    });
   }
 
   getTimerOn(data: RoutineModel) {

@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ViewPostsComponent } from './view-posts.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -9,7 +10,12 @@ import { ViewPostsComponent } from './view-posts.component';
     ViewPostsComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    RouterModule,
+  ],
+  exports: [
+    ViewPostsComponent
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ViewPostsModule { }

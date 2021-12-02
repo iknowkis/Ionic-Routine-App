@@ -4,6 +4,7 @@
       <ion-item>
         <ion-reorder slot="start">
           <ion-icon
+            *ngIf="data.routine.value.statusValue.value"
             name="alarm-outline"
             color="primary">
           </ion-icon>

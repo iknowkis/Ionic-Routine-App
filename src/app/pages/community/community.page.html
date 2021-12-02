@@ -1,1 +1,28 @@
-<ion-router-outlet></ion-router-outlet>
+<ion-split-pane contentId="main-content">
+    <ion-menu side="start" contentId="main-content" type="overlay">
+        <ion-header>
+            <ion-toolbar translucent>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-col *ngFor="let item of menuItemList">
+                <ion-item
+                    color = {{item.item_color}}
+                    [routerLink]="[item.link]" routerDirection="root" 
+                    (click)="closeMenu()">
+                    <ion-icon
+                        color = {{item.icon_color}}
+                        name = {{item.icon_name}}
+                        slot="start">
+                    </ion-icon>
+                    <ion-label class="labelText" color = {{item.label_color}}>
+                        {{item.label_text}}
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+        </ion-content>
+    </ion-menu>
+  
+<ion-router-outlet class="ion-page" id="main-content" main></ion-router-outlet>
+</ion-split-pane>

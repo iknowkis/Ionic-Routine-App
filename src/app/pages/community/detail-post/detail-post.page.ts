@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../../shared/models/db.model';
 import { RoutineModel, SaveModel, TaskType } from '../../../shared/models/item.model';
@@ -20,8 +20,8 @@ import { take } from 'rxjs/operators';
 export class DetailPostPage implements OnInit {
 
   selected_post_id: string;
-  selected_post: any;
-  writer_name: string;
+  @Output() selected_post: any;
+  @Output() writer_name: string;
   taskList: TaskType[];
 
   constructor(

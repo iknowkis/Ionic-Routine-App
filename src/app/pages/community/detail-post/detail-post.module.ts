@@ -8,6 +8,7 @@ import { DetailPostPageRoutingModule } from './detail-post-routing.module';
 
 import { DetailPostPage } from './detail-post.page';
 import { ViewTaskModule } from 'src/app/shared/components/view-task/view-task.module';
+import { ViewPostDetailModule } from 'src/app/shared/components/view-post-detail/view-post-detail.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ViewTaskModule } from 'src/app/shared/components/view-task/view-task.mo
     IonicModule,
     DetailPostPageRoutingModule,
     ViewTaskModule,
+    ViewPostDetailModule,
   ]
 })
 export class DetailPostPageModule {}
