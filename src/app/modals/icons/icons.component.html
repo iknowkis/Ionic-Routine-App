@@ -23,30 +23,13 @@
 <ion-content text-center class="icons-basic-page">
   <ion-card>
     <ion-row>
-      <ion-col><ion-icon (click)="submit($event)" name="happy-outline" color="tertiary"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="rocket-outline" color="danger"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="thumbs-up-outline" color="warning"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="logo-whatsapp" color="primary"></ion-icon></ion-col>
-
-      <ion-col><ion-icon (click)="submit($event)" name="barbell-outline" color="tertiary"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="business-outline" color="warning"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="heart" color="danger"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="cube-outline" color="primary"></ion-icon></ion-col>
-
-      <ion-col><ion-icon (click)="submit($event)" name="hand-right-outline" color="warning"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="airplane-outline" color="primary"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="hourglass-outline" color="tertiary"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="notifications-outline" color="danger"></ion-icon></ion-col>
-
-      <ion-col><ion-icon (click)="submit($event)" name="logo-youtube" color="danger"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="logo-snapchat" color="warning"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="accessibility-outline" color="primary"></ion-icon></ion-col>
-      <ion-col><ion-icon (click)="submit($event)" name="woman-outline" color="danger"></ion-icon></ion-col><ion-col><ion-icon (click)="submit($event)" name="woman-outline" color="danger"></ion-icon></ion-col>
-      
-      <!-- <ion-col><ion-text (click)="submit($event)">🚗</ion-text></ion-col>
-      <ion-col><ion-text (click)="submit($event)">🙏</ion-text></ion-col>
-      <ion-col><ion-text (click)="submit($event)">✌</ion-text></ion-col>
-      <ion-col><ion-text (click)="submit($event)">🙋‍♂️</ion-text></ion-col> -->
+      <ion-col *ngFor="let item of itemList">
+        <ion-icon
+          (click)="submit($event)"
+          name = {{item.name}}
+          color = {{item.color}}>
+        </ion-icon>
+      </ion-col>
     </ion-row>
   </ion-card>
 </ion-content>

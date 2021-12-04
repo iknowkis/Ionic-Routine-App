@@ -39,6 +39,7 @@
     <ion-item style="font-size: 12px; --border-style: none">
       <div slot="start">
         <ion-icon
+          *ngIf="data.routine.value.timerOn"
           name='pie-chart-outline'>
         </ion-icon>
         {{ getTimerOn(data) }}

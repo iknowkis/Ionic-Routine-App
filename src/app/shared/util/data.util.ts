@@ -25,12 +25,12 @@ export function getTimerOn(data?: RoutineModel) {
 }
 
 export function getTimerOff(data: RoutineModel) {
-    if(data===null) return;
     if(data.routine.value.timerOn===undefined) return;
+    if(data.task===undefined) return;
     let timerOn = Date.parse(data.routine.value.timerOn.toString());
     data.task.map(task=> timerOn += task.value.duration * 1000 * 60);
     let timerOff = new Date(timerOn);
-    return `${timerOff.getHours()}:${timerOff.getMinutes() < 10 ? '0'+timerOff.getMinutes() : timerOff.getMinutes()}`;
+    return ` - ${timerOff.getHours()}:${timerOff.getMinutes() < 10 ? '0'+timerOff.getMinutes() : timerOff.getMinutes()}`;
 }
 
 export function getTimerHours(data: RoutineModel): number {
@@ -61,9 +61,10 @@ export function changeStringToNumber(data: String) {
 }
 
 export function getRoutineDuration_util(data: RoutineModel) {
+    if(data.task===undefined) return '0m';
     let sum = 0;
     data.task.map(e=> sum += e.value.duration);
     let hours = sum >= 60 ? Math.floor(sum / 60) : 0;
     let minutes = sum % 60;
-    return `${hours}h ${minutes}m`;
+    return hours ? `${hours}h ${minutes}m` : `${minutes}m`;
 }

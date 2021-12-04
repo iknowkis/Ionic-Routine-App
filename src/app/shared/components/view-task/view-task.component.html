@@ -6,12 +6,12 @@
   </ion-item>
   
   <ion-grid class="ion-text-center" *ngIf="selectedData">
-    <ion-grid style="color:black">
-      <ion-col>
+    <ion-grid class="routineInfo">
+      <ion-col *ngIf="selectedData.routine.value.timerOn">
         <ion-icon
           name="pie-chart-outline">
         </ion-icon>
-        {{ getTimerOn(selectedData) }} - {{ getTimerOff(selectedData) }}
+        {{ getTimerOn(selectedData) }} {{ getTimerOff(selectedData) }}
       </ion-col>
       <ion-col>
         <ion-icon
@@ -19,6 +19,9 @@
         </ion-icon>
         {{ getRoutineDuration(selectedData) }}
       </ion-col>
+      <div style="font-size: 10px">
+        {{ getDayName(selectedData) }}
+      </div>
     </ion-grid>
   </ion-grid>
 </ion-card>

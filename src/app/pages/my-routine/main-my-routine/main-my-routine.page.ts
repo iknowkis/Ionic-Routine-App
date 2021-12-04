@@ -52,9 +52,12 @@ export class MainMyRoutinePage {
   }
 
   deactivateAll() {
-    this._storageData.map(data=>
-      data.routine.value.statusValue.value = this.isDeactivated);
-    this.storageService.set('data', this._storageData);
+    if(this._storageData) {
+      this._storageData.map(data=> {
+        data.routine.value.statusValue.value = this.isDeactivated
+      });
+      this.storageService.set('data', this._storageData);
+    }
     this.isDeactivated = !this.isDeactivated;
     this.storageService.set('isDeactivated', {value: this.isDeactivated});
   }

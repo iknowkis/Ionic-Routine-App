@@ -50,7 +50,7 @@ export class DetailRoutinePage {
   async getRoutineKey() {
     let routine = this.route.snapshot.params;
     this._routineKey = await routine.key;
-    await this.getTaskList();
+    this.getTaskList();
   }
 
   getTaskList() {

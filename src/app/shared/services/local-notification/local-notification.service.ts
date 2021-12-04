@@ -19,31 +19,33 @@ export class LocalNotificationService {
 
     this.clear();
     storageData.map(data=> {
-      let timerOn = Date.parse(data.routine.value.timerOn.toString())
-      if(data.task) {
-        data.task.map((task, i)=> {
+      if(data.routine.value.timerOn && data.routine.value.weekday) {
+        let timerOn = Date.parse(data.routine.value.timerOn.toString())
+        if(data.task) {
+          data.task.map((task, i)=> {
 
-          // Check weekdayList
-          data.routine.value.weekday.map(weekday=> {
+            // Check weekdayList
+            data.routine.value.weekday.map(weekday=> {
 
-            // Push into array, If statusValue is true
-            if(data.routine.value.statusValue.value) {
-              // Get time after previous task is finished
-              notification = this.notificationSetting(timerOn, data, task, +weekday);
-              array.push(notification);
-
-              // After pushing last task, push finishing notification
-              if(i==data.task.length-1) {
-                timerOn += task.value.duration * 1000 * 60;
-                notification = this.notificationSetting(timerOn, data, task, +weekday, true);
+              // Push into array, If statusValue is true
+              if(data.routine.value.statusValue.value) {
+                // Get time after previous task is finished
+                notification = this.notificationSetting(timerOn, data, task, +weekday);
                 array.push(notification);
-              }
-            }
-          })
 
-          // Add duration of task After set task
-          timerOn += task.value.duration * 1000 * 60;
-        });
+                // After pushing last task, push finishing notification
+                if(i==data.task.length-1) {
+                  timerOn += task.value.duration * 1000 * 60;
+                  notification = this.notificationSetting(timerOn, data, task, +weekday, true);
+                  array.push(notification);
+                }
+              }
+            })
+
+            // Add duration of task After set task
+            timerOn += task.value.duration * 1000 * 60;
+          });
+        }
       }
     });
     LocalNotifications.schedule(array);

@@ -4,14 +4,18 @@
 ### 2. Share your routine with others.
 ### 3. Import other's routine into your Routine list.
 
-| Main | Routine detail | Compose routine |
-| ------------- | ------------- |------------- |
-| ![capture_myroutine](https://user-images.githubusercontent.com/87289383/141162595-8c155453-045c-4218-a508-594347a3471d.JPG) | ![capture_myroutine_detail](https://user-images.githubusercontent.com/87289383/141162740-d22487e7-5af3-4a7a-9d91-9d47c9a41d13.JPG) | ![capture_compose_routine](https://user-images.githubusercontent.com/87289383/141163097-f5f6fcc4-56c6-4faa-87e7-169c76b06d5b.JPG) |
+| Main  /  Deactivate button On | Routine detail |
+| ------------- | ------------- |
+| ![capture_myroutine](https://user-images.githubusercontent.com/87289383/144713610-bfba0933-fec8-483e-99c4-10f66ae6b668.jpg) | ![capture_myroutine_detail](https://user-images.githubusercontent.com/87289383/144713618-61a90d5e-36b7-438c-b4be-c98df6d96a0b.jpg) |
+
+| Compose routine  /  Community post | Compose task |
+| ------------- | ------------- |
+| ![capture_compose_RoutineAndPost](https://user-images.githubusercontent.com/87289383/144713645-299a8c8e-66eb-47c6-8886-72e020edcd8f.jpg) | ![capture_compose_task](https://user-images.githubusercontent.com/87289383/144713664-8302faea-ae65-4e75-b647-a54a423a6171.jpg) |
 
 | Community | Post detail |
 | ------------- | ------------- |
-| ![capture_posts_theme](https://user-images.githubusercontent.com/87289383/141163378-66a96e89-3e93-4f9b-b313-6ebaae900ad3.JPG) | ![capture_post_detail_theme](https://user-images.githubusercontent.com/87289383/141163530-4d5a7ac6-c8fd-4fc1-907e-1cdaf0fedba9.JPG) |
+| ![capture_posts](https://user-images.githubusercontent.com/87289383/144713685-06329f08-7479-48d1-93b7-237dda89f3ee.jpg) | ![capture_post_detail_theme](https://user-images.githubusercontent.com/87289383/144713696-0f851a4d-1482-4f85-b169-3f738528fe07.jpg) |
 
-| Compose post | Community menu | (light theme, dark theme) |
-| ------------- | ------------- | ------------- |
-| ![capture_compose_post](https://user-images.githubusercontent.com/87289383/141163745-a9a15540-4ca4-4335-8aa1-5ede1f46d174.JPG) | ![capture_community_menu](https://user-images.githubusercontent.com/87289383/141163778-43e09f9f-c2c5-4245-b870-ee943c79b228.JPG) | ![capture_theme](https://user-images.githubusercontent.com/87289383/141163188-94e55579-41bc-46c3-b726-1f4d4cb9de9b.JPG) |
+| Compose menu  /  Feedback | Setting |
+| ------------- | ------------- |
+| ![capture_Community_menu_And_Feedback](https://user-images.githubusercontent.com/87289383/144713717-ea498d52-180b-483f-8499-d9d707d6435e.jpg) | ![capture_setting](https://user-images.githubusercontent.com/87289383/144713752-c60566d2-f583-4065-a456-50e01258f5ee.jpg) |
