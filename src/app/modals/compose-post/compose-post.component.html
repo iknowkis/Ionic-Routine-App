@@ -12,7 +12,8 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button
-        (click)="savePost()">
+        (click)="savePost()"
+        [disabled]="!(postTitle && postContent && selectedRoutine)">
         Save
       </ion-button>
     </ion-buttons>

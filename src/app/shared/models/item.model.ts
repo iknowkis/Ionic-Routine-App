@@ -42,6 +42,7 @@ export class RoutineModel {
             value: {
                 iconName: 'happy-outline',
                 iconColor: 'medium',
+                duration: 0,
             }
         }]
         

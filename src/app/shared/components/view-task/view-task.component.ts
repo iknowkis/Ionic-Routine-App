@@ -6,7 +6,7 @@ import { RoutineModel, TaskType } from '../../models/item.model';
 import { AlertService } from '../../services/alert/alert.service';
 import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
+import { getDayname, getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
 
 @Component({
   selector: 'app-view-task',
@@ -75,5 +75,8 @@ export class ViewTaskComponent {
   }
   getRoutineDuration(data: RoutineModel) {
     return getRoutineDuration_util(data);
+  }
+  getDayName(data: RoutineModel) {
+    return getDayname(data);
   }
 }

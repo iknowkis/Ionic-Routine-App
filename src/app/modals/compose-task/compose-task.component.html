@@ -75,5 +75,19 @@
         </ion-button>
       </ion-buttons>
     </ion-item>
+    <ion-item>
+      <ion-label>
+        Icon color
+      </ion-label>
+      <ion-select
+        interface="action-sheet"
+        [(ngModel)]="task.value.iconColor">
+        <ion-select-option value="tertiary"> Purple </ion-select-option>
+        <ion-select-option value="danger"> Red </ion-select-option>
+        <ion-select-option value="warning"> Yellow </ion-select-option>
+        <ion-select-option value="primary"> Blue </ion-select-option>
+        <ion-select-option value="medium"> Gray </ion-select-option>
+      </ion-select>
+    </ion-item>
   </ion-card>
 </ion-content>

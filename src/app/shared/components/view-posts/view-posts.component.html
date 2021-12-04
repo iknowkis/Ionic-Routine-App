@@ -18,7 +18,7 @@
     </ion-item>
     <ion-item style="font-size: 12px"
       *ngIf="post.data.routine">
-      <div slot="end">
+      <div slot="end" *ngIf="post.data.routine.value.timerOn">
         <ion-icon
           name='pie-chart-outline'>
         </ion-icon>
