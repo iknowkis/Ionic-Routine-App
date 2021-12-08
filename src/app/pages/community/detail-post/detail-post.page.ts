@@ -42,7 +42,7 @@ export class DetailPostPage implements OnInit {
     this.alrtService.importAlert().then(async result => {
       if (result) {
         this.selected_post.number_archived++;
-        this.dbService.updatePost(this.selected_post_id, this.selected_post);
+        this.dbService.updatePost_LikeOrImport(this.selected_post_id, this.selected_post);
         
         let saveModel: SaveModel = {
           data: this.selected_post.data,
@@ -58,7 +58,7 @@ export class DetailPostPage implements OnInit {
   }
   async likePost() {
     this.selected_post.number_liked++;
-    this.dbService.updatePost(this.selected_post_id, this.selected_post);
+    this.dbService.updatePost_LikeOrImport(this.selected_post_id, this.selected_post);
   }
 
   async getSelectedPostId() {

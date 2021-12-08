@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { RoutineModel, SaveModel, TaskType } from '../../models/item.model';
 import { deleteData } from '../../util/data.util';
+import { DbcrudService } from '../dbcrud/dbcrud.service';
 import { LocalNotificationService } from '../local-notification/local-notification.service';
 import { StorageService } from '../storage/storage.service';
 
@@ -11,6 +12,7 @@ import { StorageService } from '../storage/storage.service';
 export class AlertService {
 
   constructor(
+    private dbService: DbcrudService,
     private alrtCtrl: AlertController,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
@@ -41,7 +43,7 @@ export class AlertService {
     })
   }
 
-  async deleteAlert(storageData: RoutineModel[], data: RoutineModel, task?: TaskType): Promise<boolean> {
+  async deleteStorageDataAlert(storageData: RoutineModel[], data: RoutineModel, task?: TaskType): Promise<boolean> {
     let target = task ? 'task' : 'routine';
 
     return new Promise(async (resolve, reject) => {
@@ -52,7 +54,7 @@ export class AlertService {
           {
             text: 'Agree',
             handler: () => {
-              this.deleteRoutine(storageData, data, task);
+              this.deleteStorageData(storageData, data, task);
               resolve(true);
             },
           },
@@ -67,11 +69,39 @@ export class AlertService {
     })
   }
 
-  deleteRoutine(storageData: RoutineModel[], data: RoutineModel, task?: TaskType) {
+  deleteStorageData(storageData: RoutineModel[], data: RoutineModel, task?: TaskType) {
     // if (data.task != null) this.cancelNoti(data, task); ????
     deleteData(storageData, data, task);
     this.storageService.set('data', storageData);
     this.notiService.set(storageData);
+  }
+
+  async deletePostAlert(id: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      const alert = await this.alrtCtrl.create({
+        header: `Delete post`,
+        message: `Do you really want to delete this post?`,
+        buttons: [
+          {
+            text: 'Agree',
+            handler: () => {
+              this.delectePost(id);
+              resolve(true);
+            },
+          },
+          {
+            text: 'Disagree',
+            role: 'cancel',
+            handler: _ => resolve(false),
+          }
+        ]
+      });
+      await alert.present();
+    })
+  }
+  
+  delectePost(id: string) {
+    this.dbService.deletePost(id);
   }
 
   async importAlert(): Promise<boolean> {

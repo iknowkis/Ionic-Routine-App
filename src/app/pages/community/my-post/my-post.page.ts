@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/shared/services/storage/storage.service'
 export class MyPostPage {
 
   @Output() dbPosts: any;
+  editButton = '';
 
   constructor(
     private dbService: DbcrudService,
@@ -19,6 +20,10 @@ export class MyPostPage {
     ) {
       this.getDbPosts();
     }
+
+  showEditButtone() {
+    this.editButton = this.editButton == '' ? 'primary' : '';
+  }
 
   getDbPosts() {
     this.storageService.getValue('auth').then(storageData=> {

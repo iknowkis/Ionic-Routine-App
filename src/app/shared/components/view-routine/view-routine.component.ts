@@ -64,7 +64,7 @@ export class ViewRoutineComponent {
     this.storageData = await this.storageService.initStorageData();
   }
   deleteData(storageData: RoutineModel[], data: RoutineModel) {
-    this.alrtService.deleteAlert(storageData, data).then(result => {
+    this.alrtService.deleteStorageDataAlert(storageData, data).then(result => {
       if (result) this.navBar.getRoutineLength(storageData);
     })
   }

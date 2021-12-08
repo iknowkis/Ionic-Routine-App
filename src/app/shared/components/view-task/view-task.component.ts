@@ -64,7 +64,7 @@ export class ViewTaskComponent {
     detail.complete(true);
   }
   deleteTask(task) {
-    this.alrtService.deleteAlert(this.storageData, this.selectedData, task);
+    this.alrtService.deleteStorageDataAlert(this.storageData, this.selectedData, task);
   }
 
   getTimerOn(data: RoutineModel) {
