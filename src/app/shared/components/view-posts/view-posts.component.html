@@ -3,12 +3,27 @@
     <ion-item color="medium">
       {{ post.post_title }}
       <ion-icon
+        *ngIf="!editButton"
         size="small"
         slot="end"
         name="chevron-forward-outline"
         [routerLink]="['../detail-post',
         {post_id: post.post_id}]">
       </ion-icon>
+      <ion-buttons
+        style="padding: 5px 0"
+        *ngIf="editButton"
+        slot="end">
+        <ion-button
+          style="padding: 0 15px"
+          (click)="openComposePostModal(post)">
+          Edit
+        </ion-button>
+        <ion-button
+          (click)="deletePost(post.post_id)">
+          Del
+        </ion-button>
+      </ion-buttons>
     </ion-item>
 
     <ion-item>

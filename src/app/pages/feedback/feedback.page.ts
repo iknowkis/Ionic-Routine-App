@@ -17,7 +17,7 @@ export class FeedbackPage {
     }
 
   async getMemo() {
-    this.memo = (await this.storageService.getValue('feedback')).value;
+    this.memo = (await this.storageService.getValue('feedback'))?.value;
   }
   onChange(newValue) {
     this.storageService.set('feedback', {value: newValue});

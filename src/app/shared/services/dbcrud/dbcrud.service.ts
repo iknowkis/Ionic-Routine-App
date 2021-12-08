@@ -59,17 +59,26 @@ export class DbcrudService {
       //numOfPost
     });
   }
-  updatePost(id: string, post: Post){
+  updatePost(title: string, content: string, data: RoutineModel, post_id: string){
+    this.dbPosts.doc(post_id).update({...
+      {
+      post_title: title,
+      post_content: content,
+      data: data,
+      }
+    });
+  }
+  updatePost_LikeOrImport(id: string, post: Post){
     this.dbPosts.doc(id).update({...post,
       // date: firebase.default.firestore.FieldValue.serverTimestamp()
     });
   }
-
-  
-  //아직
   deletePost(id: string){
     this.dbPosts.doc(id).delete();
   }
+
+  
+  //아직
   getBoard() {
     return this.dbBoard.snapshotChanges();
   }

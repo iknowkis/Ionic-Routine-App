@@ -8,13 +8,20 @@
       My post
     </b></ion-text>
     <ion-buttons slot="end">
-      <ion-button>
-        Edit
+      <ion-button
+        (click)="showEditButtone()"
+        color={{editButton}}>
+        <ion-icon
+          name="{{editButton ? 'checkmark-circle-outline' : 'ellipsis-horizontal-circle-outline'}}">
+        </ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-view-posts [dbPosts]="dbPosts"></app-view-posts>
+  <app-view-posts
+    [editButton]="editButton=='' ? false : true"
+    [dbPosts]="dbPosts">
+  </app-view-posts>
 </ion-content>

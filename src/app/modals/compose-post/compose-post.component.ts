@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Account } from 'src/app/shared/models/db.model';
+import { Account, Post } from 'src/app/shared/models/db.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 import { RoutineModel } from '../../shared/models/item.model';
@@ -15,10 +15,12 @@ import { StorageService } from '../../shared/services/storage/storage.service';
 })
 export class ComposePostComponent implements OnInit {
 
-  postTitle: any;
-  postContent: any;
+  post: Post;
+  post_id: string;
+  postTitle: string;
+  postContent: string;
   storageData: RoutineModel[];
-  selectedRoutine: any;
+  selectedRoutine: RoutineModel;
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,9 +38,14 @@ export class ComposePostComponent implements OnInit {
     this.storageData = await this.storageService.initStorageData();
   }
   async savePost() {
-    this.auth.getAuthValue().then(async (account: Account) => {
-      this.dbService.addPost(this.postTitle, this.postContent, this.selectedRoutine, account.id);
-    })
+    if(this.post) {
+      this.dbService.updatePost(this.postTitle, this.postContent, this.selectedRoutine, this.post_id);
+    }
+    else {
+      this.auth.getAuthValue().then(async (account: Account) => {
+        this.dbService.addPost(this.postTitle, this.postContent, this.selectedRoutine, account.id);
+      })
+    }
     this.dismissModal();
   }
   

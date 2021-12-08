@@ -63,7 +63,7 @@ export class MainMyRoutinePage {
   }
 
   async CheckIsDeactivated() {
-    this.isDeactivated = (await this.storageService.getValue('isDeactivated')).value;
+    this.isDeactivated = (await this.storageService.getValue('isDeactivated'))?.value;
   }
 
   sortByTime() {
