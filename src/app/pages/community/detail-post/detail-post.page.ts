@@ -19,9 +19,9 @@ import { take } from 'rxjs/operators';
 })
 export class DetailPostPage implements OnInit {
 
-  selected_post_id: string;
   @Output() selected_post: any;
   @Output() writer_name: string;
+  selected_post_id: string;
   taskList: TaskType[];
 
   constructor(

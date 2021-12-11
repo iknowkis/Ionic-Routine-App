@@ -30,11 +30,13 @@ export class MainNavbarComponent {
   async getStorageData() {
     this.storageData = await this.storageService.initStorageData();
   }
-  getRoutineLength(data?: RoutineModel[]) {
+  getRoutineLength(receivedData?: RoutineModel[]) {
+    let data = receivedData ? receivedData : this.storageData;
     if(data) {
-      this.myRoutineLength = data.length;
+    this.myRoutineLength = data.filter(routine =>
+      routine.routine.value.statusValue.value == true).length;
     }
-    else this.myRoutineLength = this.storageData ? this.storageData.length : 0;
+    else this.myRoutineLength = 0;
   }
 
   getCommunityPostsLength() {

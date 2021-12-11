@@ -5,6 +5,9 @@
 :root {
 
   .light {
+    /** orange **/
+    --ion-color-orange: #ff8000;
+
     /** primary **/
     --ion-color-primary: #3880ff;
     --ion-color-primary-rgb: 56, 128, 255;
@@ -79,6 +82,12 @@
     ion-content {
       background-color: #ffffff;
     }
+    .deactivatedIonCard {
+      --ion-item-background: #bbbbbb;
+      ion-item {
+          color: #666666;
+      }
+    }
     .routineInfo{
       color:#000000;
     }
@@ -133,8 +142,11 @@
       --button-color-selected: #ffffff;
     }
     .deactivatedIonCard {
-      --ion-card-background: #000000;
-      --ion-item-background: #000000;
+      --ion-card-background: #111111;
+      --ion-item-background: #111111;
+      ion-item {
+          color: #444444;
+      }
     }
     .routineInfo{
       color:#d9d9d9;

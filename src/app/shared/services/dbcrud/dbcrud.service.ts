@@ -18,7 +18,6 @@ export class DbcrudService {
   ) {
   }
 
-  dbBoard = this.firestore.collection<any>('board', (ref) => ref);
   dbPosts = this.firestore.collection<any>('posts', (ref) => ref);
   dbAccounts = this.firestore.collection<any>('accounts', (ref) => ref);
 
@@ -76,49 +75,10 @@ export class DbcrudService {
   deletePost(id: string){
     this.dbPosts.doc(id).delete();
   }
-
-  
-  //아직
-  getBoard() {
-    return this.dbBoard.snapshotChanges();
-  }
-  /**
-   * 아이디를 어떻게 불러올 것인지?
-   * local Storage Id랑 비교? 
-   */
- // this.firestore.collection<any>('posts').doc('posts').collection('Mycomment')
-
-
 }
 
 
 /*
-import { Post, Comments } from 'src/app/item.model';
-
-import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class PostService {
-  
-  constructor(private firestore: AngularFirestore
-    ) { }
-
-createPost(post: Post){
-  this.firestore.collection<Post>('board')
-  .add({...post,
-    date: firebase.default.firestore.FieldValue.serverTimestamp()
-  });
-}
-
-updatePost(id: string, post: Post){
-  this.firestore.collection<Post>('board').doc(id)
-  .update({...post,
-    date: firebase.default.firestore.FieldValue.serverTimestamp()
-  });
-}
 
 // 댓글
 getComments(id: any) {
@@ -128,7 +88,6 @@ getComments(id: any) {
       .collection<Comments>('Mycomment', (ref) =>
       ref.orderBy('date') ).snapshotChanges();
 }
-
 AddComment(id: string, comments: Comments) {
   this.firestore
   .collection('board')
@@ -138,7 +97,6 @@ AddComment(id: string, comments: Comments) {
     date: firebase.default.firestore.FieldValue.serverTimestamp()
   });
 }
-
 deleteComment(PostId: string, CommentId: string){
   this.firestore
   .collection('board')
@@ -148,18 +106,13 @@ deleteComment(PostId: string, CommentId: string){
   .delete();
 }
 
-
-}
-
 /* post-detail할 때 표시 방법 중 하나
   this.firestore.collection<Post>('board').snapshotChanges()
   .pipe(
        tap(list => this.list = list)
        );
 
-
-
-       
+// 다른 방법
   this.postService.getPosts().subscribe(data => {
     this.posts = data.map((e: any) => {
        return {
