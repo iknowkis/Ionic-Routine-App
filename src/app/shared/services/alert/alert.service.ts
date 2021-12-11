@@ -125,19 +125,26 @@ export class AlertService {
     })
   }
 
-  // cancelNoti(data: RoutineModel, task?: TaskType) {
-  //   let weekdayList = data.routine.value.weekday.map(day=> day);
-  //   console.log('weekdayList', weekdayList);
-  //   if (task) {
-  //     console.log('changeStringToNumber(task.key', changeStringToNumber(task.key)); 
-  //     this.notiService.cancel(changeStringToNumber(task.key));
-  //     if(data.task.length == 1) {
-  //       this.notiService.cancel(changeStringToNumber(data.routine.key));
-  //     }
-  //   }
-  //   else {
-  //     data.task.map(e => this.notiService.cancel(changeStringToNumber(e.key)));
-  //     this.notiService.cancel(changeStringToNumber(data.routine.key));
-  //   }
-  // }
+  async deactivateAlert(data: RoutineModel[], isDeactivated: boolean): Promise<boolean> {
+    let target = isDeactivated ? 'Activate' : 'Deactivate';
+    
+    return new Promise(async (resolve, reject) => {
+      const alert = await this.alrtCtrl.create({
+        header: `${target} all of routine`,
+        message: `Do you really want to ${target} all of routine?`,
+        buttons: [
+          {
+            text: 'Agree',
+            handler: () => resolve(true),
+          },
+          {
+            text: 'Disagree',
+            role: 'cancel',
+            handler: _ => resolve(false),
+          }
+        ]
+      });
+      await alert.present();
+    })
+  }
 }

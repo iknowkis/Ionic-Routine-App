@@ -16,6 +16,7 @@ import { AlertService } from '../../../shared/services/alert/alert.service';
 export class MainMyRoutinePage {
 
   @Output() _storageData: RoutineModel[];
+  editButton = '';
   sortToggle = false;
   isDeactivated = false;
 
@@ -28,11 +29,6 @@ export class MainMyRoutinePage {
   ) {
   }
   
-  ionViewWillEnter() {
-    this.getStorageData();
-    this.CheckIsDeactivated();
-  }
-
   async openComposeRoutineModal() {
     const modal = await this.modalCtrl.create({
       component: ComposeRoutineComponent,
@@ -46,24 +42,42 @@ export class MainMyRoutinePage {
     return modal.present();
   }
 
+  ionViewWillEnter() {
+    this.getStorageData();
+    this.CheckIsDeactivated();
+  }
   async getStorageData() {
     this._storageData = await this.storageService.initStorageData();
     this.sortToggle = (await this.storageService.getValue('customSort')) != null ? true : false;
   }
-
-  deactivateAll() {
-    if(this._storageData) {
-      this._storageData.map(data=> {
-        data.routine.value.statusValue.value = this.isDeactivated
-      });
-      this.storageService.set('data', this._storageData);
-    }
-    this.isDeactivated = !this.isDeactivated;
-    this.storageService.set('isDeactivated', {value: this.isDeactivated});
-  }
-
   async CheckIsDeactivated() {
     this.isDeactivated = (await this.storageService.getValue('isDeactivated'))?.value;
+  }
+
+  // Deactivate
+  deactivateAll() {
+    this.alrtService.deactivateAlert(this._storageData, this.isDeactivated)
+    .then(async result => {
+      if(result) {
+        this.deactivateData();
+        this.afterDeactivateChangeSet();
+        this.navBar.getRoutineLength(this._storageData);
+      }
+    })
+  }
+  deactivateData() {
+    this._storageData = this._storageData.map(data=> {
+      data.routine.value.statusValue = {
+        name: this.isDeactivated  ? "Activate" : "Deactivate",
+        value: this.isDeactivated
+      }
+      return data;
+    });
+  }
+  afterDeactivateChangeSet() {
+    this.isDeactivated = !this.isDeactivated;
+    this.storageService.set('data', this._storageData);
+    this.storageService.set('isDeactivated', {value: this.isDeactivated});
   }
 
   sortByTime() {
@@ -73,5 +87,9 @@ export class MainMyRoutinePage {
         await this.getStorageData();
       }
     });
+  }
+
+  showEditButtone() {
+    this.editButton = this.editButton == '' ? 'primary' : '';
   }
 }
