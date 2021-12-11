@@ -1,8 +1,8 @@
 <ion-card>
-  <ion-item color="medium">
-    <ion-label class="ion-text-center">
+  <ion-item color="primary">
+    <ion-col class="ion-text-center">
       {{ routineTitle }}
-    </ion-label>
+    </ion-col>
   </ion-item>
   
   <ion-grid class="ion-text-center" *ngIf="selectedData">
@@ -28,41 +28,44 @@
   
 <ion-reorder-group (ionItemReorder)="onReorder($event)" [disabled]="false">
   <ion-card *ngFor="let task of taskList">
-    <ion-item-sliding>
-      <ion-item>
-        <!-- In MyRoutine -->
-        <ion-reorder slot="start" *ngIf="storageData">
-          <ion-icon
-            name={{task.value.iconName}}
-            color={{task.value.iconColor}}>
-          </ion-icon>
-        </ion-reorder>
-        <!-- In post from community -->
-        <div class="icon-margin-right" *ngIf="!storageData">
-          <ion-icon
-            name={{task.value.iconName}}
-            color={{task.value.iconColor}}>
-          </ion-icon>
-        </div>
+    <ion-item>
+      <!-- In MyRoutine -->
+      <ion-reorder slot="start" *ngIf="storageData">
+        <ion-icon
+          name={{task.value.iconName}}
+          color={{task.value.iconColor}}>
+        </ion-icon>
+      </ion-reorder>
+      <!-- In post from community -->
+      <div class="icon-margin-right" *ngIf="!storageData">
+        <ion-icon
+          name={{task.value.iconName}}
+          color={{task.value.iconColor}}>
+        </ion-icon>
+      </div>
 
-        <ion-text class="taskText">
-          {{task.value.title}}
-        </ion-text>
-        <div slot="end" class="taskText">
-          {{task.value.duration}}m
-        </div>
-      </ion-item>
-
-      <ion-item-options side="end" *ngIf="storageData">
-        <ion-item-option
+      <ion-label class="taskText">
+        {{task.value.title}}
+      </ion-label>
+      <div slot="end" class="taskText">
+        {{task.value.duration}}m
+      </div>
+      
+      <!-- Edit or Delete -->
+      <ion-buttons
+        *ngIf="editButton"
+        slot="end">
+        <ion-button
+          color="{{editButton ? 'primary' : ''}}"
           (click)="openComposeTaskModal(task)">
           Edit
-        </ion-item-option>
-        <ion-item-option color="danger"
+        </ion-button>
+        <ion-button
+          color="{{editButton ? 'primary' : ''}}"
           (click)="deleteTask(task)">
-          Delete
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
+          Del
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
   </ion-card>
 </ion-reorder-group>

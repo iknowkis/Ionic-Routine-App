@@ -15,6 +15,7 @@ import { getDayname, getRoutineDuration_util, getTimerOff, getTimerOn } from '..
 })
 export class ViewTaskComponent {
 
+  @Input() editButton: boolean;
   @Input() storageData: RoutineModel[];
   @Input() selectedData: RoutineModel;
   @Input() taskList: TaskType[];

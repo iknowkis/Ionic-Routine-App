@@ -4,7 +4,8 @@ import { ComposePostComponent } from 'src/app/modals/compose-post/compose-post.c
 import { Post } from '../../models/db.model';
 import { RoutineModel } from '../../models/item.model';
 import { AlertService } from '../../services/alert/alert.service';
-import { getRoutineDuration_util, getTimerOn } from '../../util/data.util';
+import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
+import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ViewPostsComponent {
 
   constructor(
     private modalCtrl: ModalController,
+    private navBar: MainNavbarComponent,
 
     private alrtService: AlertService,
     ) {
@@ -45,12 +47,15 @@ export class ViewPostsComponent {
 
   deletePost(id) {
     this.alrtService.deletePostAlert(id).then(result => {
-      // if (result) this.navBar.getRoutineLength(storageData);
+      this.navBar.getCommunityPostsLength();
     })
   }
 
   getTimerOn(data: RoutineModel) {
     return getTimerOn(data);
+  }
+  getTimerOff(data: RoutineModel) {
+    return getTimerOff(data);
   }
   getRoutineDuration(data: RoutineModel) {
     return getRoutineDuration_util(data);

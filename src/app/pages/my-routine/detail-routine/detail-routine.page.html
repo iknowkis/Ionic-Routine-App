@@ -1,14 +1,24 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
-    <ion-text><b>
-      <ion-icon name="pie-chart-outline"></ion-icon>
-      Detail Routine
-    </b></ion-text>
+    <ion-text class="toolbarTitle">
+      <b>
+        <ion-icon name="pie-chart-outline"></ion-icon>
+        Detail Routine
+      </b>
+    </ion-text>
+    
     <ion-buttons slot="start">
       <ion-back-button>
       </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
+      <ion-button
+        (click)="showEditButtone()"
+        color={{editButton}}>
+        <ion-icon
+          name="{{editButton ? 'checkmark-circle-outline' : 'ellipsis-horizontal-circle-outline'}}">
+        </ion-icon>
+      </ion-button>
       <ion-button (click)="openComposeTaskModal()">
         <ion-icon
           name="add"
@@ -21,6 +31,7 @@
 
 <ion-content>
   <app-view-task
+  [editButton]="editButton=='' ? false : true"
   [routineTitle]="_selectedData?.routine?.value?.title"
   [storageData]="_storageData"
   [selectedData]="_selectedData"

@@ -5,7 +5,6 @@ import { WeekdayUtil } from "../models/weekday.model";
 export function routineSort(storageData: RoutineModel[]) {
     if(storageData===null) return;
     storageData.sort((firstEl: any, nextEl: any) =>
-      (getStatusValue(nextEl) - getStatusValue(firstEl)) ||
       (getTimerHours(firstEl) - getTimerHours(nextEl)) ||
       (getTimerMinutes(firstEl) - getTimerMinutes(nextEl)));
 }

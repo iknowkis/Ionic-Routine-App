@@ -1,33 +1,43 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
+    <ion-text class="toolbarTitle">
+      <b>
+        <ion-icon name="time-outline"></ion-icon>
+        My Routine
+      </b>
+    </ion-text>
+
     <ion-buttons slot="start">
       <ion-button
         (click)="deactivateAll()">
         <ion-icon
+          color="{{isDeactivated ? 'primary' : ''}}"
           name="{{isDeactivated ? 'body-outline' : 'man-outline'}}">
         </ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-text><b>
-      <ion-icon name="time-outline"></ion-icon>
-      My Routine
-    </b></ion-text>
-    <ion-buttons slot="end">
       <ion-button
         *ngIf="sortToggle"
-        class="ion-padding-horizontal"
         (click)="sortByTime()">
         <ion-icon
           size="small"
-          name="swap-vertical-outline"
-          color="primary">
+          color="primary"
+          name="swap-vertical-outline">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="showEditButtone()"
+        color={{editButton}}>
+        <ion-icon
+        name="{{editButton ? 'checkmark-circle-outline' : 'ellipsis-horizontal-circle-outline'}}">
         </ion-icon>
       </ion-button>
       <ion-button
         (click)="openComposeRoutineModal()">
         <ion-icon
-          name="add"
-          color="primary">
+          color="primary"
+          name="add">
         </ion-icon>
       </ion-button>
     </ion-buttons>
@@ -36,6 +46,7 @@
 
 <ion-content>
   <app-view-routine
+    [editButton]="editButton=='' ? false : true"
     [storageData]="_storageData">
   </app-view-routine>
 </ion-content>

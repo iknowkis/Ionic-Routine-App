@@ -1,17 +1,37 @@
-<ion-reorder-group (ionItemReorder)="onReorder($event)" [disabled]="false">
-  <ion-card *ngFor="let data of storageData" class={{deactivatedIonCard(data)}}>
-    <ion-item-sliding>
+<ion-reorder-group
+  *ngFor="let data of storageData"
+  (ionItemReorder)="onReorder($event)"
+  [disabled]="false">
+  <ion-card
+    *ngIf="(editButton||data.routine.value.statusValue.value)"
+    class={{deactivatedIonCard(data)}}>
       <ion-item>
         <ion-reorder slot="start">
           <ion-icon
-            *ngIf="data.routine.value.statusValue.value"
-            name="alarm-outline"
-            color="primary">
+            size="small"
+            color="{{data.routine.value.statusValue.value ? 'primary' : ''}}"
+            name="{{editButton ? 'reorder-three-outline' : 'alarm-outline'}}">
           </ion-icon>
         </ion-reorder>
         <ion-label>
           {{ data.routine.value.title }}
         </ion-label>
+        
+        <!-- Edit or Delete -->
+        <ion-buttons
+          *ngIf="editButton"
+          slot="end">
+          <ion-button
+            color="{{editButton ? 'primary' : ''}}"
+            (click)="openComposeRoutineModal(data)">
+            Edit
+          </ion-button>
+          <ion-button
+          color="{{editButton ? 'primary' : ''}}"
+            (click)="deleteData(storageData, data)">
+            Del
+          </ion-button>
+        </ion-buttons>
 
         <!-- View task-->
         <ion-icon
@@ -22,19 +42,6 @@
           {key: data.routine.key}]">
         </ion-icon>
       </ion-item>
-      
-      <!-- Sliding to Edit or Delete -->
-      <ion-item-options side="end">
-        <ion-item-option
-          (click)="openComposeRoutineModal(data)">
-          Edit
-        </ion-item-option>
-        <ion-item-option color="danger"
-          (click)="deleteData(storageData, data)">
-          Delete
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
 
     <ion-item style="font-size: 12px; --border-style: none">
       <div slot="start">
@@ -49,13 +56,13 @@
       </div>
     </ion-item>
   </ion-card>
+</ion-reorder-group>
 
   <!-- Add new routine -->
-  <ion-card>
-    <ion-slide (click)="openNewComposeRoutineModal()">
-      <h1>
-        <ion-icon name="alarm-outline"></ion-icon>
-      </h1>
-    </ion-slide>
-  </ion-card>
-</ion-reorder-group>
+<ion-card>
+  <ion-slide (click)="openNewComposeRoutineModal()">
+    <h1>
+      <ion-icon name="alarm-outline"></ion-icon>
+    </h1>
+  </ion-slide>
+</ion-card>

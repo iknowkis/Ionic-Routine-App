@@ -1,8 +1,3 @@
-export const statusArray  = [
-  { name: 'Activate', value: true },
-  { name: 'Deactivate', value: false }
-];
-
 export class Schedule {
     id: number;
     status: boolean;
@@ -36,3 +31,8 @@ export class LocalNotificationSettingModel {
   breakDuration: string;
   sound: string;
 }
+
+export const statusArray  = [
+  { name: 'Activate', value: true },
+  { name: 'Deactivate', value: false }
+];

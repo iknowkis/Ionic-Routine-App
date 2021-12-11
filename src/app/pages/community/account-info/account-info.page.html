@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar class="ion-text-center">
+    <ion-text class="toolbarTitle">
+      <b>
+        <ion-icon name="person-outline"></ion-icon>
+        Account information
+      </b>
+    </ion-text>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-view-wirter-info
+    [dbPosts]="dbPosts"
+    [writer_name]="writer_name">
+  </app-view-wirter-info>
+
+  <app-view-posts
+    [dbPosts]="dbPosts">
+  </app-view-posts>
+</ion-content>

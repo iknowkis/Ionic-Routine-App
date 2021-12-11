@@ -20,7 +20,6 @@ export class Account {
 }
 
 export class menuItemListModel {
-    item_color!: string;
     icon_color!: string;
     icon_name!: string;
     label_color!: string;
