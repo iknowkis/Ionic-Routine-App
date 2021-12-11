@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar class="ion-text-center">
-    <ion-text><b>
-      <ion-icon name="pie-chart-outline"></ion-icon>
-      Detail Post
-    </b></ion-text>
+    <ion-text class="toolbarTitle">
+      <b>
+        <ion-icon name="pie-chart-outline"></ion-icon>
+        Post
+      </b>
+    </ion-text>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -21,6 +23,14 @@
           name="archive-outline">
         </ion-icon>
       </ion-button>
+      <ion-button
+        *ngIf="selected_post"
+        [routerLink]="['../account-info',
+        {account_id: selected_post.writer_id}]">
+        <ion-icon
+          name="person-outline">
+        </ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -33,7 +43,8 @@
 
   <ion-item-divider></ion-item-divider>
   
-  <app-view-task *ngIf="selected_post?.data?.routine"
+  <app-view-task
+    *ngIf="selected_post?.data?.routine"
     [routineTitle]="selected_post?.data?.routine.value?.title"
     [selectedData]="selected_post?.data"
     [taskList]="taskList">

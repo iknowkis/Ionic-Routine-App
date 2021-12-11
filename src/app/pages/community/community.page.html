@@ -8,7 +8,6 @@
         <ion-content>
             <ion-col *ngFor="let item of menuItemList">
                 <ion-item
-                    color = {{item.item_color}}
                     [routerLink]="[item.link]" routerDirection="root" 
                     (click)="closeMenu()">
                     <ion-icon
@@ -18,6 +17,21 @@
                     </ion-icon>
                     <ion-label class="labelText" color = {{item.label_color}}>
                         {{item.label_text}}
+                    </ion-label>
+                </ion-item>
+            </ion-col>
+            <ion-col>
+                <ion-item
+                    [routerLink]="['../account-info',
+                    {account_id: 'TfuUfxbXmqFITlhxcJQB'}]"
+                    (click)="closeMenu()">
+                    <ion-icon
+                        color = "danger"
+                        name = "time-outline"
+                        slot="start">
+                    </ion-icon>
+                    <ion-label class="labelText" color = "danger">
+                        Recommend
                     </ion-label>
                 </ion-item>
             </ion-col>

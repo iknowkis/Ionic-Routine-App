@@ -24,6 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./my-post/my-post.module').then( m => m.MyPostPageModule),
     component: CommunityPage
   },
+  {
+    path: 'account-info',
+    loadChildren: () => import('./account-info/account-info.module').then( m => m.AccountInfoPageModule),
+  },
+
 
 ];
 

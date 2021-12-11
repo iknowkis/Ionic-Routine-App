@@ -1,0 +1,26 @@
+<ion-card class="dataInfo">
+  <ion-item *ngIf="writer_name">
+    <ion-col class="ion-text-center">
+      {{writer_name}}
+    </ion-col>
+  </ion-item>
+  <ion-item *ngIf="dbPosts">
+    <ion-grid class="ion-text-center">
+      <ion-col>
+        <ion-icon name="heart" color="danger">
+        </ion-icon>
+        {{getSumOfLikes(dbPosts)}}
+      </ion-col>
+      <ion-col>
+        <ion-icon name="archive-outline">
+        </ion-icon>
+        {{getSumOfImport(dbPosts)}}
+      </ion-col>
+      <ion-col>
+        <ion-icon name="chatbubbles-outline">
+        </ion-icon>
+        {{dbPosts.length}}
+      </ion-col>
+    </ion-grid>
+  </ion-item>
+</ion-card>
