@@ -12,6 +12,7 @@ import { StorageService } from '../../../shared/services/storage/storage.service
   styleUrls: ['./detail-routine.page.scss'],
 })
 export class DetailRoutinePage {
+  editButton = '';
 
   @Output() _routineKey: string;
   @Output() _taskList: TaskType[];
@@ -44,6 +45,10 @@ export class DetailRoutinePage {
   async ionViewWillEnter() {
     this._storageData = await this.storageService.initStorageData();
     this.getRoutineKey();
+  }
+
+  showEditButtone() {
+    this.editButton = this.editButton == '' ? 'primary' : '';
   }
 
   // Received from main-my-routine.page

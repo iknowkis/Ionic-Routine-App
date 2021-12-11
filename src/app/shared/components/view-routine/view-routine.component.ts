@@ -21,6 +21,7 @@ import { StorageService } from '../../services/storage/storage.service';
 })
 export class ViewRoutineComponent {
 
+  @Input() editButton: boolean;
   @Input() storageData: RoutineModel[];
   
   constructor(
@@ -55,7 +56,7 @@ export class ViewRoutineComponent {
     });
     modal.onDidDismiss().then(() => {
       this.getStorageData();
-      // this.notiService.getPending();
+      this.navBar.getRoutineLength(this.storageData);
     });
     return modal.present();
   }
