@@ -1,5 +1,7 @@
 import { RoutineModel, TaskType } from "../models/item.model";
 import { WeekdayUtil } from "../models/weekday.model";
+import { v4 as uuidv4 } from 'uuid';
+import { Account } from "../models/db.model";
 
 
 export function routineSort(storageData: RoutineModel[]) {
@@ -51,10 +53,6 @@ export function deleteData(storageData: RoutineModel[], data: RoutineModel, task
     else storageData.splice(storageData.indexOf(data), 1);
 }
 
-export function getRandomNumber() {
-    return Math.floor(Math.random() * Math.pow(10, 8));
-}
-
 export function changeStringToNumber(data: String) {
     return Number(data.replace(/[a-z\-]/g,'').slice(0,9))
 }
@@ -66,4 +64,41 @@ export function getRoutineDuration_util(data: RoutineModel) {
     let hours = sum >= 60 ? Math.floor(sum / 60) : 0;
     let minutes = sum % 60;
     return hours ? `${hours}h ${minutes}m` : `${minutes}m`;
+}
+
+export function deactivateData_util(storageData: RoutineModel[], isDeactivated: boolean) {
+    return storageData.map(data=> {
+        data.routine.value.statusValue = {
+          name: isDeactivated  ? "Activate" : "Deactivate",
+          value: isDeactivated
+        }
+        return data;
+      })
+}
+
+export function reorder_util(storageData: RoutineModel[], detail: any, taskList?: TaskType[]) {
+    let list = taskList ? taskList : storageData;
+    let data = list[detail.from];
+    let n = detail.from > detail.to ? 0 : 1;
+    list.splice(detail.to + n, 0, data as any);
+    list.splice(detail.from - n + 1, 1);
+    return list;
+}
+
+export function getSumOfLikes_util(data): number {
+    let sum = 0;
+    data.map(post=> sum = sum + post.number_liked);
+    return sum;
+}
+export function getSumOfImport_util(data): number {
+    let sum = 0;
+    data.map(post=> sum = sum + post.number_archived);
+    return sum;
+}
+
+export function initAccount_util(): Account {
+  return {
+    name: `User_${uuidv4().slice(0,4)}`,
+    password: uuidv4().slice(0,8),
+  }
 }

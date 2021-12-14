@@ -30,9 +30,12 @@
       </ion-col>
     </ion-grid>
   </ion-item>
-  <ion-item>
-    <ion-text class="ion-text-start">
+  <ion-item class="textareaContent">
+    <ion-textarea
+      class="ion-text-start"
+      disabled
+      readonly>
       {{ selected_post?.post_content }}
-    </ion-text>
+    </ion-textarea>
   </ion-item>
 </ion-card>

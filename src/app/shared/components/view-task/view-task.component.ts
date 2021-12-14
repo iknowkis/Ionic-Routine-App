@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
+import { OverlayEventDetail } from '@ionic/core';
 import { ModalController } from '@ionic/angular';
+import { DetailRoutinePage } from 'src/app/pages/my-routine/detail-routine/detail-routine.page';
 import { ComposeTaskComponent } from '../../../modals/compose-task/compose-task.component';
-import { DetailRoutinePage } from '../../../pages/my-routine/detail-routine/detail-routine.page';
 import { RoutineModel, TaskType } from '../../models/item.model';
+import { getDayname, getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
+
 import { AlertService } from '../../services/alert/alert.service';
 import { LocalNotificationService } from '../../services/local-notification/local-notification.service';
 import { StorageService } from '../../services/storage/storage.service';
-import { getDayname, getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
 
 @Component({
   selector: 'app-view-task',
@@ -22,49 +24,38 @@ export class ViewTaskComponent {
   @Input() routineTitle: string;
 
   constructor(
-    private alrtService: AlertService,
     private modalCtrl: ModalController,
+    private detail_routine: DetailRoutinePage,
+
+    private alrtService: AlertService,
     private storageService: StorageService,
     private notiService: LocalNotificationService,
     ) {
   }
 
-  async openComposeTaskModal(task) {
+  async openComposeTaskModal(task: TaskType) {
     const modal = await this.modalCtrl.create({
       component: ComposeTaskComponent,
       componentProps: {
-        task: await task,
+        task: task,
         routineKey: this.selectedData.routine.key,
         selectedData: this.selectedData,
         existedTask: task,
       }
-      // swipeToClose: true, // <-- Enable swipe to close only in iOS.
-      // presentingElement: await this.modalCtrl.getTop()
     });
-    modal.onDidDismiss().then(async () => {
-      this.getTaskList();
+    modal.onDidDismiss().then(()=> {
+      this.detail_routine.initData();
     })
     return modal.present();
   }
 
-  async getTaskList() {
-    this.storageData = (await this.storageService.initStorageData())
-    this.storageData.filter( e => {
-      if(e.routine.key === this.selectedData.routine.key && e.task !== this.taskList) {
-        this.selectedData = e;
-        this.taskList = e.task;
-      }
-    });
-  }
-
   async onReorder({ detail }: any) {
-    if(this.storageData) {
-      await this.storageService.reorder(this.storageData, detail, this.taskList);
-      this.notiService.set(this.storageData);
-    }
+    await this.storageService.reorder(this.storageData, detail, this.taskList);
+    this.notiService.set(this.storageData);
     detail.complete(true);
   }
-  deleteTask(task) {
+  
+  deleteTask(task: TaskType) {
     this.alrtService.deleteStorageDataAlert(this.storageData, this.selectedData, task);
   }
 

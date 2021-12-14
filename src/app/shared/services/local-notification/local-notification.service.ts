@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalNotifications, ILocalNotification } from '@ionic-native/local-notifications';
 
 import { RoutineModel, TaskType } from '../../models/item.model';
-import { changeStringToNumber, getRandomNumber } from '../../util/data.util';
+import { changeStringToNumber } from '../../util/data.util';
 
 @Injectable({
   providedIn: 'root'

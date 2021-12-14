@@ -57,3 +57,12 @@ ion-content {
     left: 0;
     top:30%;
 }
+.textareaContent{
+  ion-textarea {
+    .textarea-wrapper {
+      .native-textarea {
+        min-height: 50px !important;
+      }
+    }
+  }
+}

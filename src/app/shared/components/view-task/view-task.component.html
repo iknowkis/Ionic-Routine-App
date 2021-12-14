@@ -47,7 +47,10 @@
       <ion-label class="taskText">
         {{task.value.title}}
       </ion-label>
-      <div slot="end" class="taskText">
+      <div
+        *ngIf="!editButton"
+        class="taskText"
+        slot="end">
         {{task.value.duration}}m
       </div>
       

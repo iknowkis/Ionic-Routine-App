@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar class="ion-text-center" color="medium">
-    <ion-text>
+    <ion-text class="toolbarTitle">
       <ion-icon name="git-pull-request-outline"></ion-icon>
-      Task
+      <b>
+        Task
+      </b>
     </ion-text>
     <ion-buttons slot="start">
       <ion-button
@@ -70,8 +72,10 @@
         <ion-button
           class="ion-text-end"
           (click)="openIconsModal()">
-          <!-- <ion-text>{{taskIcon}}</ion-text> -->
-          <ion-icon name={{task.value.iconName}} color={{task.value.iconColor}}></ion-icon>
+          <ion-icon
+            name={{task.value.iconName}}
+            color={{task.value.iconColor}}>
+          </ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-item>
@@ -82,11 +86,11 @@
       <ion-select
         interface="action-sheet"
         [(ngModel)]="task.value.iconColor">
-        <ion-select-option value="tertiary"> Purple </ion-select-option>
-        <ion-select-option value="danger"> Red </ion-select-option>
-        <ion-select-option value="warning"> Yellow </ion-select-option>
-        <ion-select-option value="primary"> Blue </ion-select-option>
-        <ion-select-option value="medium"> Gray </ion-select-option>
+        <ion-select-option 
+          *ngFor="let icon of iconColorList"
+          [value]="icon.value">
+          {{icon.text}}
+        </ion-select-option>
       </ion-select>
     </ion-item>
   </ion-card>

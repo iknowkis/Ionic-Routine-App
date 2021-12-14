@@ -1,54 +1,26 @@
 import { Injectable } from "@angular/core";
 import { v4 as uuidv4 } from 'uuid';
 import { menuItemListModel } from "./db.model";
-import { statusArray } from "./schedule.model";
 import { weekdayModel } from "./weekday.model";
-
-export class SaveModel {
-    storageData:RoutineModel[];
-    data:RoutineModel;
-    existedData:RoutineModel|TaskType;
-    routine?:RoutineValueType;
-    task?:TaskType;
-}
 
 @Injectable()
 export class RoutineUtil {
-    weekdays = weekdayModel;
+    weekdays: string[] = weekdayModel;
     statusArray = statusArray;
+}
+
+export class SaveModel {
+    storageData?: RoutineModel[];
+    data: RoutineModel;
+    existedData: RoutineModel|TaskType;
+    routine?: RoutineValueType;
+    task?: TaskType;
 }
 
 @Injectable()
 export class RoutineModel {
     routine?: RoutineType;
     task?: TaskType[];
-
-    static initRoutineModel(data: RoutineModel) {
-        data = {
-            routine: {
-                key: uuidv4(),
-                value: {
-                    soundValue: 'beep.wav',
-                    viberationValue: 'true',
-                    statusValue: statusArray[0]
-                }
-            }
-        }
-        return data;
-    }
-    
-    static initTaskModel(data: RoutineModel) {
-        data.task = [{
-            key: uuidv4(),
-            value: {
-                iconName: 'happy-outline',
-                iconColor: 'medium',
-                duration: 0,
-            }
-        }]
-        
-        return data;
-    }
 }
 
 /**
@@ -87,6 +59,49 @@ export interface TaskValueType {
     iconName?: string;
     iconColor?: string;
 }
+
+/**
+ * 
+ */
+export function initRoutineModel() {
+    return {
+        routine: {
+            key: uuidv4(),
+            value: {
+                soundValue: 'beep.wav',
+                viberationValue: 'true',
+                statusValue: statusArray[0]
+            }
+        }
+    }
+}
+export function initTaskModel() {
+    return {
+        key: uuidv4(),
+        value: {
+            iconName: 'happy-outline',
+            iconColor: 'medium',
+            duration: 0,
+        }
+    }
+}
+
+// export function getRandomNumber() {
+//     return Math.floor(Math.random() * Math.pow(10, 8));
+// }
+
+export const statusArray  = [
+    { name: 'Activate', value: true },
+    { name: 'Deactivate', value: false }
+  ];
+  
+  export const iconColorList  = [
+    { value: 'tertiary', text: 'Purple' },
+    { value: 'danger', text: 'Red' },
+    { value: 'warning', text: 'Yellow' },
+    { value: 'primary', text: 'Blue' },
+    { value: 'medium', text: 'Gray' },
+  ]
 
 export const menuList: menuItemListModel[]  = [
     {

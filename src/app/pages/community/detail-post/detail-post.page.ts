@@ -1,82 +1,77 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Post } from '../../../shared/models/db.model';
-import { RoutineModel, SaveModel, TaskType } from '../../../shared/models/item.model';
+import { RoutineModel, TaskType } from '../../../shared/models/item.model';
 
 import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../../shared/util/data.util';
 
 import { DbcrudService } from '../../../shared/services/dbcrud/dbcrud.service';
 import { AlertService } from '../../../shared/services/alert/alert.service';
 import { MainNavbarComponent } from '../../../shared/components/main-navbar/main-navbar.component';
-import { StorageService } from '../../../shared/services/storage/storage.service';
-import { LocalNotificationService } from 'src/app/shared/services/local-notification/local-notification.service';
-import { take } from 'rxjs/operators';
+import { UtilService } from 'src/app/shared/services/util/util.service';
+import { ToastService } from 'src/app/shared/services/toast/toast.service';
 
 @Component({
   selector: 'app-detail-post',
   templateUrl: './detail-post.page.html',
   styleUrls: ['./detail-post.page.scss'],
 })
-export class DetailPostPage implements OnInit {
+export class DetailPostPage {
 
   @Output() selected_post: any;
   @Output() writer_name: string;
-  selected_post_id: string;
-  taskList: TaskType[];
+  @Output() taskList: TaskType[];
+  post_id: string;
 
   constructor(
     private route: ActivatedRoute,
     private navBar: MainNavbarComponent,
     
+    private util: UtilService,
+    private toast: ToastService,
     private dbService: DbcrudService,
     private alrtService: AlertService,
-    private storageService: StorageService,
-    private notiService: LocalNotificationService,
-    ) { }
-
-  ngOnInit() {
-    this.getSelectedPostId();
+    ) {
+      this.getPostId()
+        .then(id=> {
+          this.post_id = id;
+          this.getPost(id)
+        });
+    }
+  getPostId(): Promise<string> {
+    return new Promise(resolve => resolve(this.route.snapshot.params.post_id));
+  }
+  async getPost(id: string) {
+    this.util.getPost(id).then(result => {
+      this.selected_post = result.selected_post;
+      this.taskList = result.taskList;
+      this.writer_name = result.writer_name;
+    });
   }
 
   async importIntoMyRoutine() {
     this.alrtService.importAlert().then(async result => {
       if (result) {
         this.selected_post.number_archived++;
-        this.dbService.updatePost_LikeOrImport(this.selected_post_id, this.selected_post);
-        
-        let saveModel: SaveModel = {
-          data: this.selected_post.data,
-          storageData: [],
-          existedData: undefined,
-        }
-        let storageData = await this.storageService.saveData(saveModel);
-        this.notiService.set(storageData);
+        this.dbService.updatePost_LikeOrImport(this.post_id, this.selected_post);
 
-        this.navBar.getRoutineLength(storageData);
+        this.util.saveData(this.selected_post.data, null)
+        .then(savedData => this.navBar.getRoutineLength(savedData));
+
+        this.presentToast('Routine successfully imported.');
       }
     })
   }
   async likePost() {
     this.selected_post.number_liked++;
-    this.dbService.updatePost_LikeOrImport(this.selected_post_id, this.selected_post);
-  }
-
-  async getSelectedPostId() {
-    this.selected_post_id = await this.route.snapshot.params.post_id;
+    this.dbService.updatePost_LikeOrImport(this.post_id, this.selected_post);
     
-    this.dbService.getSelectedPost(this.selected_post_id).pipe(
-      take(1)
-      ).subscribe(data => {
-        this.selected_post = data as Post;
-        this.taskList = this.selected_post.data.task;
-
-        this.dbService.getSelectedAccount(this.selected_post.writer_id).pipe(
-          take(1)
-          ).subscribe(account => {
-            this.writer_name = account.name;
-        });
-    });
+    this.presentToast('Post successfully liked.');
   }
+  
+  presentToast(str: string) {
+    this.toast.presentToast(str, 'success');
+  }
+
   getTimerOn(data: RoutineModel) {
     return getTimerOn(data);
   }

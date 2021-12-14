@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
-import { RoutineModel, SaveModel, TaskType } from '../../shared/models/item.model';
-
-import { StorageService } from '../../shared/services/storage/storage.service';
-import { LocalNotificationService } from '../../shared/services/local-notification/local-notification.service';
+import { iconColorList, initTaskModel, RoutineModel, TaskType } from '../../shared/models/item.model';
 
 import { IconsComponent } from '../icons/icons.component';
+import { UtilService } from 'src/app/shared/services/util/util.service';
 
 @Component({
   selector: 'app-compose-task',
@@ -18,17 +16,14 @@ export class ComposeTaskComponent {
   task: TaskType;
   existedTask: TaskType;
   selectedData: RoutineModel; // Received from detail-routine.page
-  storageData: RoutineModel[];
-  // taskIcon: string;
+  iconColorList = iconColorList;
 
   constructor(
-    private data: RoutineModel,
     private modalCtrl: ModalController,
-    private storageService: StorageService,
-    private notiService: LocalNotificationService,
+
+    private util: UtilService,
     ) {
-      this.data = RoutineModel.initTaskModel(this.data);
-      this.task = this.data.task[0];
+      this.task = initTaskModel();
     }
 
   async openIconsModal() {
@@ -38,27 +33,19 @@ export class ComposeTaskComponent {
     modal.onDidDismiss().then((item?:OverlayEventDetail) => {
       if(item.data) {
         this.task.value.iconName = item.data[0].split(' ').join('-') as string;
-        let iconColor = item.data[1]?.split('-')[2]
-        this.task.value.iconColor = iconColor ? iconColor : 'medium'
-        // this.taskIcon = item.data;
+        let iconColor = item.data[1]?.split('-')[2];
+        this.task.value.iconColor = iconColor ? iconColor : 'medium';
       }
     });
     return modal.present();
   }
   
   async saveTask() {
-    let saveModel: SaveModel = {
-      storageData: this.storageData,
-      data: this.selectedData,
-      existedData: this.existedTask,
-      task: this.task,
-    }
-    this.storageData = await this.storageService.saveData(saveModel);
-    this.notiService.set(this.storageData);
-    this.dismissModal();
+    this.util.saveData(this.selectedData, this.existedTask, null, this.task);
+    this.dismissModal(true);
   }
 
-  dismissModal() {
-    this.modalCtrl.dismiss();
+  dismissModal(saved?: boolean) {
+    this.modalCtrl.dismiss(saved);
   }
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
-import { RoutineModel, RoutineValueType, SaveModel, TaskType } from '../../models/item.model';
-import { routineSort } from '../../util/data.util';
-import { DbcrudService } from '../dbcrud/dbcrud.service';
+import { RoutineModel, SaveModel, TaskType } from '../../models/item.model';
+import { reorder_util, routineSort } from '../../util/data.util';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class StorageService {
 
   constructor(
     private storage: Storage,
-    private dbService: DbcrudService,
   ) {
   }
 
@@ -83,25 +81,20 @@ export class StorageService {
   }
 
   async reorder(storageData: RoutineModel[], detail: any, taskList?: TaskType[]) {
-    let list: RoutineModel[] | TaskType[];
-    let data: RoutineModel | TaskType;
-    let n: number;
-    list = taskList ? taskList : storageData;
-    data = list[detail.from];
-    n = detail.from > detail.to ? 0 : 1;
-    
-    list.splice(detail.to + n, 0, data as any);
-    list.splice(detail.from - n + 1, 1);
+    let list = reorder_util(storageData, detail, taskList);
 
     if (taskList) {
       storageData.filter( (e,i) => {
         if(e.task == taskList)
           storageData[i].task = list as TaskType[];
       })
+      taskList = list as TaskType[];
     }
-    else (await this.set('customSort', {value: true}));
-    
-    taskList ? taskList = list as TaskType[] : storageData = list as RoutineModel[];
+    else {
+      storageData = list as RoutineModel[];
+      await this.set('customSort', {value: true})
+    }
+
     await this.set('data', storageData);
   }
 

@@ -1,8 +1,10 @@
 <ion-header>
   <ion-toolbar class="ion-text-center" color="medium">
-    <ion-text>
+    <ion-text class="toolbarTitle">
       <ion-icon name="git-pull-request-outline"></ion-icon>
-      Post
+      <b>
+        Post
+      </b>
     </ion-text>
     <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">
@@ -42,7 +44,7 @@
         Content
       </ion-label>
       <ion-textarea
-        class="ion-text-end"
+        class="ion-text-start"
         autoGrow="true"
         rows="4"
         [(ngModel)]="postContent">

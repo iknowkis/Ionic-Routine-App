@@ -9,14 +9,14 @@ export enum WeekdayHead {
 }
 
 export const weekdayModel = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ];
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+];
 
 export class WeekdayUtil {
     // static getToday(): number {

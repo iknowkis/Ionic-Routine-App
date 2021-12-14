@@ -8,11 +8,10 @@ export class Schedule {
 
 export class LocalNotificationSettingModel {
   id: number;
-  text: string;
   // status: boolean;
+  text: string;
   dayNumber: number;
   trigger: {
-    // count: number;
     every: {
       weekday: number;
       hour: number;
@@ -31,8 +30,3 @@ export class LocalNotificationSettingModel {
   breakDuration: string;
   sound: string;
 }
-
-export const statusArray  = [
-  { name: 'Activate', value: true },
-  { name: 'Deactivate', value: false }
-];
