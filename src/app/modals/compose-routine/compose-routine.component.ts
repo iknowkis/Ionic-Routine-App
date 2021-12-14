@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { DbcrudService } from '../../shared/services/dbcrud/dbcrud.service';
-import { LocalNotificationService } from '../../shared/services/local-notification/local-notification.service';
-import { RoutineModel, RoutineUtil, RoutineValueType, SaveModel } from '../../shared/models/item.model';
-import { StorageService } from '../../shared/services/storage/storage.service';
+import { initRoutineModel, RoutineModel, RoutineUtil, RoutineValueType } from '../../shared/models/item.model';
+
+import { UtilService } from 'src/app/shared/services/util/util.service';
 
 @Component({
   selector: 'app-compose-routine',
@@ -12,18 +11,17 @@ import { StorageService } from '../../shared/services/storage/storage.service';
 })
 export class ComposeRoutineComponent {
 
-  storageData: RoutineModel[];
   existedRoutine: RoutineModel;
   routine: RoutineValueType;
 
   constructor(
-    public routineUtil: RoutineUtil,
     private data: RoutineModel,
+    public routineUtil: RoutineUtil,
     private modalCtrl: ModalController,
-    private storageService: StorageService,
-    private notiService: LocalNotificationService,
+
+    private util: UtilService,
   ) {
-    this.data = RoutineModel.initRoutineModel(this.data);
+    this.data = initRoutineModel();
     this.routine = this.data.routine.value;
   }
 
@@ -32,19 +30,12 @@ export class ComposeRoutineComponent {
     this.routine = this.data.routine.value;
   }
 
-  async saveRoutine() {
-    let saveModel: SaveModel = {
-      storageData: this.storageData,
-      data: this.data,
-      existedData: this.existedRoutine,
-      routine: this.routine,
-    }
-    this.storageData = await this.storageService.saveData(saveModel);
-    this.notiService.set(this.storageData);
-    this.dismissModal();
+  saveRoutine() {
+    this.util.saveData(this.data, this.existedRoutine, this.routine);
+    this.dismissModal(true);
   }
 
-  dismissModal() {
-    this.modalCtrl.dismiss();
+  dismissModal(saved?: boolean) {
+    this.modalCtrl.dismiss(saved);
   }
 }

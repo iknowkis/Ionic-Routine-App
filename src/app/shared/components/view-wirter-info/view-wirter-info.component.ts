@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { getSumOfImport_util, getSumOfLikes_util } from '../../util/data.util';
 
 @Component({
   selector: 'app-view-wirter-info',
@@ -6,7 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./view-wirter-info.component.scss'],
 })
 export class ViewWirterInfoComponent {
-
   @Input() dbPosts: any;
   @Input() writer_name: string;
 
@@ -15,13 +15,9 @@ export class ViewWirterInfoComponent {
     }
   
   getSumOfLikes(data) {
-    let sum = 0;
-    data.map(post=> sum = sum + post.number_liked);
-    return sum;
+    return getSumOfLikes_util(data);
   }
   getSumOfImport(data) {
-    let sum = 0;
-    data.map(post=> sum = sum + post.number_archived);
-    return sum;
+    return getSumOfImport_util(data);
   }
 }
