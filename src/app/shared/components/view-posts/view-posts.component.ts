@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ComposePostComponent } from 'src/app/modals/compose-post/compose-post.component';
-import { Post } from '../../models/db.model';
 import { RoutineModel } from '../../models/item.model';
-import { AlertService } from '../../services/alert/alert.service';
 import { getRoutineDuration_util, getTimerOff, getTimerOn } from '../../util/data.util';
 import { MainNavbarComponent } from '../main-navbar/main-navbar.component';
 
+import { AlertService } from '../../services/alert/alert.service';
 
 @Component({
   selector: 'app-view-posts',
@@ -36,18 +35,13 @@ export class ViewPostsComponent {
         postContent: data.post_content,
         selectedRoutine: data.data,
       }
-      // swipeToClose: true, // <-- Enable swipe to close only in iOS.
-      // presentingElement: await this.modalCtrl.getTop()
-    });
-    modal.onDidDismiss().then(() => {
-        // this.navBar.getCommunityPostsLength();
     });
     return modal.present();
   }
-
-  deletePost(id) {
+  
+  deletePost(id: string) {
     this.alrtService.deletePostAlert(id).then(result => {
-      this.navBar.getCommunityPostsLength();
+      if(result) console.log('deleted', id)
     })
   }
 

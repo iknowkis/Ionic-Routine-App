@@ -31,7 +31,7 @@ export class MainCommunityPage {
   }
 
   getDbPosts() {
-    this.dbService.getPosts().subscribe(spyOn => {
+    this.dbService.getPosts().subscribe(watch => {
       this.util.getPosts()
         .then(posts=> this.dbPosts = posts);
     })

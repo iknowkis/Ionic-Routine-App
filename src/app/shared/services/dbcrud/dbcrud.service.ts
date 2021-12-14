@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-
-import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-// import * as firebase from 'firebase/compat';
 import { Account, Post } from '../../models/db.model';
-import { v4 as uuidv4 } from 'uuid';
 import { RoutineModel } from '../../models/item.model';
+import { serverTimestamp } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +10,6 @@ import { RoutineModel } from '../../models/item.model';
 export class DbcrudService {
 
   constructor(
-    // public db: AngularFireDatabase,
     public firestore: AngularFirestore,
   ) {
   }
@@ -55,21 +51,20 @@ export class DbcrudService {
       number_liked: 0,
       number_archived: 0,
       data: data,
-      //numOfPost
+      date: serverTimestamp(),
     });
   }
   updatePost(title: string, content: string, data: RoutineModel, post_id: string){
-    this.dbPosts.doc(post_id).update({...
-      {
+    this.dbPosts.doc(post_id).update({...{
       post_title: title,
       post_content: content,
       data: data,
+      date: serverTimestamp(),
       }
     });
   }
   updatePost_LikeOrImport(id: string, post: Post){
     this.dbPosts.doc(id).update({...post,
-      // date: firebase.default.firestore.FieldValue.serverTimestamp()
     });
   }
   deletePost(id: string){
