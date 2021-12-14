@@ -12,7 +12,7 @@ import { Account } from 'src/app/shared/models/db.model';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage {
   
   public selectedTheme: string;
   public authValue: Account;
@@ -25,11 +25,6 @@ export class SettingsPage implements OnInit {
   ) {
     this.getStorageThemeValue();
     this.getStorageAuthValue();
-  }
-
-  ngOnInit() {
-  }
-  ionViewWillEnter() {
   }
 
   // Theme

@@ -21,6 +21,8 @@ import { ViewPostDetailModule } from 'src/app/shared/components/view-post-detail
     DetailPostPageRoutingModule,
     ViewTaskModule,
     ViewPostDetailModule,
+  ],
+  providers: [
   ]
 })
 export class DetailPostPageModule {}

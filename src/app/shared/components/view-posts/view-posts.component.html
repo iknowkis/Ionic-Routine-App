@@ -32,9 +32,12 @@
 
     <!-- Content -->
     <ion-item>
-      <ion-text class="post_content">
+      <ion-textarea
+        class="post_content"
+        disabled
+        readonly>
         {{ post?.post_content }}
-      </ion-text>
+      </ion-textarea>
     </ion-item>
     <ion-item>
       <ion-text>

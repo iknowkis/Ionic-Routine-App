@@ -8,17 +8,14 @@ import { menuList } from 'src/app/shared/models/item.model';
   templateUrl: './community.page.html',
   styleUrls: ['./community.page.scss'],
 })
-export class CommunityPage implements OnInit {
+export class CommunityPage {
+
+  menuItemList: menuItemListModel[] = menuList;
 
   constructor(
     public menuCtrl: MenuController,
     ) {
      }
-
-  ngOnInit() {
-  }
-  
-  menuItemList: menuItemListModel[] = menuList;
 
   closeMenu() {
     this.menuCtrl.close();

@@ -1,61 +1,62 @@
 <ion-reorder-group
-  *ngFor="let data of storageData"
   (ionItemReorder)="onReorder($event)"
   [disabled]="false">
-  <ion-card
-    *ngIf="(editButton||data.routine.value.statusValue.value)"
-    class={{deactivatedIonCard(data)}}>
-      <ion-item>
-        <ion-reorder slot="start">
+  <div *ngFor="let data of storageData">
+    <ion-card
+      *ngIf="(editButton||data.routine.value.statusValue.value)"
+      class={{deactivatedIonCard(data)}}>
+        <ion-item>
+          <ion-reorder slot="start">
+            <ion-icon
+              size="small"
+              color="{{data.routine.value.statusValue.value ? 'primary' : ''}}"
+              name="{{editButton ? 'reorder-three-outline' : 'alarm-outline'}}">
+            </ion-icon>
+          </ion-reorder>
+          <ion-label>
+            {{ data.routine.value.title }}
+          </ion-label>
+          
+          <!-- Edit or Delete -->
+          <ion-buttons
+            *ngIf="editButton"
+            slot="end">
+            <ion-button
+              color="{{editButton ? 'primary' : ''}}"
+              (click)="openComposeRoutineModal(data)">
+              Edit
+            </ion-button>
+            <ion-button
+            color="{{editButton ? 'primary' : ''}}"
+              (click)="deleteData(storageData, data)">
+              Del
+            </ion-button>
+          </ion-buttons>
+
+          <!-- View task-->
           <ion-icon
             size="small"
-            color="{{data.routine.value.statusValue.value ? 'primary' : ''}}"
-            name="{{editButton ? 'reorder-three-outline' : 'alarm-outline'}}">
+            slot="end"
+            name="chevron-forward-outline"
+            [routerLink]="['../detail-routine',
+            {key: data.routine.key}]">
           </ion-icon>
-        </ion-reorder>
-        <ion-label>
-          {{ data.routine.value.title }}
-        </ion-label>
-        
-        <!-- Edit or Delete -->
-        <ion-buttons
-          *ngIf="editButton"
-          slot="end">
-          <ion-button
-            color="{{editButton ? 'primary' : ''}}"
-            (click)="openComposeRoutineModal(data)">
-            Edit
-          </ion-button>
-          <ion-button
-          color="{{editButton ? 'primary' : ''}}"
-            (click)="deleteData(storageData, data)">
-            Del
-          </ion-button>
-        </ion-buttons>
+        </ion-item>
 
-        <!-- View task-->
-        <ion-icon
-          size="small"
-          slot="end"
-          name="chevron-forward-outline"
-          [routerLink]="['../detail-routine',
-          {key: data.routine.key}]">
-        </ion-icon>
+      <ion-item style="font-size: 12px; --border-style: none">
+        <div slot="start">
+          <ion-icon
+            *ngIf="data.routine.value.timerOn"
+            name='pie-chart-outline'>
+          </ion-icon>
+          {{ getTimerOn(data) }}
+        </div>
+        <div slot="end" style="font-size: 10px">
+          {{ getDayName(data) }}
+        </div>
       </ion-item>
-
-    <ion-item style="font-size: 12px; --border-style: none">
-      <div slot="start">
-        <ion-icon
-          *ngIf="data.routine.value.timerOn"
-          name='pie-chart-outline'>
-        </ion-icon>
-        {{ getTimerOn(data) }}
-      </div>
-      <div slot="end" style="font-size: 10px">
-        {{ getDayName(data) }}
-      </div>
-    </ion-item>
-  </ion-card>
+    </ion-card>
+  </div>
 </ion-reorder-group>
 
   <!-- Add new routine -->
