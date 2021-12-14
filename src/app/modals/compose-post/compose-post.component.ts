@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Account, Post } from 'src/app/shared/models/db.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { ToastService } from 'src/app/shared/services/toast/toast.service';
 
 import { RoutineModel } from '../../shared/models/item.model';
 
@@ -26,6 +27,7 @@ export class ComposePostComponent implements OnInit {
     private modalCtrl: ModalController,
 
     private auth: AuthService,
+    private toast: ToastService,
     private dbService: DbcrudService,
     private storageService: StorageService,
     ) {
@@ -42,11 +44,15 @@ export class ComposePostComponent implements OnInit {
       this.dbService.updatePost(this.postTitle, this.postContent, this.selectedRoutine, this.post_id);
     }
     else {
-      this.auth.getAuthValue().then(async (account: Account) => {
+      this.auth.getAuthValue().then((account: Account) => {
         this.dbService.addPost(this.postTitle, this.postContent, this.selectedRoutine, account.id);
       })
     }
+    this.presentToast();
     this.dismissModal();
+  }
+  presentToast() {
+    this.toast.presentToast('Post successfully shared.', 'primary');
   }
   
   dismissModal() {
